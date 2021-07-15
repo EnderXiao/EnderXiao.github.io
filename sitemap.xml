@@ -249,6 +249,13 @@
   </url>
   
   <url>
+    <loc>http://enderxiao.top/tags/Java%E5%8F%8D%E5%B0%84/</loc>
+    <lastmod>2021-07-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://enderxiao.top/tags/%E6%95%B0%E8%AE%BA/</loc>
     <lastmod>2021-07-15</lastmod>
     <changefreq>daily</changefreq>
@@ -271,13 +278,6 @@
   
   <url>
     <loc>http://enderxiao.top/tags/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B/</loc>
-    <lastmod>2021-07-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://enderxiao.top/tags/Java%E5%8F%8D%E5%B0%84/</loc>
     <lastmod>2021-07-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -375,20 +375,6 @@
   </url>
   
   <url>
-    <loc>http://enderxiao.top/tags/%E7%AD%89%E4%BB%B7%E5%85%B3%E7%B3%BB/</loc>
-    <lastmod>2021-07-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://enderxiao.top/tags/%E5%81%8F%E5%BA%8F%E5%85%B3%E7%B3%BB/</loc>
-    <lastmod>2021-07-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://enderxiao.top/tags/%E9%9B%86%E5%90%88/</loc>
     <lastmod>2021-07-15</lastmod>
     <changefreq>daily</changefreq>
@@ -404,6 +390,20 @@
   
   <url>
     <loc>http://enderxiao.top/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%9E%9A%E4%B8%BE/</loc>
+    <lastmod>2021-07-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://enderxiao.top/tags/%E7%AD%89%E4%BB%B7%E5%85%B3%E7%B3%BB/</loc>
+    <lastmod>2021-07-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://enderxiao.top/tags/%E5%81%8F%E5%BA%8F%E5%85%B3%E7%B3%BB/</loc>
     <lastmod>2021-07-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -482,6 +482,13 @@
   </url>
   
   <url>
+    <loc>http://enderxiao.top/categories/Java/%E5%8F%8D%E5%B0%84/</loc>
+    <lastmod>2021-07-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://enderxiao.top/categories/ACM/%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2021-07-15</lastmod>
     <changefreq>daily</changefreq>
@@ -496,28 +503,7 @@
   </url>
   
   <url>
-    <loc>http://enderxiao.top/categories/Java/%E5%8F%8D%E5%B0%84/</loc>
-    <lastmod>2021-07-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://enderxiao.top/categories/Machine-Learning/</loc>
-    <lastmod>2021-07-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://enderxiao.top/categories/ACM/%E6%95%B0%E8%AE%BA%E8%BF%9B%E9%98%B6/</loc>
-    <lastmod>2021-07-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://enderxiao.top/categories/ACM/%E6%95%B0%E8%AE%BA%E5%85%A5%E9%97%A8/</loc>
     <lastmod>2021-07-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -532,6 +518,13 @@
   
   <url>
     <loc>http://enderxiao.top/categories/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/</loc>
+    <lastmod>2021-07-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://enderxiao.top/categories/ACM/%E6%95%B0%E8%AE%BA%E5%85%A5%E9%97%A8/</loc>
     <lastmod>2021-07-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -553,6 +546,13 @@
   
   <url>
     <loc>http://enderxiao.top/categories/Machine-Learning/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/</loc>
+    <lastmod>2021-07-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://enderxiao.top/categories/ACM/%E6%95%B0%E8%AE%BA%E8%BF%9B%E9%98%B6/</loc>
     <lastmod>2021-07-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
