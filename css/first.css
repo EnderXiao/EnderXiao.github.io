@@ -1879,34 +1879,6 @@ ul.list-v >li>a:hover {
     color: var(--color-text);
     background: #6f6f72;
   }
-  :root:not([data-user-color-scheme]) .MiniValine .vpage .more {
-    background: var(--color-site-bg);
-  }
-  :root:not([data-user-color-scheme]) .MiniValine .vlist .vcard .vcomment-body .text-wrapper .vcomment.expand:before {
-    background: linear-gradient(180deg, rgba(246,246,246,0), rgba(0,0,0,0.9));
-  }
-  :root:not([data-user-color-scheme]) .MiniValine .vlist .vcard .vcomment-body .text-wrapper .vcomment.expand:after {
-    background: rgba(0,0,0,0.9);
-  }
-  :root:not([data-user-color-scheme]) .MiniValine .vlist .vcard .vcomment-body .text-wrapper .vcomment pre {
-    background: var(--color-site-bg);
-    border: 1px solid var(--color-site-bg);
-  }
-  :root:not([data-user-color-scheme]) .MiniValine .vinputs-area .vextra-area .vsmile-icons {
-    background: transparent;
-  }
-  :root:not([data-user-color-scheme]) .MiniValine .vlist .vcard .vcomment-body .vhead {
-    filter: brightness(85%);
-  }
-  :root:not([data-user-color-scheme]) .MiniValine .vbtn {
-    background: var(--color-card);
-  }
-  :root:not([data-user-color-scheme]) .MiniValine .vbtn:hover {
-    background: var(--color-block);
-  }
-  :root:not([data-user-color-scheme]) .MiniValine .vpage .more:hover {
-    background: var(--color-card);
-  }
   :root:not([data-user-color-scheme]) .aplayer {
     background: var(--color-site-bg);
   }
@@ -1933,6 +1905,19 @@ ul.list-v >li>a:hover {
   }
   :root:not([data-user-color-scheme]) .aplayer.aplayer-withlist .aplayer-info {
     border-bottom: 1px solid var(--color-block);
+  }
+  :root:not([data-user-color-scheme]) #valine_container button {
+    background-color: var(--color-block) !important;
+  }
+  :root:not([data-user-color-scheme]) #valine_container .vcards .vcontent.expand:before {
+    background: none !important;
+  }
+  :root:not([data-user-color-scheme]) #valine_container .vcards .vcontent.expand:after {
+    background: #393c40 !important;
+  }
+  :root:not([data-user-color-scheme]) .v[data-class=v] code,
+  :root:not([data-user-color-scheme]) .v[data-class=v] pre {
+    background-color: #332828 !important;
   }
 }
 [data-user-color-scheme='dark'] {
@@ -2074,34 +2059,6 @@ ul.list-v >li>a:hover {
   color: var(--color-text);
   background: #6f6f72;
 }
-[data-user-color-scheme='dark'] .MiniValine .vpage .more {
-  background: var(--color-site-bg);
-}
-[data-user-color-scheme='dark'] .MiniValine .vlist .vcard .vcomment-body .text-wrapper .vcomment.expand:before {
-  background: linear-gradient(180deg, rgba(246,246,246,0), rgba(0,0,0,0.9));
-}
-[data-user-color-scheme='dark'] .MiniValine .vlist .vcard .vcomment-body .text-wrapper .vcomment.expand:after {
-  background: rgba(0,0,0,0.9);
-}
-[data-user-color-scheme='dark'] .MiniValine .vlist .vcard .vcomment-body .text-wrapper .vcomment pre {
-  background: var(--color-site-bg);
-  border: 1px solid var(--color-site-bg);
-}
-[data-user-color-scheme='dark'] .MiniValine .vinputs-area .vextra-area .vsmile-icons {
-  background: transparent;
-}
-[data-user-color-scheme='dark'] .MiniValine .vlist .vcard .vcomment-body .vhead {
-  filter: brightness(85%);
-}
-[data-user-color-scheme='dark'] .MiniValine .vbtn {
-  background: var(--color-card);
-}
-[data-user-color-scheme='dark'] .MiniValine .vbtn:hover {
-  background: var(--color-block);
-}
-[data-user-color-scheme='dark'] .MiniValine .vpage .more:hover {
-  background: var(--color-card);
-}
 [data-user-color-scheme='dark'] .aplayer {
   background: var(--color-site-bg);
 }
@@ -2128,6 +2085,19 @@ ul.list-v >li>a:hover {
 }
 [data-user-color-scheme='dark'] .aplayer.aplayer-withlist .aplayer-info {
   border-bottom: 1px solid var(--color-block);
+}
+[data-user-color-scheme='dark'] #valine_container button {
+  background-color: var(--color-block) !important;
+}
+[data-user-color-scheme='dark'] #valine_container .vcards .vcontent.expand:before {
+  background: none !important;
+}
+[data-user-color-scheme='dark'] #valine_container .vcards .vcontent.expand:after {
+  background: #393c40 !important;
+}
+[data-user-color-scheme='dark'] .v[data-class=v] code,
+[data-user-color-scheme='dark'] .v[data-class=v] pre {
+  background-color: #332828 !important;
 }
 @media screen and (prefers-color-scheme: dark) and (max-width: 500px) {
   .l_header .m_search {

@@ -1425,39 +1425,52 @@ var loadCSS = function( href, before, media, attributes ){
 
 
 
-  <script>
-  function load_minivaline() {
-    setTimeout(function() {
-      
-        loadScript('https://cdn.jsdelivr.net/npm/minivaline@latest', pjax_minivaline)
-      
-    }, 1);
-  };
-   function pjax_minivaline() {
-     if(!document.querySelectorAll("#minivaline_container")[0])return;
-     let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
-     let path = pdata.commentPath;
-     if (path.length == 0) {
-       let defaultPath = '';
-       path = defaultPath || decodeURI(window.location.pathname);
-     }
-     new MiniValine(Object.assign({"js":"https://cdn.jsdelivr.net/npm/minivaline@latest","path":null,"placeholder":"快来评论吧~","backend":"waline","serverURL":"https://waline.vercel.app"}, {
-      el: '#minivaline_container',
-      pathname: path,
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+
+<script>
+  function emoji(path, idx, ext) {
+    return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  function pjax_valine() {
+    if(!document.querySelectorAll("#valine_container")[0])return;
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    var valine = new Valine();
+    valine.init(Object.assign({"path":null,"placeholder":"快来评论吧~","appId":null,"appKey":null,"meta":["nick","mail","link"],"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false,"js":"https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"}, {
+      el: '#valine_container',
+      path: path,
       placeholder: pagePlaceholder,
-     }));
-   }
-   $(function () {
-     if(!document.querySelectorAll("#minivaline_container")[0])return;
-     load_minivaline();
-   });
-   function pjax_comment(){
-	  if (typeof MiniValine == "undefined") {
-		load_minivaline();
-	  } else {
-		pjax_minivaline();
-	  }
-   };
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps,
+    }))
+  }
+  $(function () {
+    pjax_valine();
+  });
+  pjax_comment=pjax_valine;
 </script>
 
 
