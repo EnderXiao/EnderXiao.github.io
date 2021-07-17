@@ -704,7 +704,18 @@
   <article class="post white-box reveal blur" id="comments">
     <p ct><i class='fas fa-comments'></i> 评论</p>
     
-    <div id="vssue"></div>
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+<!-- valine 添加一言 -->
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    jinrishici.load(function(result) {
+      var jrsc_plac =  result.data.content + "\n《" + result.data.origin.title + "》" + "\n「" + result.data.origin.dynasty  + "」 · " + result.data.origin.author
+      document.getElementById("veditor").setAttribute("placeholder",jrsc_plac);
+    });
+</script>
 
   </article>
 
@@ -1403,27 +1414,70 @@ var loadCSS = function( href, before, media, attributes ){
 
 
 
-  <script src="https://cdn.jsdelivr.net/gh/vuejs/vue@2.6.11/dist/vue.runtime.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/meteorlxy/vssue@1.4.4/packages/vssue/dist/vssue.github.min.js"></script>
-<script>
-  loadCSS("https://cdn.jsdelivr.net/gh/meteorlxy/vssue@1.4.4/packages/vssue/dist/vssue.min.css", window.volantis.loadcss);
-  new Vue({
-    el: '#vssue',
+  
+  
+<script src="https://cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js"></script>
 
-    render: h => h('Vssue', {
-      props: {
-        title: "乔迁 - Ender",
-        options: {
-          owner: 'EnderXiao',
-          repo: 'EnderXiao.github.io',
-          clientId: '60eac2795c7437203495',
-          clientSecret: '05dbbc4fe76a159a7fd2dda22dbbc92b7622bb56',
-          prefix: '',
-          autoCreateIssue: true,
-        },
-      }
-    })
-  })
+
+<script>
+  function emoji(path, idx, ext) {
+    return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  function pjax_valine() {
+    if(!document.querySelectorAll("#valine_container")[0])return;
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    var valine = new Valine();
+
+    var requestSetting = function (from,set) {
+      var from = from
+      var setting = set.split(',').filter(function(item){
+        return from.indexOf(item) > -1
+      });
+    setting = setting.length == 0 ? from :setting;
+    return setting
+    }
+
+    //添加标签分词
+    var tagMeta = '博主,小伙伴,访客'.split(',')
+    var friends = '4d550b956a77d45c225cef7d22441f97'.split(',')
+    var master = 'b1e66c08e8cd5b9c33c014dadcb6092b'.split(',')
+    valine.init(Object.assign({"path":null,"placeholder":"快来评论吧~","appId":"cGWr1PcCrxSihMXGk60ejmSi-gzGzoHsz","appKey":"J0KOnQc2nX4Is6vfdslnBuVj","meta":["nick","mail","link"],"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":true,"avatar":"retro","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false,"js":"https://cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js","metaPlaceholder":[{"nick":"Ender"},{"mail":"1286554811@qq.com"},{"link":"enderxiao.top"}],"tagMeta":"博主,小伙伴,访客","master":["b1e66c08e8cd5b9c33c014dadcb6092b"],"friends":["4d550b956a77d45c225cef7d22441f97"]}, {
+      el: '#valine_container',
+      path: path,
+      placeholder: pagePlaceholder,
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps,
+      //添加master与friends的标签设置
+      master: master,
+      friends: friends,
+      tagMeta: tagMeta,
+    }))
+  }
+  $(function () {
+    pjax_valine();
+  });
+  pjax_comment=pjax_valine;
 </script>
 
 
