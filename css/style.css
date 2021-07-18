@@ -2274,6 +2274,49 @@ div.fancybox .image-caption:empty {
     border-radius: 8px;
   }
 }
+.highlight {
+  position: relative;
+}
+.btn-copy {
+  z-index: 1;
+  display: inline-block;
+  cursor: pointer;
+  border: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  font-family: Menlo, Menlo, UbuntuMono, Monaco, monospace, courier, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 4px 8px;
+  color: var(--color-meta);
+  background: var(--color-card);
+  border-radius: 3px;
+  box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  opacity: 0;
+  transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+}
+.btn-copy >i {
+  margin-right: 4px;
+}
+.btn-copy:hover {
+  color: #ff5722;
+  background: #ffeee8;
+}
+.highlight:hover .btn-copy {
+  opacity: 1;
+}
+.article pre:hover .btn-copy {
+  opacity: 1;
+}
 article#comments {
   position: relative;
 }
@@ -2289,15 +2332,17 @@ article#comments #valine_container img {
 }
 article#comments #valine_container .vwrap {
   border-radius: 8px;
-  border-style: dashed;
-  border: 1px dashed rgba(68,68,68,0.3);
+  box-shadow: 0 0 4px 1px rgba(0,0,0,0.12);
+  padding: 15px 20px 0 20px;
+  margin-bottom: 10px;
+  border-radius: 8px;
   transition: all 0.28s ease;
   -moz-transition: all 0.28s ease;
   -webkit-transition: all 0.28s ease;
   -o-transition: all 0.28s ease;
 }
 article#comments #valine_container .vwrap:hover {
-  border: 1px dashed #44d7b6;
+  box-shadow: 0 0 6px 1px #44d7b6;
 }
 article#comments #valine_container .vwrap .cancel-reply {
   margin-top: 0;
@@ -2306,11 +2351,11 @@ article#comments #valine_container .vwrap .cancel-reply {
 article#comments #valine_container .vwrap .vheader {
   margin: -10px;
   padding: 5px 10px 0;
-  background: var(--color-block);
+/*background: var(--color-block)*/
 }
 article#comments #valine_container .vwrap .vheader .vinput {
   border-radius: 0;
-  border-bottom: 1px dashed transparent;
+  border-bottom: 1px dashed;
 }
 article#comments #valine_container .vwrap .vheader .vinput:hover {
   border-bottom: 1px dashed #44d7b6;
@@ -2419,12 +2464,23 @@ article#comments #valine_container .vcards {
 }
 article#comments #valine_container .vcards >.vcard {
   border-radius: 8px;
-  border: 1px dashed rgba(68,68,68,0.3);
   padding: 16px;
   margin-bottom: 16px;
+  box-shadow: 0 0 4px 1px rgba(0,0,0,0.12);
+  padding: 15px 20px 0 20px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  transition-duration: 0.4s;
+  -webkit-transition-duration: 0.28s;
+}
+article#comments #valine_container .vcards >.vcard:hover {
+  box-shadow: 0 0 10px 1px rgba(0,0,0,0.12);
 }
 article#comments #valine_container .vcards .vh {
   border-bottom: none;
+}
+article#comments #valine_container .vcards .vh .vcard {
+  box-shadow: none;
 }
 article#comments #valine_container .vcards .vquote {
   border-left: none;

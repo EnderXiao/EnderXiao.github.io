@@ -133,7 +133,7 @@
                   
                     id="home"
                   >
-                  <i class='fas fa-rss fa-fw'></i>博客
+                  <i class='fas fa-home fa-fw'></i>首页
                 </a>
                 
               </li>
@@ -223,18 +223,6 @@
             
             
               <li>
-                <a class="menuitem flat-box faa-parent animated-hover" 
-                  
-                  
-                  >
-                  <i class='fas fa-ellipsis-v fa-fw'></i>更多
-                </a>
-                
-                  <ul class="list-v">
-                    
-                      
-            
-              <li>
                 <a class="menuitem flat-box faa-parent animated-hover" href=/EnderGame.github.io/
                   
                   
@@ -247,20 +235,12 @@
               </li>
             
           
-                    
-                  </ul>
-                
+          
+            
+            
+              <li class='header'>
+                <i class='fas fa-ellipsis-v fa-fw'></i>更多
               </li>
-            
-          
-          
-            
-            
-              <li>
-                <a class="menuitem flat-box header toggle-mode-btn">
-                  <i class='fas fa-moon fa-fw'></i>黑暗模式
-                </a>
-              <li>
             
           
           
@@ -291,7 +271,7 @@
                   
                     id="home"
                   >
-                  <i class='fas fa-rss fa-fw'></i>博客
+                  <i class='fas fa-home fa-fw'></i>首页
                 </a>
                 
               </li>
@@ -381,18 +361,6 @@
               
             
               <li>
-                <a class="menuitem flat-box faa-parent animated-hover" 
-                  
-                  
-                  >
-                  <i class='fas fa-ellipsis-v fa-fw'></i>更多
-                </a>
-                
-                  <ul class="list-v">
-                    
-                      
-            
-              <li>
                 <a class="menuitem flat-box faa-parent animated-hover" href=/EnderGame.github.io/
                   
                   
@@ -405,20 +373,12 @@
               </li>
             
           
-                    
-                  </ul>
-                
-              </li>
-            
-          
             
               
             
-              <li>
-                <a class="menuitem flat-box header toggle-mode-btn">
-                  <i class='fas fa-moon fa-fw'></i>黑暗模式
-                </a>
-              <li>
+              <li class='header'>
+                <i class='fas fa-ellipsis-v fa-fw'></i>更多
+              </li>
             
           
             
@@ -1155,7 +1115,7 @@ var loadCSS = function( href, before, media, attributes ){
       if (href.length == 0) {
         // 选中文本
         if (window.getSelection().toString()) {
-          if ('' == 'true') {
+          if ('true' == 'true') {
             copyText.style.display = 'block';
             hrText.style.display = 'block';
           }
@@ -1281,6 +1241,61 @@ var loadCSS = function( href, before, media, attributes ){
 
 
 
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+    var clipboard = new ClipboardJS('.btn-copy', {
+        target: function (trigger) {
+            return trigger.nextElementSibling
+        }
+    });
+    function wait(callback, seconds) {
+        var timelag = null;
+        timelag = window.setTimeout(callback, seconds)
+    }
+    function pjax_initCopyCode() {
+		if($(".highlight .code pre").length+$(".article pre code").length==0)return;
+        var copyHtml = '';
+        copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+        copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+        copyHtml += '</button>';
+        $(".highlight .code pre").before(copyHtml);
+        $(".article pre code").before(copyHtml);
+        clipboard.off('success').on('success', function (e) {
+            let $btn = $(e.trigger);
+            $btn.addClass('copied');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-check-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPIED';
+            wait(function () {
+                $icon.removeClass('fa-check-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        });
+        clipboard.off('error').on('error', function (e) {
+            e.clearSelection();
+            let $btn = $(e.trigger);
+            $btn.addClass('copy-failed');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-times-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPY FAILED';
+            wait(function () {
+                $icon.removeClass('fa-times-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        })
+    }
+    $(function () {
+        pjax_initCopyCode()
+    });
+</script>
+
+
 
 
    <script type="text/javascript">
@@ -1381,7 +1396,7 @@ var loadCSS = function( href, before, media, attributes ){
     var tagMeta = '博主,小伙伴,访客'.split(',')
     var friends = '4d550b956a77d45c225cef7d22441f97'.split(',')
     var master = 'b1e66c08e8cd5b9c33c014dadcb6092b'.split(',')
-    valine.init(Object.assign({"path":null,"placeholder":"快来评论吧~","appId":"cGWr1PcCrxSihMXGk60ejmSi-gzGzoHsz","appKey":"J0KOnQc2nX4Is6vfdslnBuVj","meta":["nick","mail","link"],"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":true,"avatar":"retro","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false,"js":"https://cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js","metaPlaceholder":[{"nick":"Ender"},{"mail":"1286554811@qq.com"},{"link":"enderxiao.top"}],"tagMeta":"博主,小伙伴,访客","master":["b1e66c08e8cd5b9c33c014dadcb6092b"],"friends":["4d550b956a77d45c225cef7d22441f97"]}, {
+    valine.init(Object.assign({"path":null,"placeholder":"快来评论吧~","appId":"cGWr1PcCrxSihMXGk60ejmSi-gzGzoHsz","appKey":"J0KOnQc2nX4Is6vfdslnBuVj","meta":["nick","mail","link"],"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":true,"avatar":"retro","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false,"js":"https://cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js","visitor":true,"metaPlaceholder":[{"nick":"Ender"},{"mail":"1286554811@qq.com"},{"link":"enderxiao.top"}],"tagMeta":"博主,小伙伴,访客","master":["b1e66c08e8cd5b9c33c014dadcb6092b"],"friends":["4d550b956a77d45c225cef7d22441f97"]}, {
       el: '#valine_container',
       path: path,
       placeholder: pagePlaceholder,
@@ -1940,6 +1955,8 @@ document.addEventListener("pjax:success", listennSidebarTOC);
         if (typeof IssuesAPI == "undefined") {
           loadIssuesJS();
         }
+        
+          pjax_initCopyCode();
         
 		
           try{pjax_comment();} catch (e) {}
