@@ -3635,6 +3635,12 @@ footer.footer .copyright p {
 .l_main .post-wrapper {
   column-break-inside: avoid;
   break-inside: avoid-column;
+  box-shadow: 0 1px 10px -6px rgba(0,0,0,0.5);
+  border-radius: 8px;
+  transition: box-shadow 0.5s ease;
+}
+.l_main .post-wrapper:hover {
+  box-shadow: 0px 1px 10px 1px rgba(0,0,0,0.5);
 }
 .l_main .widget .content p,
 .l_main .widget .content ul,
@@ -4382,8 +4388,14 @@ img.lazyload:not(.placeholder).loaded {
   background: var(--color-card);
   margin-bottom: 16px;
   border-radius: 8px;
+  box-shadow: 0 1px 10px -6px rgba(0,0,0,0.5);
+  border-radius: 8px;
+  transition: box-shadow 0.5s ease;
   width: 100%;
   display: none;
+}
+.widget:hover {
+  box-shadow: 0px 1px 10px 1px rgba(0,0,0,0.5);
 }
 .widget ul li,
 .widget ol li {
