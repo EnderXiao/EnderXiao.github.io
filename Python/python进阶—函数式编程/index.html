@@ -1,0 +1,2553 @@
+<!DOCTYPE html>
+<html lang="en,zh-CN,zh-HK,zh-TW,default">
+<head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.0'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preload" href="/css/first.css" as="style">
+  
+  <!-- 添加自定义的两个加载动画的样式文件 -->
+  <!-- 其中spinner-box风格样式文件： -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/zyoushuo/Blog@latest/hexo/css/loading_style_1.css" >
+  <!-- gear风格样式文件： -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/zyoushuo/Blog@latest/hexo/css/loading_style_2.css" >
+  <!-- 页面元数据 -->
+  
+  <title>python进阶—函数式编程 - Ender</title>
+  
+    <meta name="keywords" content="机器学习,python,函数式编程,进阶">
+  
+
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="Ender" type="application/atom+xml">
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+  
+
+<script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) document.write('\x3Cscript id="_iealwn_js" data-outver="11" src="https://support.dmeng.net/ie-alert-warning/latest.js">\x3C/script>'); </script>
+
+
+</head>
+
+
+<body>
+  <!-- 添加加载动画 -->
+  
+<div id='loader'>
+    
+    <div class="loading-left-bg"></div>
+    <div class="loading-right-bg"></div>
+    <div class="spinner-box">
+        <div class="configure-border-1">
+            <div class="configure-core"></div>
+        </div>
+        <div class="configure-border-2">
+            <div class="configure-core"></div>
+        </div>
+        <div class="loading-word">加载中...</div>
+    </div>
+    
+</div>
+
+<script>
+    var endLoading = function () {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+    }
+    window.addEventListener('load', endLoading);
+</script>
+
+  
+
+<header id="l_header" class="l_header auto shadow floatable blur " style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+            <img no-lazy class='logo' src='https://i.postimg.cc/wTR2SYS2/end-bindrune.png'/>
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/EnderGame.github.io/
+                  
+                  
+                  
+                    id="EnderGamegithubio"
+                  >
+                  <i class='fas fa-gamepad fa-fw'></i>2048!
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li class='header'>
+                <i class='fas fa-ellipsis-v fa-fw'></i>更多
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/EnderGame.github.io/
+                  
+                  
+                  
+                    id="EnderGamegithubio"
+                  >
+                  <i class='fas fa-gamepad fa-fw'></i>2048!
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li class='header'>
+                <i class='fas fa-ellipsis-v fa-fw'></i>更多
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+  <div id="l_body">
+    <div id="l_cover">
+  
+    
+        <div id="half" class='cover-wrapper post dock' style="display: ;">
+          
+            <div class='cover-bg lazyload placeholder' data-bg="https://i.loli.net/2021/01/31/HSlO4oCW5Yn9ZxP.jpg"></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+      <img no-lazy class='logo' src='https://i.postimg.cc/wTR2SYS2/end-bindrune.png?w=1920&h=1200'/>
+    
+    
+      <p class="title">Ender</p>
+    
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a href="/"
+              
+              
+              id="home">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f4f0.svg'><p>Blogs</p>
+            </a>
+          
+            <a href="/categories/"
+              
+              
+              id="categories">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f516.svg'><p>Categories</p>
+            </a>
+          
+            <a href="/tags/"
+              
+              
+              id="tags">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f396.svg'><p>Tags</p>
+            </a>
+          
+            <a href="/images/"
+              
+              
+              id="images">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f389.svg'><p>Images</p>
+            </a>
+          
+            <a href="/archives/"
+              
+              
+              id="archives">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f5c3.svg'><p>Archives</p>
+            </a>
+          
+            <a target="_blank" rel="noopener" href="https://github.com/enderxiao/enderxiao.github.io/"
+              
+              
+              id="https:githubcomenderxiaoenderxiaogithubio">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f9ec.svg'><p>Code</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+    <div id="safearea">
+      <div class="body-wrapper" id="pjax-container">
+        
+
+<div class='l_main'>
+  <article class="article post white-box reveal md blur article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        python进阶—函数式编程
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://i.postimg.cc/wTR2SYS2/end-bindrune.png">
+    <p>Ender</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/Python/">Python</a><span class="sep"></span><a class="category-link" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><span class="sep"></span><a class="category-link" href="/categories/%E7%A0%94%E7%A9%B6%E7%94%9F%E8%AF%BE%E7%A8%8B%E5%9F%BA%E7%A1%80/">研究生课程基础</a><span class="sep"></span><a class="category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%AF%AD%E8%A8%80/">计算机语言</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Jul 26, 2021</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="python进阶—函数式编程" data-path="/Python/python%E8%BF%9B%E9%98%B6%E2%80%94%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  
+  <h2 id="函数式"><a href="#函数式" class="headerlink" title="函数式"></a>函数式</h2><div class="note quote"><p>函数式编程是一种抽象程度很高的编程范式，纯粹的函数式编程语言编写的函数是没有变量的，因此，任意一个函数，只要输入确定，输出就是确定的。这种纯函数我们称为没有副作用</p></div>
+
+<p>为什么说纯函数只要输入确定，输出就能确定呢，因为允许变量的程序设计语言，由于函数内部的变量状态不确定，同样的输入可能得到不同的输出，因此这种函数是有副作用的。</p>
+<p>函数式编程的一个特点：</p>
+<div class="note info"><p>允许函数本身作为参数传入另一个函数，且还允许返回一个函数</p></div>
+
+<p>需要注意的是，python允许使用变量，因此python不是纯函数式编程语言</p>
+<h3 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h3><hr>
+<p>python中函数名可以理解为指向函数体的变量，因此，可以将函数名赋值给变量，也可以对函数名重新赋值，例如：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; abs</span><br><span class="line">&lt;build<span class="operator">-in</span> <span class="function"><span class="keyword">function</span> <span class="title">abs</span>&gt;</span></span><br><span class="line">&gt;&gt;&gt; f = abs</span><br><span class="line">&gt;&gt;&gt; f</span><br><span class="line">&lt;build<span class="operator">-in</span> <span class="function"><span class="keyword">function</span> <span class="title">abs</span>&gt;</span></span><br><span class="line">&gt;&gt;&gt; abs = <span class="number">10</span></span><br><span class="line">&gt;&gt;&gt; abs</span><br><span class="line"><span class="number">10</span></span><br><span class="line">&gt;&gt;&gt; abs(<span class="literal">-10</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: <span class="string">&#x27;int&#x27;</span> object is not callable</span><br></pre></td></tr></table></figure>
+<p>可见将由于<code>abs = 10</code>这条语句，导致<code>abs(-10)</code>不再具有绝对值的功能，此时必须重启python交互环境，<code>abs</code>才能恢复原有指向。</p>
+<p>由此引入高阶函数的概念：</p>
+<div class="note quote"><p>可以接受另一个函数作为参数的函数称为高阶函数</p></div>
+
+<p>一个简单的高阶函数如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span>(<span class="params">x, y, f</span>):</span></span><br><span class="line">    <span class="keyword">return</span> f(x) + f(y)</span><br><span class="line"></span><br><span class="line">print(add(-<span class="number">5</span>, <span class="number">6</span>, <span class="built_in">abs</span>))</span><br><span class="line"><span class="comment"># 输出 11</span></span><br></pre></td></tr></table></figure>
+<h3 id="map-reduce"><a href="#map-reduce" class="headerlink" title="map/reduce"></a>map/reduce</h3><hr>
+<h4 id="map"><a href="#map" class="headerlink" title="map"></a>map</h4><hr>
+<div class="note quote"><p><code>map()</code>函数接收两个参数，一个是函数，一个是<code>Iterable</code>，<code>map</code>将传入的函数依次作用到序列的每个元素，并把结果作为新的<code>Iterator</code>返回。</p></div>
+
+<p>例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span>(<span class="params">x</span>):</span></span><br><span class="line">	<span class="keyword">return</span> x*x</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">r = <span class="built_in">map</span>(f,[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>])</span><br><span class="line">print(<span class="built_in">list</span>(r))</span><br><span class="line"><span class="comment"># [1, 4, 9, 16, 25, 36, 49, 64, 81]</span></span><br></pre></td></tr></table></figure>
+<p>由于map函数将返回惰性加载的<code>Interator</code>，因此此处使用<code>list()</code>将其转化为list</p>
+<p>虽然如上简单操作看起来并没有什么意义，但我们还能使用map完成如下有实际意义的操作：</p>
+<p>利用<code>map()</code>函数，把用户输入的不规范的英文名字，变为首字母大写，其他小写的规范名字。输入：<code>[&#39;adam&#39;, &#39;LISA&#39;, &#39;barT&#39;]</code>，输出：<code>[&#39;Adam&#39;, &#39;Lisa&#39;, &#39;Bart&#39;]</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">normalize</span>(<span class="params">name</span>):</span></span><br><span class="line">    <span class="keyword">return</span> name[:<span class="number">1</span>].upper() + name[<span class="number">1</span>:].lower()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">L1 = [<span class="string">&#x27;adam&#x27;</span>, <span class="string">&#x27;LISA&#x27;</span>, <span class="string">&#x27;barT&#x27;</span>]</span><br><span class="line">L2 = <span class="built_in">list</span>(<span class="built_in">map</span>(normalize, L1))</span><br><span class="line">print(L2)</span><br><span class="line"><span class="comment"># [&#x27;Adam&#x27;, &#x27;Lisa&#x27;, &#x27;Bart&#x27;]</span></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h4><hr>
+<div class="note quote"><p><code>reduce</code>把一个函数作用在一个序列`[x1</p></div>
+
+<p>效果类似：</p>
+<div class="note info"><p>reduce(f</p></div>
+
+<p>使用reduce弄够完成如下事件：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> reduce</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">prod</span>(<span class="params">L</span>):</span></span><br><span class="line">    <span class="keyword">return</span> reduce(<span class="keyword">lambda</span> x,y: x * y,L)</span><br><span class="line"></span><br><span class="line">print(<span class="string">&#x27;3 * 5 * 7 * 9 =&#x27;</span>, prod([<span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>]))</span><br><span class="line"><span class="comment"># 3 * 5 * 7 * 9 = 945</span></span><br></pre></td></tr></table></figure>
+<p>使用map与reduce的组合，可以完成如下复杂的操作：</p>
+<p>利用<code>map</code>和<code>reduce</code>编写一个<code>str2float</code>函数，把字符串<code>&#39;123.456&#39;</code>转换成浮点数<code>123.456</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> reduce</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">str2float</span>(<span class="params">s</span>):</span></span><br><span class="line">	a,b = s.split(<span class="string">&#x27;.&#x27;</span>)</span><br><span class="line">    	<span class="keyword">return</span> reduce(<span class="keyword">lambda</span> x,y: x*<span class="number">10</span>+y, <span class="built_in">map</span>(<span class="built_in">int</span>,a)) + reduce(<span class="keyword">lambda</span> x,y: x * <span class="number">0.1</span> + y ,<span class="built_in">map</span>(<span class="built_in">int</span>,b[::-<span class="number">1</span>])) * <span class="number">0.1</span></span><br><span class="line">    </span><br><span class="line">print(<span class="string">&#x27;str2float(\&#x27;123.456\&#x27;) =&#x27;</span>, str2float(<span class="string">&#x27;123.456&#x27;</span>))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h3><hr>
+<p><code>filter</code>机制与<code>map</code>有些相似，都是将将传入的函数作用在传入可便利对象中的每个元素上，区别在于，<code>fliter</code>是根据再用在该元素上的函数返回值是<code>true</code>还是<code>false</code>，从而决定该函数是否保留，最后返回所有被保留的元素组成的<code>list</code></p>
+<p>例如一个筛出奇数的选择器：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_odd</span>(<span class="params">n</span>):</span></span><br><span class="line">    <span class="keyword">return</span> n % <span class="number">2</span> == <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">list</span>(<span class="built_in">filter</span>(is_odd, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">15</span>]))</span><br><span class="line"><span class="comment"># 结果: [1, 5, 9, 15]</span></span><br></pre></td></tr></table></figure>
+<p><code>filter</code>与<code>map</code>一样，但会的是一个惰性加载的<code>Iterator</code>，需要使用<code>list()</code></p>
+<h4 id="filter应用"><a href="#filter应用" class="headerlink" title="filter应用"></a>filter应用</h4><hr>
+<p>接下来我们利用<code>Iterator</code>、<code>filter</code>实现<a href="https://enderxiao.top/ACM/%E6%95%B0%E8%AE%BA%E5%88%9D%E6%AD%A5/%E6%95%B0%E8%AE%BA%E5%88%9D%E6%AD%A5-%E7%B4%A0%E6%95%B0%E7%AD%9B%E6%B3%95/">埃氏筛法</a>：</p>
+<p>首先对该问题进行分解：</p>
+<ol>
+<li>除了2以外的偶数都是和数，因此我们只需要考虑奇数，为此，我们需要先创建一个能够不断产生奇数的<code>Iterator</code></li>
+<li>创建一个用来筛选的函数</li>
+<li>接下来我们需要再创建一个函数，利用<code>filter</code>筛去1中的一些奇和数。</li>
+<li>最后打印</li>
+</ol>
+<h5 id="产生奇数"><a href="#产生奇数" class="headerlink" title="产生奇数"></a>产生奇数</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_odd_iterator</span>():</span></span><br><span class="line">    n = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        n += <span class="number">2</span></span><br><span class="line">        <span class="keyword">yield</span> n</span><br></pre></td></tr></table></figure>
+<p>构造一个能不断产生奇数的<code>Iterator</code></p>
+<h5 id="筛选函数"><a href="#筛选函数" class="headerlink" title="筛选函数"></a>筛选函数</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">primes_filter</span>(<span class="params">n</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">lambda</span> x: x % n &gt; <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>使用n筛去n的倍数，由于<code>filter</code>的第一个参数需要接受一个函数，我们可以再此处返回一个<code>lambda</code>函数，使这个函数既可以接受参数又可以作为<code>filter</code>的第一个参数</p>
+<h5 id="素数生成器"><a href="#素数生成器" class="headerlink" title="素数生成器"></a>素数生成器</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_odd_iterator</span>():</span></span><br><span class="line">    n = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        n += <span class="number">2</span></span><br><span class="line">        <span class="keyword">yield</span> n</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">primes_filter</span>(<span class="params">n</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">lambda</span> x: x % n &gt; <span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">primes</span>():</span></span><br><span class="line">    <span class="keyword">yield</span> <span class="number">2</span></span><br><span class="line">    odd = _odd_iterator()  <span class="comment"># 初始化序列</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        n = <span class="built_in">next</span>(odd)  <span class="comment"># 从奇数列中取d</span></span><br><span class="line">        <span class="keyword">yield</span> n</span><br><span class="line">        odd = <span class="built_in">filter</span>(primes_filter(n), odd)  <span class="comment"># 构造新序列</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 再写个生成器来取前max个素数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_prime</span>(<span class="params"><span class="built_in">max</span></span>):</span></span><br><span class="line">    p = primes()</span><br><span class="line">    n = <span class="built_in">next</span>(p)</span><br><span class="line">    <span class="keyword">while</span> n &lt;= <span class="built_in">max</span>:</span><br><span class="line">        <span class="keyword">yield</span> n</span><br><span class="line">        n = <span class="built_in">next</span>(p)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 取出小于100的全部素数</span></span><br><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> print_prime(<span class="number">100</span>):</span><br><span class="line">    print(n)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="sorted"><a href="#sorted" class="headerlink" title="sorted"></a>sorted</h3><hr>
+<p>类似C++中的<code>sort</code>函数，包含三个参数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sorted</span>(<span class="built_in">list</span>,key,reverse)</span><br></pre></td></tr></table></figure>
+<ol>
+<li>其中list表示需要排序的序列</li>
+<li>key代表排序过程中作用在list中元素上的函数</li>
+<li>reverse表示从大到小还是从小到大</li>
+</ol>
+<p>比如按绝对值大小排序：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; sorted([<span class="number">36</span>, <span class="number">5</span>, -<span class="number">12</span>, <span class="number">9</span>, -<span class="number">21</span>], key=abs)</span><br><span class="line">[<span class="number">5</span>, <span class="number">9</span>, -<span class="number">12</span>, -<span class="number">21</span>, <span class="number">36</span>]</span><br></pre></td></tr></table></figure>
+<p>上述操作是先对list中的每个元素做了abs操作，再按abs操作后的值排序，再将原本的值放入相应位置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">keys排序结果 &#x3D;&gt; [5, 9,  12,  21, 36]</span><br><span class="line">                |  |    |    |   |</span><br><span class="line">最终结果     &#x3D;&gt; [5, 9, -12, -21, 36]</span><br></pre></td></tr></table></figure>
+<h3 id="返回函数"><a href="#返回函数" class="headerlink" title="返回函数"></a>返回函数</h3><hr>
+<p>python中允许将另一个函数作为某一函数的返回值，被返回的函数将不会立即进行运算，例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lazy_sum</span>(<span class="params">*args</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sum</span>():</span></span><br><span class="line">        ax = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> n <span class="keyword">in</span> args:</span><br><span class="line">            ax = ax + n</span><br><span class="line">        <span class="keyword">return</span> ax</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span></span><br><span class="line"></span><br><span class="line">f = lazy_sum(<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>)</span><br></pre></td></tr></table></figure>
+<p>此时分别调用<code>f</code>与<code>f()</code>：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; f</span><br><span class="line">&lt;<span class="function"><span class="keyword">function</span> <span class="title">lazy_sum</span>.&lt;<span class="title">locals</span>&gt;.<span class="title">sum</span> <span class="title">at</span> <span class="title">0x101c6ed90</span>&gt;</span></span><br><span class="line">&gt;&gt;&gt; f()</span><br><span class="line"><span class="number">25</span></span><br></pre></td></tr></table></figure>
+<p>此处内部函数<code>sum</code>可以引用外部函数<code>lazy_sum</code>中的参数和局部变量，当<code>sum</code>被<code>lazy_sum</code>返回时，相关参数和变量都保存在返回的函数（sum）中，这种程序结构被成为闭包</p>
+<p>需要注意的是<code>lazy_sum</code>每次都会返回一个新的函数，即：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; f1 = lazy_sum(<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>)</span><br><span class="line">&gt;&gt;&gt; f2 = lazy_sum(<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>)</span><br><span class="line">&gt;&gt;&gt; f1==f2</span><br><span class="line">False</span><br></pre></td></tr></table></figure>
+<p><code>f1()</code>和<code>f2()</code>的调用结果互不影响。</p>
+<h4 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h4><hr>
+<p>由闭包的定义，我们来看如下的一个操作：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">count</span>():</span></span><br><span class="line">    fs = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">4</span>):</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">f</span>():</span></span><br><span class="line">            <span class="keyword">return</span> i*i</span><br><span class="line">        fs.append(f)</span><br><span class="line">    <span class="keyword">return</span> fs</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">f1,f2,f3 = count()</span><br></pre></td></tr></table></figure>
+<p>此时乍一看<code>f1()</code>应该返回1，<code>f2()</code>返回4，<code>f3()</code>返回9</p>
+<p>但是实际上结果如下：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; f1, f2, f3 = count()</span><br><span class="line">&gt;&gt;&gt; f1()</span><br><span class="line"><span class="number">9</span></span><br><span class="line">&gt;&gt;&gt; f2()</span><br><span class="line"><span class="number">9</span></span><br><span class="line">&gt;&gt;&gt; f3()</span><br><span class="line"><span class="number">9</span></span><br></pre></td></tr></table></figure>
+<p>原因在于，返回函数将会把函数内部的变量封装，而python中的变量均为引用变量，即存储数据的地址，而变量<code>i</code>的值一直在变化，等到返回第个函数时，<code>i</code>中存储的值已变为3，此时无论调用哪个返回函数，其中<code>i</code>存储的值均为3</p>
+<p>因此返回闭包时，有如下注意事项：</p>
+<div class="note danger"><p>返回函数不要引用任何循环变量，或者后续会发生变化的变量。</p></div>
+
+<p>但如上函数并不是没有解决的办法，只需要使用参数来保存循环值即可：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">count</span>():</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span>(<span class="params">j</span>):</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">g</span>():</span></span><br><span class="line">            <span class="keyword">return</span> j*j</span><br><span class="line">        <span class="keyword">return</span> g</span><br><span class="line">    fs = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">4</span>):</span><br><span class="line">        fs.append(f(i))</span><br><span class="line"><span class="comment"># 此处f()不是闭包，因此在调用时立即被执行</span></span><br><span class="line">    <span class="keyword">return</span> fs</span><br></pre></td></tr></table></figure>
+<p>使用闭包构造一个计数器：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">createCounter</span>():</span></span><br><span class="line">    i = <span class="number">0</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">counter</span>():</span></span><br><span class="line">        <span class="keyword">nonlocal</span> i</span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> i</span><br><span class="line">    <span class="keyword">return</span> counter</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">counterA = createCounter()</span><br><span class="line">print(counterA(), counterA(), counterA(), counterA(), counterA())</span><br><span class="line"><span class="comment"># 1 2 3 4 5</span></span><br></pre></td></tr></table></figure>
+<h3 id="番外——变量作用域"><a href="#番外——变量作用域" class="headerlink" title="番外——变量作用域"></a>番外——变量作用域</h3><hr>
+<p>python中的变量作用域大致与C++相同，但python为动态语言，定义时无需给出变量的类型，导致定义语法与引用语法相同，因此，python中加入了两个指定变量的关键字<code>global</code>和<code>nonlocal</code></p>
+<p>其中：</p>
+<ul>
+<li><em>global关键字用来在函数或其他局部作用域中使用全局变量。</em></li>
+<li><em>nonlocal声明的变量不是局部变量,也不是全局变量,而是外部嵌套函数内的变量。</em></li>
+</ul>
+<p>如，当我们需要在函数中使用全局变量时：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">count = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">global_test</span>():</span></span><br><span class="line">    <span class="keyword">global</span> count</span><br><span class="line">    count += <span class="number">1</span></span><br><span class="line">    print(count)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">global_test()  <span class="comment"># 1</span></span><br></pre></td></tr></table></figure>
+<p>当我们需要在内部函数中使用外部函数的变量时：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nonlocal_test</span>():</span></span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test2</span>():</span></span><br><span class="line">        <span class="keyword">nonlocal</span> count</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> count</span><br><span class="line">    <span class="keyword">return</span> test2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">val = nonlocal_test()</span><br><span class="line">print(val())</span><br><span class="line">print(val())</span><br><span class="line">print(val())</span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="comment"># 2</span></span><br><span class="line"><span class="comment"># 3</span></span><br></pre></td></tr></table></figure>
+<h3 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h3><hr>
+<p>在函数式变成时，我们经常需要传入函数或是返回函数，这样大量的使用函数将导致命名成为一个非常麻烦的问题，因此python为我们提供了一种匿名函数的机制，省去了为函数命名的麻烦：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">lambda</span> x: x*x</span><br></pre></td></tr></table></figure>
+<p>上面这段函数就相当于：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="keyword">return</span> x * x</span><br></pre></td></tr></table></figure>
+<p>匿名函数的基本格式为：</p>
+<div class="note info"><p>lambda argument_list : expression</p></div>
+
+<p>其中<code>argument_list</code>是参数列表，具有如下特性：</p>
+<ol>
+<li>参数需要在argument_list中有定义</li>
+<li>表达式只能是单行</li>
+</ol>
+<p>可以使用如下种种形式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">None</span><br><span class="line">a+b</span><br><span class="line">sum(a)</span><br><span class="line">1 if a &gt;10 else 0</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<p>而<code>expression</code>只允许使用一个表达式，且该表达式的值即时该函数的返回值。</p>
+<p>lambda函数既可以作为变量赋值给一个变量，也可以作为返回值：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; f = lambda x: x * x</span><br><span class="line">&gt;&gt;&gt; f</span><br><span class="line">&lt;<span class="function"><span class="keyword">function</span> &lt;<span class="title">lambda</span>&gt; <span class="title">at</span> <span class="title">0x101c6ef28</span>&gt;</span></span><br><span class="line">&gt;&gt;&gt; f(<span class="number">5</span>)</span><br><span class="line"><span class="number">25</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">build</span>(<span class="params">x, y</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">lambda</span>: x * x + y * y</span><br></pre></td></tr></table></figure>
+
+
+<p>关于lambda函数的使用一直存在争议，有些人认为使用lambda函数能使代码更加的pythonic，而有些人认为只能使用一条语句的lambda函数有时反而会降低代码的可读性。</p>
+<h3 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h3><hr>
+<p>首先要明确python中函数作为对象，也具有一些属性，比如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">now</span>():</span></span><br><span class="line">    print(<span class="string">&#x27;2021-7-26&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">f = now</span><br><span class="line">print(f.__name__)</span><br><span class="line"><span class="comment"># now</span></span><br></pre></td></tr></table></figure>
+<p>此时，如果我们希望丰富now的功能，但又不希望修改now的定义，我们该怎么办呢？学习过<code>java注解</code>和<code>AOP</code>就知道，这就是AOP的编程思维。</p>
+<p>在java中这样的操作并不难，通过为函数添加注解，再为该注解编写一些逻辑就能首先。而python中提供了一种使用函数实现AOP的方式：装饰器(Decorator)</p>
+<p>本质上，<code>decorator</code>是一个<code>高阶函数</code>。如果我们想要定义一个能打印日志的decorate，可以通过如下方式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">log</span>(<span class="params">func</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>(<span class="params">*args, **kw</span>):</span></span><br><span class="line">        print(<span class="string">&#x27;call %s():&#x27;</span> % func.__name__)</span><br><span class="line">        <span class="keyword">return</span> func(*args, **kw)</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br></pre></td></tr></table></figure>
+<p>然后只需要使用python提供的<code>@语法糖</code>，把decorate置于函数的定义处：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@log</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">now</span>():</span></span><br><span class="line">    print(<span class="string">&#x27;2021-7-26&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">now()</span><br><span class="line"><span class="comment"># call now():</span></span><br><span class="line"><span class="comment"># 2021-7-26</span></span><br></pre></td></tr></table></figure>
+<p>该语法糖相当于执行了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">now = log(now)</span><br></pre></td></tr></table></figure>
+<p>还能定义需要参数的<code>decorate</code>，实现方式是再如上双重函数嵌套的基础上再增加一层用来接受参数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">log</span>(<span class="params">text</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">decorator</span>(<span class="params">func</span>):</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>(<span class="params">*args, **kw</span>):</span></span><br><span class="line">            print(<span class="string">&#x27;%s %s():&#x27;</span> % (text, func.__name__))</span><br><span class="line">            <span class="keyword">return</span> func(*args, **kw)</span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line">    <span class="keyword">return</span> decorator</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@log(<span class="params"><span class="string">&#x27;execute&#x27;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">now</span>():</span></span><br><span class="line">    print(<span class="string">&#x27;2021-7-26&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">now()</span><br><span class="line"><span class="comment"># execute now():</span></span><br><span class="line"><span class="comment"># 2021-7-26</span></span><br></pre></td></tr></table></figure>
+<p>该语法糖相当于执行了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">now = log(<span class="string">&#x27;execute&#x27;</span>)(now)</span><br></pre></td></tr></table></figure>
+<p>其中<code>log(‘execute’)</code>返回<code>decorator</code>，接着将<code>decorator(now)</code>赋值给<code>now</code></p>
+<p>但由于为<code>now</code>重新赋值，单纯的该过程将导致如下问题：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>now.__name__</span><br><span class="line"><span class="string">&#x27;wrapper&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>我们发现<code>now</code>中的值变了，导致<code>now</code>的<code>__name__</code>属性变了，因此我们需要把原始函数的<code>__name__</code>等属性赋值到<code>wrapper()</code>函数中去，否则，有些依赖函数签名的代码执行会出错。</p>
+<p>Python的<code>functools</code>模块中也为我们提供了一个用于做这些事情的<code>decorator</code> : <code>functools.wraps</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> functools</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">log</span>(<span class="params">func</span>):</span></span><br><span class="line"><span class="meta">    @functools.wraps(<span class="params">func</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>(<span class="params">*args, **kw</span>):</span></span><br><span class="line">        print(<span class="string">&#x27;call %s():&#x27;</span> % func.__name__)</span><br><span class="line">        <span class="keyword">return</span> func(*args, **kw)</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br></pre></td></tr></table></figure>
+<p>对于有参数的<code>decorator</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> functools</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">log</span>(<span class="params">text</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">decorator</span>(<span class="params">func</span>):</span></span><br><span class="line"><span class="meta">        @functools.wraps(<span class="params">func</span>):</span></span><br><span class="line">    	<span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>(<span class="params">*args, **kw</span>):</span></span><br><span class="line">        	print(<span class="string">&#x27;call %s():&#x27;</span> % func.__name__)</span><br><span class="line">        	<span class="keyword">return</span> func(*args, **kw)</span><br><span class="line">    	<span class="keyword">return</span> wrapper</span><br><span class="line">    <span class="keyword">return</span> decorator</span><br></pre></td></tr></table></figure>
+<h3 id="偏函数"><a href="#偏函数" class="headerlink" title="偏函数"></a>偏函数</h3><hr>
+<p>Python的<code>functools</code>模块提供了很多有用的功能，其中一个就是偏函数（Partial function）</p>
+<p>可以通过偏函数来固定一个函数中的某个参数值，并返回一个新函数，但新函数仍然允许对固定的参数传入其他值。例如<code>int</code>函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> functools</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int2 = functools.partial(<span class="built_in">int</span>, base = <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">int</span>(<span class="string">&#x27;12345&#x27;</span>)  <span class="comment"># 12345</span></span><br><span class="line"><span class="built_in">int</span>(<span class="string">&#x27;12345&#x27;</span>, <span class="number">8</span>)  <span class="comment"># 5349</span></span><br><span class="line"><span class="built_in">int</span>(<span class="string">&#x27;12345&#x27;</span>, <span class="number">16</span>)  <span class="comment"># 74565</span></span><br><span class="line">int2(<span class="string">&#x27;1000000&#x27;</span>)  <span class="comment"># 64</span></span><br><span class="line">int2(<span class="string">&#x27;1000000&#x27;</span>, base=<span class="number">10</span>)  <span class="comment"># 1000000</span></span><br></pre></td></tr></table></figure>
+<p>创建偏函数时，实际上可以接收函数对象、<code>*args</code>和<code>**kw</code>这3个参数，当传入：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int2 = functools.partial(<span class="built_in">int</span>, base=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<p>实际上固定了<code>int()</code>函数的<code>关键字参数base</code>，也就是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kw = &#123; <span class="string">&#x27;base&#x27;</span>: <span class="number">2</span> &#125;</span><br><span class="line"><span class="built_in">int</span>(<span class="string">&#x27;10010&#x27;</span>, **kw)</span><br></pre></td></tr></table></figure>
+<p>再看另一个例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">max2 = functools.partial(<span class="built_in">max</span>, <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">max2(<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>)  <span class="comment"># 10</span></span><br></pre></td></tr></table></figure>
+<p>相当于：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">args = (<span class="number">10</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>)</span><br><span class="line"><span class="built_in">max</span>(*args)</span><br></pre></td></tr></table></figure>
+<p>结合<a href="https://enderxiao.top/Python/python%E5%9F%BA%E7%A1%80/">python入门</a>中函数章节提到的，任何函数都能通过：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func(*args, **kw)</span><br></pre></td></tr></table></figure>
+<p>来调用，我们可以大胆猜测一下偏函数的参数调用规则：</p>
+<ol>
+<li>偏函数先将默认值中的<code>位置参数</code>和调用时传入的<code>位置参数</code>组合为一个<code>*args</code>，且默认位置参数在前。</li>
+<li>再将默认<code>关键字参数</code>和调用时传入的<code>关键字参数</code>组合为一个<code>**kw</code>，同名关键字将用传入值覆盖默认值。</li>
+<li>最后通过<code>func(*args, **kw)</code>去调用</li>
+</ol>
+<p>通过如下例子可以验证：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> functools</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span>(<span class="params">*args, **kw</span>):</span></span><br><span class="line">    print(args)</span><br><span class="line">    print(kw)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">f1 = functools.partial(f, <span class="number">1</span>, <span class="number">2</span>, a = <span class="number">1</span>, b = <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">f1(<span class="number">3</span>, <span class="number">4</span>, c = <span class="number">3</span>, d = <span class="number">4</span>)</span><br><span class="line"><span class="comment"># (1,2,3,4)</span></span><br><span class="line"><span class="comment"># &#123;&#x27;a&#x27;:1, &#x27;b&#x27;:2, &#x27;c&#x27;:3, &#x27;d&#x27;:4&#125;</span></span><br><span class="line"></span><br><span class="line">f1(a = <span class="number">2</span>, b = <span class="number">3</span>)</span><br><span class="line"><span class="comment"># (1,2)</span></span><br><span class="line"><span class="comment"># &#123;&#x27;a&#x27;:2, &#x27;b&#x27;: 3&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=http://enderxiao.top/Python/python%E8%BF%9B%E9%98%B6%E2%80%94%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/>http://enderxiao.top/Python/python%E8%BF%9B%E9%98%B6%E2%80%94%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-26T12:35:13+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Jul 26, 2021</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>机器学习</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/python/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>python</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>函数式编程</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E8%BF%9B%E9%98%B6/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>进阶</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://enderxiao.top/Python/python%E8%BF%9B%E9%98%B6%E2%80%94%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/&title=python进阶—函数式编程 - Ender&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload placeholder" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@3/img/placeholder/c617bfd2497fcea598e621413e315c368f8d8e.svg">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://enderxiao.top/Python/python%E8%BF%9B%E9%98%B6%E2%80%94%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/&title=python进阶—函数式编程 - Ender&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload placeholder" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@3/img/placeholder/c617bfd2497fcea598e621413e315c368f8d8e.svg">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://enderxiao.top/Python/python%E8%BF%9B%E9%98%B6%E2%80%94%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/&title=python进阶—函数式编程 - Ender&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload placeholder" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@3/img/placeholder/c617bfd2497fcea598e621413e315c368f8d8e.svg">
+          
+        </a>
+      
+    
+      
+        
+        <div class='hoverbox'>
+          <a class='share'><img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/wechat.png" class="lazyload placeholder" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/wechat.png" srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@3/img/placeholder/c617bfd2497fcea598e621413e315c368f8d8e.svg"></a>
+          <div class='target'>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXgAAAF4CAAAAAB79r16AAAFJklEQVR42u3dS3LdMAwEQN//0s4JVI8YDGWn3Nz58yiwqc0UkPjr2/qR9YUAPHgLPHgLPHirAP8VrqfPn37/6etpXdvnPX3u9PfHdYIHDx48ePDgwYMHX4Q/DgBlyBRuCtY+R+wFHjx48ODBgwcPHvwF+FOg0wDSDjKtQDM9Z80LPHjw4MGDBw8ePPhfAD8NLO2LTC+i3cgBDx48ePDgwYMHD/5/gp9eUBqYWsEnfR548ODBgwcPHjx48L8Zfjqg0/rc9gKnA0/p2nqBBw8ePHjw4MGDB9+EbwWWv/J17AUePHjw4MGDBw8efAH+1koHirYNlSnEtN61C3jw4MGDBw8ePHjwBfjWQNH0gNvGRht0WlfaiAEPHjx48ODBgwcPvgk/BZsGjbTB8Gng6XQwanqRp3WPLwo8ePDgwYMHDx48+AL8rcK2DY1tsNleWOsCHwMUePDgwYMHDx48ePAF+NYBTwu8HWhOg87pxW+DE3jw4MGDBw8ePHjwTfh0423jYxrA4sbDMrhNX5S4AwUePHjw4MGDBw8e/AD+FvTp528PKqWNlinwugMFHjx48ODBgwcPHnwBfgt5a59pY6TVwDita9yBAg8ePHjw4MGDBw8+gN8GozbYNghtB6DSuo49wYMHDx48ePDgwYMvwG8bAmljYrr/FiStqx3MwIMHDx48ePDgwYNvwJ8WPD1Ia0DpO1zbAaZpwIwbIeDBgwcPHjx48ODBX4TfBo+0IdIOctvnvh6gwIMHDx48ePDgwYM/+EO62yCRBqX0wn6qrmNo8ODBgwcPHjx48OBfgJ8GlhRoG5Ra9aUBMG0ggQcPHjx48ODBgwffgG8P9GwHjqaDTWmjJW3c1AaawIMHDx48ePDgwYMv/r+T7cKnAz/jxsIwAE5fiPSiHj8PHjx48ODBgwcPHnwR/tMBbjcOts/fBp524+Q4QIEHDx48ePDgwYMHv4DfFrbdZwt068WoPx88ePDgwYMHDx48+AL89MBp4En3PYWYPj8d5ErrBg8ePHjw4MGDBw++CX9ayPb308ByevBto6LViPlYD3jw4MGDBw8ePHjwF+DT4NEOXu3GyukFTT3G5wcPHjx48ODBgwcPvgCfHrQFN/38NOBsA1Ua6MCDBw8ePHjw4MGDfxO+1ThIg8gWLH0hbr0wj40Q8ODBgwcPHjx48OCL8LcDSzpItA1YtwaxxnWCBw8ePHjw4MGDB1+EnwahdBBqGqhS0DTQpT8HDx48ePDgwYMHD/5N+GmASQPUFnQbnFK47fkfGyHgwYMHDx48ePDgwS/gt6s16HMK1m5MbIPUeDALPHjw4MGDBw8ePPgX4FtBKt13etDTfbb7X+tAgQcPHjx48ODBgwcf/MOE2wNF0323gabVIGk1SsCDBw8ePHjw4MGDb8C3YNNgNAVK1619xy8GePDgwYMHDx48ePAF+NZA03YAqN14mDY+4kA0vQjw4MGDBw8ePHjw4Avw7UDSGly6FdhuDVgdPwc8ePDgwYMHDx48+CJ8GphS8HSfdoBKB6/iQAgePHjw4MGDBw8e/AX4KVA6QPR242R7senFHAco8ODBgwcPHjx48OB/AD5trLSC2xRw+mLUngcePHjw4MGDBw8e/C+AnwaPdhCbXmDaGEnrAA8ePHjw4MGDBw/+Dfhtoe1Ac/r96YBTGqhOoccBCjx48ODBgwcPHjz4AD5tYKSFtILP6QWn+04D0nigCTx48ODBgwcPHjz4AN56d4EHD94CD94CD95arH/Ka68hebA5JwAAAABJRU5ErkJggg==">
+          </div>
+        </div>
+      
+    
+      
+        <a class="-mob-share-telegram" title="" rel="external nofollow noopener noreferrer noopener"
+          
+            target="_blank" href="https://t.me/share/url?url=http://enderxiao.top/Python/python%E8%BF%9B%E9%98%B6%E2%80%94%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/&text=python进阶—函数式编程 - Ender"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/telegram.png" class="lazyload placeholder" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/telegram.png" srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@3/img/placeholder/c617bfd2497fcea598e621413e315c368f8d8e.svg">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/Python/python%E5%9F%BA%E7%A1%80/'>
+          <p class='title'>python基础<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>Python基础Into2021年5月，我收到了来自北京工业大学的调档函，这也许意味着我研究生生活的开始。研究生最终选择了机器学习相关的方向，并且得知导师所在实验室的方向是手写体识别。
+说到Ma...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal blur" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+<!-- valine 添加一言 -->
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    jinrishici.load(function(result) {
+      var jrsc_plac =  result.data.content + "\n《" + result.data.origin.title + "》" + "\n「" + result.data.origin.dynasty  + "」 · " + result.data.origin.author
+      document.getElementById("veditor").setAttribute("placeholder",jrsc_plac);
+    });
+</script>
+
+  </article>
+
+
+
+
+
+  <script>
+  // https://github.com/theme-next/hexo-theme-next/blob/master/layout/_third-party/math/mathjax.swig
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.0/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    // 文章章节标题不能为 “MathJax” ，否则会报错。
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper blur desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%BC%8F"><span class="toc-text">函数式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0"><span class="toc-text">高阶函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#map-reduce"><span class="toc-text">map&#x2F;reduce</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#map"><span class="toc-text">map</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reduce"><span class="toc-text">reduce</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#filter"><span class="toc-text">filter</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#filter%E5%BA%94%E7%94%A8"><span class="toc-text">filter应用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%A7%E7%94%9F%E5%A5%87%E6%95%B0"><span class="toc-text">产生奇数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AD%9B%E9%80%89%E5%87%BD%E6%95%B0"><span class="toc-text">筛选函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%B4%A0%E6%95%B0%E7%94%9F%E6%88%90%E5%99%A8"><span class="toc-text">素数生成器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sorted"><span class="toc-text">sorted</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E5%87%BD%E6%95%B0"><span class="toc-text">返回函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AD%E5%8C%85"><span class="toc-text">闭包</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%95%AA%E5%A4%96%E2%80%94%E2%80%94%E5%8F%98%E9%87%8F%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-text">番外——变量作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0"><span class="toc-text">匿名函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="toc-text">装饰器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%81%8F%E5%87%BD%E6%95%B0"><span class="toc-text">偏函数</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+        
+        <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="python进阶—函数式编程";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.remove("show");
+  
+</script>
+
+      </div>
+      
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='true'
+      volume='0.3'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='320px'
+      server='netease'
+      type='playlist'
+      id='2674113840'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+          
+            
+          
+            
+          
+        </div>
+      
+    
+      
+        <div><p>Blog content follows the <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+</div>
+      
+    
+      
+        
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 次</span> <span id="lc-uv">访客数为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 人</span></p>
+</div>
+        
+      
+    
+      
+        Use
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.0" target="_blank" class="codename">Volantis</a>
+        as theme
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © 2017-2020 XXX</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+      <a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a>
+    </div>
+  </div>
+  <div>
+    <script>
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/********************脚本懒加载函数********************************/
+function loadScript(src, cb) {
+var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+var script = document.createElement('script');
+script.setAttribute('type','text/javascript');
+if (cb) script.onload = cb;
+script.setAttribute('src', src);
+HEAD.appendChild(script);
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  loadCSS("https://cdn.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min.css", window.volantis.loadcss);
+  
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css", window.volantis.loadcss);
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    setTimeout(function() {
+      loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+    }, 1);
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+</script>
+
+
+<!-- internal -->
+
+
+
+  
+  
+
+  <div id="rightmenu-wrapper">
+    <ul class="list-v rightmenu" id="rightmenu-content">
+      <li class='option'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-text' onclick="document.execCommand('copy')"><i class='fa fa-copy fa-fw'></i>Copy Text</a>
+        <hr id='hr-text'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-href'><i class='fa fa-link fa-fw'></i>Copy Link</a>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-open-href'><i class='fa fa-external-link-square-alt fa-fw'></i>Open Link in New Tab</a>
+        <hr id='hr-href'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-src'><i class='fa fa-image fa-fw'></i>Copy Image Link</a>
+        <hr id='hr-src'>
+      </li>
+      
+        <li class='navigation'>
+          <a class='nav icon-only fix-cursor-default' onclick='history.back()'><i class='fa fa-arrow-left fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' onclick='history.forward()'><i class='fa fa-arrow-right fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' onclick='window.location.reload()'><i class='fa fa-redo fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' href='/'><i class='fa fa-home fa-fw'></i></a>
+        </li>
+      
+      <hr>
+      
+        
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default' href=https://volantis.js.org/faqs/
+        
+        
+        
+        
+          id="https:volantisjsorgfaqs"
+        >
+        <i class='fa fa-question fa-fw'></i> 常见问题
+      </a>
+    </li>
+  
+        
+      
+        
+          <hr>
+        
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default' href=https://github.com/enderxiao/enderxiao.github.io/
+        
+        
+        
+        
+          id="https:githubcomenderxiaoenderxiaogithubio"
+        >
+        <i class='fa fa-code-branch fa-fw'></i> 本站源码
+      </a>
+    </li>
+  
+        
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default' href=https://github.com/volantis-x/hexo-theme-volantis/
+        
+        
+        
+        
+          id="https:githubcomvolantis-xhexo-theme-volantis"
+        >
+        <i class='fa fa-code-branch fa-fw'></i> 主题源码
+      </a>
+    </li>
+  
+        
+      
+        
+          <hr>
+        
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default' 
+        
+        
+        
+          onclick="document.execCommand('print')"
+        
+        >
+        <i class='fa fa-print fa-fw'></i> 打印页面
+      </a>
+    </li>
+  
+        
+      
+        
+          <hr>
+        
+      
+        
+          <li class='music name'>
+            <p class='nav music-title fix-cursor-default'></p>
+          </li>
+          <li class='music ctrl'>
+            <a class='nav icon-only backward fix-cursor-default' onclick='aplayerBackward()'><i class='fa fa-step-backward fa-fw'></i></a>
+            <a class='nav icon-only toggle fix-cursor-default' onclick='aplayerToggle()'><i class='fa fa-play fa-fw'></i></a>
+            <a class='nav icon-only forward fix-cursor-default' onclick='aplayerForward()'><i class='fa fa-step-forward fa-fw'></i></a>
+          </li>
+          <li class='music volume'>
+            <a class='nav volume'>
+              <div class="aplayer-volume-bar-wrap">
+                <div class="aplayer-volume-bar fix-cursor-pointer">
+                  <div class="aplayer-volume"></div>
+                  <i class='left fa fa-volume-off fa-fw'></i>
+                  <i class='right fa fa-volume-up fa-fw'></i>
+                </div>
+              </div>
+            </a>
+          </li>
+        
+      
+    </ul>
+  </div>
+
+  <script>
+    window.document.oncontextmenu = function (event) {
+      if (event.ctrlKey) return true;
+      if (/Android|webOS|BlackBerry/i.test(navigator.userAgent)) return true;
+      return popMenu(event);
+    };
+    document.addEventListener("click", function (event) {
+      var mymenu = document.getElementById('rightmenu-wrapper');
+      mymenu.style.display = "none";
+    });
+    function popMenu(event) {
+      var mymenu = document.getElementById('rightmenu-wrapper');
+      var menuContent = document.getElementById('rightmenu-content');
+      var screenWidth = document.documentElement.clientWidth || document.body.clientWidth;
+      var screenHeight = document.documentElement.clientHeight || document.body.clientHeight;
+      mymenu.style.left = event.clientX + "px"; // 获取鼠标位置
+      mymenu.style.top = event.clientY + "px";
+      mymenu.style.display = 'block';
+      if (event.clientX * 2 > screenWidth) {
+        menuContent.classList.add('left');
+      } else {
+        menuContent.classList.remove('left');
+      }
+      if (event.clientY * 2 > screenHeight) {
+        menuContent.classList.add('top');
+      } else {
+        menuContent.classList.remove('top');
+      }
+
+      let hrText = document.getElementById('hr-text');
+      let hrSrc = document.getElementById('hr-src');
+      let hrHref = document.getElementById('hr-href');
+
+      // 选中图片
+      let copySrc = document.getElementById('menu-copy-src');
+      if (copySrc != undefined) {
+        if (event.target.currentSrc) {
+          copySrc.style.display = 'block';
+          copySrc.addEventListener("click", function (e) {
+            copyString(event.target.currentSrc);
+          },{once: true});
+          hrSrc.style.display = 'block';
+        } else {
+          copySrc.style.display = 'none';
+          hrSrc.style.display = 'none';
+        }
+      }
+
+      // 选中按钮
+      // 判断是不是按钮
+      let href = '';
+      if (event.path) {
+        for (i = 0; i < event.path.length; i++) {
+          if (event.path[i].href != undefined && event.path[i].href.length > 0) {
+            href = event.path[i].href;
+          }
+        }
+      }
+
+      let copyText = document.getElementById('menu-copy-text');
+      copyText.style.display = 'none';
+      hrText.style.display = 'none';
+      if (href.length == 0) {
+        // 选中文本
+        if (window.getSelection().toString()) {
+          if ('true' == 'true') {
+            copyText.style.display = 'block';
+            hrText.style.display = 'block';
+          }
+        }
+      }
+
+      // 在新标签页打开
+      let openHref = document.getElementById('menu-open-href');
+      if (openHref != undefined) {
+        if (href.length > 0) {
+          openHref.style.display = 'block';
+          openHref.addEventListener("click", function (e) {
+            window.open(href);
+          },{once: true});
+          hrHref.style.display = 'block';
+        } else {
+          openHref.style.display = 'none';
+          hrHref.style.display = 'none';
+        }
+      }
+      // 复制链接
+      let copyHref = document.getElementById('menu-copy-href');
+      if (copyHref != undefined) {
+        if (href.length > 0) {
+          copyHref.style.display = 'block';
+          copyHref.addEventListener("click", function (e) {
+            copyString(href);
+          },{once: true});
+        } else {
+          copyHref.style.display = 'none';
+        }
+      }
+
+      // 有音乐播放器
+      if ('true' == true && ('home,help,hr,source_docs,source_theme,hr,print,hr,music'||[]).includes('music')) {
+        // 如果有aplayer，初始化一下
+      	try {
+      		checkAPlayer();
+          updateTitle();
+      	} catch (error) {
+      		console.log(error);
+      	}
+      }
+
+      return false; // 该行代码确保系统自带的右键菜单不会被调出
+    }
+    function hideMenu() {
+      document.getElementById('rightmenu-wrapper').style.display = 'none';
+    }
+    function copyString(str) {
+      const input = document.createElement('input');
+      input.setAttribute('readonly', 'readonly');
+      document.body.appendChild(input);
+      input.setAttribute('value', str);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+    }
+    document.execCommand('click');
+  </script>
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    if ($(".md").find(".issues-api").length == 0) return;
+    setTimeout(function() {
+	
+	  loadScript('https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.3.0/source/js/issues.min.js');
+	
+    }, 1);
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+</script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+  
+    <script>
+      window.FPConfig = {
+        delay: 0,
+        ignoreKeywords: [],
+        maxRPS: 5,
+        hoverDelay: 25
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+  
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+    var clipboard = new ClipboardJS('.btn-copy', {
+        target: function (trigger) {
+            return trigger.nextElementSibling
+        }
+    });
+    function wait(callback, seconds) {
+        var timelag = null;
+        timelag = window.setTimeout(callback, seconds)
+    }
+    function pjax_initCopyCode() {
+		if($(".highlight .code pre").length+$(".article pre code").length==0)return;
+        var copyHtml = '';
+        copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+        copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+        copyHtml += '</button>';
+        $(".highlight .code pre").before(copyHtml);
+        $(".article pre code").before(copyHtml);
+        clipboard.off('success').on('success', function (e) {
+            let $btn = $(e.trigger);
+            $btn.addClass('copied');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-check-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPIED';
+            wait(function () {
+                $icon.removeClass('fa-check-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        });
+        clipboard.off('error').on('error', function (e) {
+            e.clearSelection();
+            let $btn = $(e.trigger);
+            $btn.addClass('copy-failed');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-times-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPY FAILED';
+            wait(function () {
+                $icon.removeClass('fa-times-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        })
+    }
+    $(function () {
+        pjax_initCopyCode()
+    });
+</script>
+
+
+
+
+   <script type="text/javascript">
+  loadScript("https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js")
+  function pjax_scrollrebeal() {
+    ScrollReveal().reveal('.l_main .reveal', {
+      distance: '32px',
+      duration: '800',
+      interval: '20',
+      scale: '1',
+      easing: 'ease-out'
+    });
+  }
+  $(function () {
+  var checkScrollReveal = setInterval(function () {
+    if ($("#safearea").css("display")!="block") return
+    if (typeof ScrollReveal=="undefined") return
+    clearInterval(checkScrollReveal)
+	pjax_scrollrebeal();
+  }, 100)
+  });
+</script>
+
+
+
+
+  <script>
+  let APlayerController = new Object();
+  APlayerController.id = '2674113840';  // 设定全局音乐播放ID
+  APlayerController.volume = '0.3';
+  loadCSS("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css", window.volantis.loadcss);
+  // APlayer 需要在  MetingJS 之前加载
+  loadScript("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js")
+  window.volantis.LoadMetingJS=0
+  var checkAPlayer = setInterval(function () {
+    if (!window.APlayer) return
+    clearInterval(checkAPlayer)
+	if (!window.volantis.LoadMetingJS&&!window.MetingJSElement){
+	  window.LoadMetingJS=1
+      loadScript("https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js")
+	  }
+  }, 2500)
+
+  
+    loadScript('https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.3.0/source/js/aplayer.min.js');
+  
+
+</script>
+
+
+
+
+  
+  
+<script src="https://cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js"></script>
+
+
+<script>
+  function emoji(path, idx, ext) {
+    return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  function pjax_valine() {
+    if(!document.querySelectorAll("#valine_container")[0])return;
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    var valine = new Valine();
+
+    var requestSetting = function (from,set) {
+      var from = from
+      var setting = set.split(',').filter(function(item){
+        return from.indexOf(item) > -1
+      });
+    setting = setting.length == 0 ? from :setting;
+    return setting
+    }
+
+    //添加标签分词
+    var tagMeta = '博主,小伙伴,访客'.split(',')
+    var friends = '4d550b956a77d45c225cef7d22441f97'.split(',')
+    var master = 'b1e66c08e8cd5b9c33c014dadcb6092b'.split(',')
+    valine.init(Object.assign({"path":null,"placeholder":"快来评论吧~","appId":"K0AA5mEk3tAs9vDx9fGNyd4A-MdYXbMMI","appKey":"uADfH6gUTkaoe0nyIyQR0KCX","meta":["nick","mail","link"],"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":true,"avatar":"retro","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false,"js":"https://cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js","notify":true,"verify":false,"visitor":true,"metaPlaceholder":[{"nick":"Ender"},{"mail":"1286554811@qq.com"},{"link":"enderxiao.top"}],"tagMeta":"博主,小伙伴,访客","master":["b1e66c08e8cd5b9c33c014dadcb6092b"],"friends":["4d550b956a77d45c225cef7d22441f97"]}, {
+      el: '#valine_container',
+      path: path,
+      placeholder: pagePlaceholder,
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps,
+      //添加master与friends的标签设置
+      master: master,
+      friends: friends,
+      tagMeta: tagMeta,
+    }))
+  }
+  $(function () {
+    pjax_valine();
+  });
+  pjax_comment=pjax_valine;
+</script>
+
+
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.3.0/source/js/app.min.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.3.0/source/js/search/hexo.min.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+}
+</script>
+
+
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function () {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'http://enderxiao.top' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'http://enderxiao.top' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'http://enderxiao.top' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+  <script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "user-color-scheme";
+const rootElementDarkModeAttributeName = "data-user-color-scheme";
+
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+
+/**
+ * get target mode
+ */
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+
+/**
+ * bind click event for toggle button
+ */
+function bindToggleButton() {
+	var btn=$("#wrapper .toggle-mode-btn");
+    btn.on('click',(e) => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+    });
+}
+
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", bindToggleButton);
+document.addEventListener("pjax:success", bindToggleButton);
+
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+
+    
+    
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          "#l_cover",
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+      
+      $("#wrapper .toggle-mode-btn").unbind('click');
+      
+	  
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      // 关于百度统计对 SPA 页面的处理：
+      // 方案一：百度统计>管理>单页应用设置中，打开开启按钮即可对SPA进行统计。 https://tongji.baidu.com/web/help/article?id=324
+      // 方案二：取消注释下列代码。 https://tongji.baidu.com/web/help/article?id=235
+       
+
+      // 关于谷歌统计对 SPA 页面的处理：
+      // 当应用以动态方式加载内容并更新地址栏中的网址时，也应该更新通过 gtag.js 存储的网页网址。
+      // https://developers.google.cn/analytics/devguides/collection/gtagjs/single-page-applications?hl=zh-cn
+      
+
+
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+          if (typeof $.fancybox == "undefined") {
+            SCload_fancybox();
+          } else {
+            pjax_fancybox();
+          }
+        
+        
+        
+          pjax_scrollrebeal();
+        
+        if (typeof IssuesAPI == "undefined") {
+          loadIssuesJS();
+        }
+        
+          pjax_initCopyCode();
+        
+		
+          try{pjax_comment();} catch (e) {}
+        
+      } catch (e) {
+        console.log(e);
+      }
+	  
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+
+    
+  </div>
+</body>
+<!-- 添加自定义的DarkMode按钮 -->
+<div id="RightDownBtn">
+    <a onclick="switchNightMode()" title="切换暗黑模式">
+        <svg style=" width: 1.5em;height: 1.5em;" class="icon" aria-hidden="true">
+            <use id="modeicon" xlink:href="#icon-_moon">
+            </use>
+        </svg>
+    </a>
+    <svg aria-hidden="true" style="position: absolute; width: 0px; height: 0px; overflow: hidden;">
+        <symbol id="icon-sun" viewBox="0 0 1024 1024">
+            <path
+                d="M511.99976 511.99976m-511.99976 0a511.99976 511.99976 0 1 0 1023.99952 0 511.99976 511.99976 0 1 0-1023.99952 0Z"
+                fill="#91D2F2"></path>
+            <path
+                d="M144.623932 868.455593C237.679889 964.327548 367.831828 1023.99952 511.99976 1023.99952c269.983873 0 490.99977-209.007902 510.455761-474.031778C956.991551 535.703749 887.559584 527.999753 815.623618 527.999753c-309.535855 0-572.895731 142.055933-670.999686 340.45584z"
+                fill="#198058"></path>
+            <path
+                d="M979.623541 575.99973c-351.319835 0-647.791696 155.655927-741.279653 368.639827A509.359761 509.359761 0 0 0 511.99976 1023.99952c260.839878 0 475.967777-195.111909 507.799762-447.31979a1194.34344 1194.34344 0 0 0-40.175981-0.68z"
+                fill="#1E9969"></path>
+            <path
+                d="M69.711967 769.831639C158.503926 921.815568 323.271848 1023.99952 511.99976 1023.99952a509.455761 509.455761 0 0 0 269.631874-76.783964C657.111692 828.375612 464.271782 751.999648 247.623884 751.999648c-61.575971 0-121.183943 6.271997-177.911917 17.831991z"
+                fill="#6AA33A"></path>
+            <path
+                d="M487.887771 1023.39152c-86.543959-122.151943-236.911889-214.679899-417.591804-252.543881 85.11996 144.919932 239.415888 244.279885 417.591804 252.543881z"
+                fill="#95E652"></path>
+            <path
+                d="M394.159815 167.999921l-45.255979 45.255979L303.647858 167.999921l45.255978-45.255979zM394.159815 503.999764l-45.255979 45.255979L303.655858 503.999764l45.247978-45.247979z"
+                fill="#FFF8E6"></path>
+            <path
+                d="M180.879915 290.719864l45.247979 45.247979-45.255979 45.255978-45.255979-45.255978zM516.903758 290.719864l45.247978 45.247979-45.247978 45.247978-45.247979-45.247978z"
+                fill="#FFF8E6"></path>
+            <path d="M198.087907 185.207913h63.99997v63.99997h-63.99997zM435.671796 422.791802h63.99997v63.99997h-63.99997z"
+                fill="#FFF8E6"></path>
+            <path d="M198.087907 422.791802h63.99997v63.99997h-63.99997zM435.671796 185.207913h63.99997v63.99997h-63.99997z"
+                fill="#FFF8E6"></path>
+            <path
+                d="M348.879836 335.999843m-183.999913 0a183.999914 183.999914 0 1 0 367.999827 0 183.999914 183.999914 0 1 0-367.999827 0Z"
+                fill="#FFEAB3"></path>
+            <path
+                d="M348.879836 335.999843m-159.999925 0a159.999925 159.999925 0 1 0 319.99985 0 159.999925 159.999925 0 1 0-319.99985 0Z"
+                fill="#FFDC80"></path>
+        </symbol>
+        <symbol id="icon-_moon" viewBox="0 0 1024 1024">
+            <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="#323232"></path>
+            <path
+                d="M512 512m-407.005867 0a407.005867 407.005867 0 1 0 814.011734 0 407.005867 407.005867 0 1 0-814.011734 0Z"
+                fill="#494A4A"></path>
+            <path
+                d="M748.1344 633.9584c0-1.143467 0.085333-2.286933 0.085333-3.413333a69.512533 69.512533 0 0 0-8.823466-33.979734q-1.058133-1.911467-2.2528-3.7376l-0.187734-0.3072a70.485333 70.485333 0 0 0-5.2736-7.099733l-0.238933-0.273067q-1.3312-1.536-2.730667-3.003733l-0.3072-0.324267a70.894933 70.894933 0 0 0-6.417066-5.819733l-0.5632-0.443733q-1.467733-1.160533-3.003734-2.235734l-0.494933-0.341333q-1.706667-1.2288-3.6352-2.3552l-0.256-0.136533q-1.706667-0.989867-3.413333-1.8944l-0.887467-0.4608q-1.604267-0.802133-3.242667-1.536l-0.6144-0.273067q-1.928533-0.836267-3.9424-1.553067l-0.8192-0.273066a54.8864 54.8864 0 0 0-3.242666-1.024l-1.143467-0.324267a85.248 85.248 0 0 0-3.601067-0.887467l-0.546133-0.119466a67.345067 67.345067 0 0 0-4.1984-0.733867l-1.143467-0.136533q-1.706667-0.2048-3.2768-0.341334l-1.245866-0.1024a74.786133 74.786133 0 0 0-4.386134-0.1536 69.8368 69.8368 0 0 0-20.48 3.037867 104.106667 104.106667 0 0 0-12.1344-11.076267 258.696533 258.696533 0 0 0-449.9456-248.763733 183.1424 183.1424 0 0 1 106.939734-34.2528c5.12 0 10.24 0.221867 15.36 0.631467a183.125333 183.125333 0 0 1 50.5344 11.52h0.170666q3.874133 1.501867 7.68 3.157333l0.256 0.1024 7.441067 3.413333 0.273067 0.136534q3.669333 1.826133 7.253333 3.805866l0.221867 0.119467q3.618133 2.013867 7.133866 4.164267a184.610133 184.610133 0 0 1 26.760534 20.036266h0.085333q2.986667 2.696533 5.870933 5.5296l0.324267 0.3072q2.781867 2.7648 5.461333 5.632l0.443734 0.477867q2.6112 2.833067 5.12 5.768533l0.494933 0.580267q2.4576 2.9184 4.795733 5.956267l0.494934 0.648533q2.321067 3.037867 4.522666 6.178133l0.426667 0.6144q2.2016 3.1744 4.283733 6.4512l0.324267 0.529067q2.116267 3.413333 4.078933 6.826667l0.170667 0.3072c1.553067 2.7136 3.0208 5.495467 4.437333 8.2944a56.149333 56.149333 0 0 0-12.578133 2.304 82.824533 82.824533 0 0 0-134.007467 18.039466 42.530133 42.530133 0 0 0-53.009066 41.079467 104.277333 104.277333 0 0 0-42.2912 80.110933 13.653333 13.653333 0 0 0 0 1.4336v0.426667c0 0.136533 0.1024 0.682667 0.187733 1.024s0 0.3072 0.1024 0.4608 0.2048 0.733867 0.324267 1.092267l0.1024 0.3072a15.36 15.36 0 0 0 0.580266 1.416533l0.1024 0.187733a16.520533 16.520533 0 0 0 0.648534 1.211734l0.221866 0.3584c0.221867 0.3584 0.4608 0.733867 0.7168 1.092266l0.221867 0.3072a26.333867 26.333867 0 0 0 2.338133 2.798934l0.119467 0.119466q0.6144 0.631467 1.297067 1.262934l0.2048 0.187733q0.7168 0.648533 1.501866 1.297067 1.706667 1.416533 3.720534 2.781866c0.6656 0.4608 1.348267 0.904533 2.065066 1.348267 26.914133 16.7936 87.995733 28.535467 159.044267 28.535467 19.3536 0 37.956267-0.8704 55.3472-2.474667l-0.494933 0.750933-0.426667 0.6144q-2.2016 3.140267-4.539733 6.178134l-0.477867 0.631466q-2.338133 3.037867-4.795733 5.956267l-0.494934 0.580267q-2.491733 2.935467-5.12 5.7856l-0.443733 0.477866q-2.679467 2.884267-5.461333 5.649067l-0.3072 0.290133q-2.884267 2.833067-5.870934 5.546667a184.8832 184.8832 0 0 1-26.7776 20.036267q-3.515733 2.167467-7.150933 4.181333l-0.187733 0.1024q-3.584 1.979733-7.2704 3.805867l-0.256 0.136533q-3.6864 1.826133-7.458134 3.413333l-0.238933 0.1024q-3.805867 1.706667-7.68 3.157334h-0.136533a183.057067 183.057067 0 0 1-50.551467 11.52c-5.12 0.4096-10.24 0.631467-15.36 0.631466a183.159467 183.159467 0 0 1-106.939733-34.2528 258.5088 258.5088 0 0 0 180.138666 107.093334 109.550933 109.550933 0 0 0-3.259733 26.453333 16.520533 16.520533 0 0 0 0.1024 1.706667v0.529066c0 0.170667 0.136533 0.853333 0.221867 1.262934l0.136533 0.5632 0.392533 1.365333 0.136534 0.4096a13.892267 13.892267 0 0 0 0.733866 1.706667l0.119467 0.238933c0.238933 0.512 0.512 1.006933 0.802133 1.501867l0.273067 0.443733q0.4096 0.682667 0.887467 1.365333l0.273066 0.375467a33.0752 33.0752 0 0 0 2.9184 3.413333l0.1536 0.1536 1.5872 1.553067 0.273067 0.256 1.8432 1.621333q2.116267 1.706667 4.625067 3.413334l2.56 1.706666c33.467733 20.8896 109.431467 35.4816 197.802666 35.4816 119.330133 0 216.046933-26.606933 216.046934-59.409066a131.413333 131.413333 0 0 0-56.285867-102.058667z"
+                fill="#323232"></path>
+            <path
+                d="M573.8496 401.8176v-2.781867a56.200533 56.200533 0 0 0-72.6016-53.725866 82.824533 82.824533 0 0 0-134.007467 18.039466 42.530133 42.530133 0 0 0-53.009066 41.079467 104.277333 104.277333 0 0 0-42.257067 80.0768c0 26.385067 77.7728 47.786667 173.7216 47.786667s173.7216-21.384533 173.7216-47.786667a105.659733 105.659733 0 0 0-45.568-82.688z"
+                fill="#CDCCCA"></path>
+            <path
+                d="M293.768533 506.2656a104.277333 104.277333 0 0 1 42.2912-80.110933 42.530133 42.530133 0 0 1 53.009067-41.079467 82.807467 82.807467 0 0 1 134.007467-18.039467 56.32 56.32 0 0 1 43.758933 4.642134 56.2176 56.2176 0 0 0-65.518933-26.4192 82.824533 82.824533 0 0 0-134.007467 18.039466 42.530133 42.530133 0 0 0-53.009067 41.079467 104.277333 104.277333 0 0 0-42.325333 80.128c0 8.413867 7.936 16.3328 21.845333 23.210667a13.294933 13.294933 0 0 1-0.0512-1.450667z"
+                fill="#E8E9EC"></path>
+            <path
+                d="M453.4784 166.912a258.338133 258.338133 0 0 0-210.944 108.919467 183.995733 183.995733 0 1 1 0 299.451733 258.6624 258.6624 0 1 0 210.944-408.388267z"
+                fill="#DDAE2A"></path>
+            <path
+                d="M364.834133 608.9216q7.594667 0.631467 15.36 0.648533a183.995733 183.995733 0 0 0 0-367.9744q-7.748267 0-15.36 0.631467a183.995733 183.995733 0 0 1 0 366.6944z"
+                fill="#EDC849"></path>
+            <path
+                d="M794.7776 605.969067c0-1.143467 0.085333-2.286933 0.085333-3.413334a69.973333 69.973333 0 0 0-90.299733-66.833066 102.997333 102.997333 0 0 0-166.656 22.4256 52.906667 52.906667 0 0 0-65.928533 51.0976 129.706667 129.706667 0 0 0-52.599467 99.6352c0 32.8192 96.733867 59.409067 216.046933 59.409066s216.046933-26.606933 216.046934-59.409066a131.413333 131.413333 0 0 0-56.695467-102.912z"
+                fill="#CDCCCA"></path>
+            <path
+                d="M446.481067 735.914667a129.706667 129.706667 0 0 1 52.599466-99.6352 52.906667 52.906667 0 0 1 65.928534-51.080534 102.997333 102.997333 0 0 1 166.6048-22.442666 69.973333 69.973333 0 0 1 54.408533 5.7856 69.973333 69.973333 0 0 0-81.476267-32.853334 102.997333 102.997333 0 0 0-166.656 22.4256 52.906667 52.906667 0 0 0-65.928533 51.0976 129.706667 129.706667 0 0 0-52.599467 99.6352c0 10.478933 9.864533 20.309333 27.170134 28.859734a17.408 17.408 0 0 1-0.0512-1.792z"
+                fill="#E8E9EC"></path>
+        </symbol>
+    </svg>
+</div>
+
+<script>
+    function music_on() {
+        var audio1 = document.getElementById('bg_music');
+        if (audio1.paused) {
+            audio1.play();
+        }else{
+            audio1.pause();
+            audio1.currentTime = 0;//音乐从头播放
+        }
+    }
+    function BackTOP() {
+        $("#btn").hide();
+        $(function () {
+            $(window).scroll(function () {
+                if ($(window).scrollTop() > 50) {
+                    $("#btn").fadeIn(200);
+                } else {
+                    $("#btn").fadeOut(200);
+                }
+            });
+            $("#btn").click(function () {
+                $('body,html').animate({
+                        scrollTop: 0
+                    },
+                    500);
+                return false;
+            });
+        });
+        $(function () {
+            $("#say").click(function () {
+                $('body,html').animate({
+                        scrollTop: $('html, body').get(0).scrollHeight
+                    },
+                    500);
+                return false;
+            });
+        })
+    }
+
+    $('#readmode').click(function () {
+            $('body').toggleClass('read-mode')
+        })
+        
+    function SiderMenu() {
+        $('#main-container').toggleClass('open');
+        $('.iconflat').css('width', '50px').css('height', '50px');
+        $('.openNav').css('height', '50px');
+        $('#main-container,#mo-nav,.openNav').toggleClass('open')
+    }
+
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($("body")), setTimeout(
+            function () {
+                var DarkMode = document.cookie.replace(/(?:(?:^|.*;\s*)DarkMode\s*\=\s*([^;]*).*$)|^.*$/, "$1") ||
+                    '0';
+                (DarkMode == '0') ? ($("html").attr("data-user-color-scheme",'dark'),$("html").addClass("DarkMode"), document.cookie = "DarkMode=1;path=/", console
+                    .log('夜间模式开启'), $('#modeicon').attr("xlink:href", "#icon-sun")) : ($("html").removeAttr(
+                        "data-user-color-scheme"),$("html").removeClass("DarkMode"),document.cookie = "DarkMode=0;path=/", console.log('夜间模式关闭'), $('#modeicon')
+                    .attr("xlink:href", "#icon-_moon")), setTimeout(function () {
+                    $(".Cuteen_DarkSky").fadeOut(1e3, function () {
+                        $(this).remove()
+                    })
+                }, 2e3)
+            }), 50
+    }
+
+    function checkNightMode() {
+        if ($("html").hasClass("n-f")) {
+            $("html").removeClass("day");
+            $("html").addClass("DarkMode");
+            $("html").attr("data-user-color-scheme",'dark');
+            $('#modeicon').attr("xlink:href", "#icon-sun")
+            return;
+        }
+        if ($("html").hasClass("d-f")) {
+            $("html").removeAttr("data-user-color-scheme");
+            $("html").removeClass("DarkMode");
+            $("html").addClass("day");
+            $('#modeicon').attr("xlink:href", "#icon-_moon")
+
+            return;
+        }
+        //设置模式自动开启时间，例如20点到6点之间时，主题会默认开启暗黑模式，此处使用volantis自带的黑暗模式，DarkMode属性仅用于播放过度动画
+        //自定义黑暗模式可以通过对DarkMode属性进行样式定义实现
+        if (document.cookie.replace(/(?:(?:^|.*;\s*)DarkMode\s*\=\s*([^;]*).*$)|^.*$/, "$1") === '') {
+            if (new Date().getHours() >= 20 || new Date().getHours() < 6) {
+                $("html").addClass("DarkMode");
+                $("html").attr("data-user-color-scheme",'dark');
+                document.cookie = "DarkMode=1;path=/";
+                console.log('夜间模式开启');
+                $('#modeicon').attr("xlink:href", "#icon-sun")
+            } else {
+                $("html").removeClass("DarkMode");
+                $("html").removeAttr("data-user-color-scheme");
+                document.cookie = "DarkMode=0;path=/";
+                console.log('夜间模式关闭');
+                $('#modeicon').attr("xlink:href", "#icon-_moon")
+            }
+        } else {
+            var DarkMode = document.cookie.replace(/(?:(?:^|.*;\s*)DarkMode\s*\=\s*([^;]*).*$)|^.*$/, "$1") || '0';
+            if (DarkMode == '0') {
+                $("html").removeClass("DarkMode");
+                $("html").removeAttr("data-user-color-scheme");
+                $('#modeicon').attr("xlink:href", "#icon-_moon")
+            } else if (DarkMode == '1') {
+                $("html").addClass("DarkMode");
+                $("html").attr("data-user-color-scheme",'dark');
+                $('#modeicon').attr("xlink:href", "#icon-sun")
+            }
+        }
+    }
+    BackTOP();
+    checkNightMode();
+</script>
+
+<style>
+    #RightDownBtn {
+        position: fixed;
+        left: 1.875rem;
+        bottom: 1.875rem;
+        padding: 0.3125rem 0.625rem;
+        background: none;
+        border-radius: 0.1875rem;
+        <!-- box-shadow: 0 0 0.3125rem rgba(0, 0, 0, .4); -->
+        transition: 0.3s ease all;
+        z-index: 1;
+        align-items: flex-end;
+        flex-direction: column;
+        display: -moz-flex;
+        display: flex;
+        float: right;
+        transition: 0.6s ease all;
+    }
+
+    #RightDownBtn:hover{
+        transform: scale(2);
+        -webkit-transition: all 0.6s ease;
+    }
+
+    #RightDownBtn>a,
+    #RightDownBtn>label {
+        width: 1.5em;
+        height: 1.5em;
+        margin: 0.3125rem 0;
+        transition: .2s cubic-bezier(.25, .46, .45, .94);
+    }
+
+    /* sun and noon */
+    .Cuteen_DarkSky,
+    .Cuteen_DarkSky:before {
+        content: "";
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 88888888
+    }
+
+    .Cuteen_DarkSky {
+        background: linear-gradient(#feb8b0, #fef9db)
+    }
+
+    .Cuteen_DarkSky:before {
+        transition: 2s ease all;
+        opacity: 0;
+        background: linear-gradient(#4c3f6d, #6c62bb, #93b1ed)
+    }
+    /*利用DarkMode属性进行背景的渐变更换*/
+    .DarkMode .Cuteen_DarkSky:before {
+        opacity: 1
+    }
+
+    .Cuteen_DarkPlanet {
+        z-index: 99999999;
+        position: fixed;
+        left: -50%;
+        top: -50%;
+        width: 200%;
+        height: 200%;
+        -webkit-animation: CuteenPlanetMove 2s cubic-bezier(.7, 0, 0, 1);
+        animation: CuteenPlanetMove 2s cubic-bezier(.7, 0, 0, 1);
+        transform-origin: center bottom
+    }
+
+    @-webkit-keyframes CuteenPlanetMove {
+        0% {
+            transform: rotate(0)
+        }
+
+        to {
+            transform: rotate(360deg)
+        }
+    }
+
+    @keyframes CuteenPlanetMove {
+        0% {
+            transform: rotate(0)
+        }
+
+        to {
+            transform: rotate(360deg)
+        }
+    }
+
+    .Cuteen_DarkPlanet:after {
+        position: absolute;
+        left: 35%;
+        top: 40%;
+        width: 9.375rem;
+        height: 9.375rem;
+        border-radius: 50%;
+        content: "";
+        background: linear-gradient(#fefefe, #fffbe8)
+    }
+</style>
+
+<!-- left side bar.end -->
+
+
+</html>

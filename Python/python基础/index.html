@@ -816,7 +816,8 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span>(<span class="params">l = []</span>):</span>	</span><br><span class="line">    l.append(<span class="string">&#x27;End&#x27;</span>)	</span><br><span class="line">    <span class="keyword">return</span> l</span><br><span class="line">print(fun([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]))</span><br><span class="line">print(fun())</span><br><span class="line">print(fun([<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>]))</span><br><span class="line">print(fun())</span><br><span class="line">print(fun())</span><br><span class="line"><span class="comment"># [1, 2, 3, &#x27;End&#x27;]</span></span><br><span class="line"><span class="comment"># [&#x27;End&#x27;]</span></span><br><span class="line"><span class="comment"># [5, 6, 7, &#x27;End&#x27;]</span></span><br><span class="line"><span class="comment"># [&#x27;End&#x27;, &#x27;End&#x27;]</span></span><br><span class="line"><span class="comment"># [&#x27;End&#x27;, &#x27;End&#x27;, &#x27;End&#x27;]</span></span><br></pre></td></tr></table></figure>
 <p>注意到我调用了三次使用默认参数的fun，但是，函数好像有记忆一样，后两次fun使用的默认对象与上一次使用的是同一个！这显然是反直觉的，原因是python会在内存中开辟一块空间来存放参数的默认对象，为了节约空间，每当某个参数适用默认对象时，python只需要将其指向默认对象存放的空间就行了。但是如果默认对象使用可变对象，那么可能会存在某些操作，是的内存中的可变对象发生改变，导致每次赋予的默认值都不一样。</p>
 <p>因此使用默认值有如下规则：</p>
-<p>使用带有默认值的参数时，尽量将默认值设置为不变参数</p>
+<div class="note danger"><p>使用带有默认值的参数时，尽量将默认值设置为不变参数</p></div>
+
 <p>有时我们可能还想让间隔开的两个参数使用默认值，但由于python默认值检测是顺序的，考虑到这一点，python提供了如下方法来避免歧义：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span>(<span class="params">a=<span class="number">1</span>, b=<span class="number">2</span>, c=<span class="number">3</span>, d=<span class="number">4</span></span>):</span>	</span><br><span class="line">    <span class="built_in">sum</span> = a + b + c + d	</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span></span><br><span class="line">fun(a = <span class="number">10</span>,d = <span class="number">40</span>) </span><br><span class="line"><span class="comment"># 此时只有形参a和b将使用指定的实参，b和c将使用默认值</span></span><br></pre></td></tr></table></figure>
 <ul>
@@ -985,10 +986,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-14T11:42:21+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-26T08:54:04+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Jul 14, 2021</p>
+    <p>更新于：Jul 26, 2021</p>
   </a>
 </div>
 
@@ -1081,6 +1082,13 @@
 
   
     <div class="prev-next">
+      
+        <a class='prev' href='/Python/python%E8%BF%9B%E9%98%B6%E2%80%94%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>python进阶—函数式编程</p>
+          <p class='content'>函数式函数式编程是一种抽象程度很高的编程范式，纯粹的函数式编程语言编写的函数是没有变量的，因此，任意一个函数，只要输入确定，输出就是确定的。这种纯函数我们称为没有副作用
+
+为什么说纯函数只要输入...</p>
+        </a>
       
       
         <a class='next' href='/Machine-Learning/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%85%A5%E9%97%A8/'>
