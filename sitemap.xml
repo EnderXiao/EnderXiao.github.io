@@ -375,6 +375,13 @@
   </url>
   
   <url>
+    <loc>http://enderxiao.top/tags/Machine-Learning/</loc>
+    <lastmod>2021-08-05</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://enderxiao.top/tags/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/</loc>
     <lastmod>2021-08-05</lastmod>
     <changefreq>daily</changefreq>
@@ -397,13 +404,6 @@
   
   <url>
     <loc>http://enderxiao.top/tags/%E8%99%9A%E6%8B%9F%E6%A0%A1%E5%9B%AD/</loc>
-    <lastmod>2021-08-05</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://enderxiao.top/tags/Machine-Learning/</loc>
     <lastmod>2021-08-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -587,14 +587,14 @@
   </url>
   
   <url>
-    <loc>http://enderxiao.top/categories/%E6%9C%AC%E7%A7%91/</loc>
+    <loc>http://enderxiao.top/categories/Machine-Learning/</loc>
     <lastmod>2021-08-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://enderxiao.top/categories/Machine-Learning/</loc>
+    <loc>http://enderxiao.top/categories/%E6%9C%AC%E7%A7%91/</loc>
     <lastmod>2021-08-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -643,14 +643,14 @@
   </url>
   
   <url>
-    <loc>http://enderxiao.top/categories/%E6%9C%AC%E7%A7%91/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/</loc>
+    <loc>http://enderxiao.top/categories/Machine-Learning/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/</loc>
     <lastmod>2021-08-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://enderxiao.top/categories/Machine-Learning/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/</loc>
+    <loc>http://enderxiao.top/categories/%E6%9C%AC%E7%A7%91/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/</loc>
     <lastmod>2021-08-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
