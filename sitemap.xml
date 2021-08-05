@@ -270,6 +270,27 @@
   </url>
   
   <url>
+    <loc>http://enderxiao.top/tags/%E5%AE%A2%E5%88%B6%E5%8C%96/</loc>
+    <lastmod>2021-08-05</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://enderxiao.top/tags/BBOX60/</loc>
+    <lastmod>2021-08-05</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://enderxiao.top/tags/%E6%9C%BA%E6%A2%B0%E9%94%AE%E7%9B%98/</loc>
+    <lastmod>2021-08-05</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://enderxiao.top/tags/%E6%95%B0%E8%AE%BA/</loc>
     <lastmod>2021-08-05</lastmod>
     <changefreq>daily</changefreq>
@@ -292,27 +313,6 @@
   
   <url>
     <loc>http://enderxiao.top/tags/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B/</loc>
-    <lastmod>2021-08-05</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://enderxiao.top/tags/%E5%AE%A2%E5%88%B6%E5%8C%96/</loc>
-    <lastmod>2021-08-05</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://enderxiao.top/tags/BBOX60/</loc>
-    <lastmod>2021-08-05</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://enderxiao.top/tags/%E6%9C%BA%E6%A2%B0%E9%94%AE%E7%9B%98/</loc>
     <lastmod>2021-08-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -517,14 +517,14 @@
   </url>
   
   <url>
-    <loc>http://enderxiao.top/categories/ACM/</loc>
+    <loc>http://enderxiao.top/categories/%E9%94%AE%E7%9B%98/</loc>
     <lastmod>2021-08-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://enderxiao.top/categories/%E9%94%AE%E7%9B%98/</loc>
+    <loc>http://enderxiao.top/categories/ACM/</loc>
     <lastmod>2021-08-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -552,7 +552,7 @@
   </url>
   
   <url>
-    <loc>http://enderxiao.top/categories/ACM/%E8%B5%9B%E5%90%8E%E8%A1%A5%E9%A2%98/</loc>
+    <loc>http://enderxiao.top/categories/%E9%94%AE%E7%9B%98/%E5%AE%A2%E5%88%B6%E5%8C%96/</loc>
     <lastmod>2021-08-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -566,14 +566,14 @@
   </url>
   
   <url>
-    <loc>http://enderxiao.top/categories/%E9%94%AE%E7%9B%98/%E5%AE%A2%E5%88%B6%E5%8C%96/</loc>
+    <loc>http://enderxiao.top/categories/ACM/%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2021-08-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://enderxiao.top/categories/ACM/%E7%AE%97%E6%B3%95/</loc>
+    <loc>http://enderxiao.top/categories/ACM/%E8%B5%9B%E5%90%8E%E8%A1%A5%E9%A2%98/</loc>
     <lastmod>2021-08-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -622,7 +622,7 @@
   </url>
   
   <url>
-    <loc>http://enderxiao.top/categories/ACM/%E6%95%B0%E8%AE%BA%E7%95%AA%E5%A4%96/</loc>
+    <loc>http://enderxiao.top/categories/ACM/%E6%95%B0%E8%AE%BA%E8%BF%9B%E9%98%B6/</loc>
     <lastmod>2021-08-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -636,7 +636,7 @@
   </url>
   
   <url>
-    <loc>http://enderxiao.top/categories/ACM/%E6%95%B0%E8%AE%BA%E8%BF%9B%E9%98%B6/</loc>
+    <loc>http://enderxiao.top/categories/ACM/%E6%95%B0%E8%AE%BA%E7%95%AA%E5%A4%96/</loc>
     <lastmod>2021-08-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
