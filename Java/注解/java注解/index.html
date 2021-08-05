@@ -32,6 +32,8 @@
   
 
   
+    <meta name="description" content="java学习笔记，注解及其应用">
+  
 
   <!-- feed -->
   
@@ -544,7 +546,10 @@
 
   
   
-  <h2 id="Java注解"><a href="#Java注解" class="headerlink" title="Java注解"></a>Java注解</h2><h3 id="注解定义"><a href="#注解定义" class="headerlink" title="注解定义"></a>注解定义</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(ElementType.FIELD)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Name &#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">length</span><span class="params">()</span> <span class="keyword">default</span> 5</span>;</span><br><span class="line">    <span class="function">String <span class="title">name</span><span class="params">()</span> <span class="keyword">default</span> &quot;&quot;</span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> 5</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使用时可以是</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Name</span>(length = 12)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Name</span>(5)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Name</span>(value = 5, length = 12)</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+  <p>java学习笔记，注解及其应用</p>
+<a id="more"></a>
+
+<h2 id="Java注解"><a href="#Java注解" class="headerlink" title="Java注解"></a>Java注解</h2><h3 id="注解定义"><a href="#注解定义" class="headerlink" title="注解定义"></a>注解定义</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(ElementType.FIELD)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Name &#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">length</span><span class="params">()</span> <span class="keyword">default</span> 5</span>;</span><br><span class="line">    <span class="function">String <span class="title">name</span><span class="params">()</span> <span class="keyword">default</span> &quot;&quot;</span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> 5</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使用时可以是</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Name</span>(length = 12)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Name</span>(5)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Name</span>(value = 5, length = 12)</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
 <h4 id="注解中的元素"><a href="#注解中的元素" class="headerlink" title="注解中的元素"></a>注解中的元素</h4><p>注解中的元素只支持：</p>
 <ol>
 <li>基础数据类型</li>
@@ -615,10 +620,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-27T10:49:27+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-08-06T07:41:33+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Jan 27, 2021</p>
+    <p>更新于：Aug 6, 2021</p>
   </a>
 </div>
 
@@ -640,7 +645,7 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://enderxiao.top/Java/%E6%B3%A8%E8%A7%A3/java%E6%B3%A8%E8%A7%A3/&title=java注解 - Ender&summary="
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://enderxiao.top/Java/%E6%B3%A8%E8%A7%A3/java%E6%B3%A8%E8%A7%A3/&title=java注解 - Ender&summary=java学习笔记，注解及其应用"
           
           >
           
@@ -652,7 +657,7 @@
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://enderxiao.top/Java/%E6%B3%A8%E8%A7%A3/java%E6%B3%A8%E8%A7%A3/&title=java注解 - Ender&summary="
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://enderxiao.top/Java/%E6%B3%A8%E8%A7%A3/java%E6%B3%A8%E8%A7%A3/&title=java注解 - Ender&summary=java学习笔记，注解及其应用"
           
           >
           
@@ -664,7 +669,7 @@
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=http://enderxiao.top/Java/%E6%B3%A8%E8%A7%A3/java%E6%B3%A8%E8%A7%A3/&title=java注解 - Ender&summary="
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://enderxiao.top/Java/%E6%B3%A8%E8%A7%A3/java%E6%B3%A8%E8%A7%A3/&title=java注解 - Ender&summary=java学习笔记，注解及其应用"
           
           >
           
@@ -714,14 +719,20 @@
       
         <a class='prev' href='/Java/%E5%8F%8D%E5%B0%84/java%E5%8F%8D%E5%B0%84/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>java反射</p>
-          <p class='content'>Java高级——反射反射入门
-java反射机制是在运行状态中，对于任意一个类，都能知道这个类的所有属性和方法，对于任意一个对象，都能调用它的一个方法和属性；这种动态获取的信息以及动态调用对象的方...</p>
+          <p class='content'>java学习笔记，反射及其引用
+
+
+Java高级——反射反射入门
+java反射机制是在运行状态中，对于任意一个类，都能知道这个类的所有属性和方法，对于任意一个对象，都能调用它的一个方法和属性；这...</p>
         </a>
       
       
         <a class='next' href='/Java/%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/'>
           <p class='title'>Java基础知识点汇总<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>Javase 基础基础数据类型四类八种
+          <p class='content'>java 基础知识整合
+
+
+Javase 基础基础数据类型四类八种
 整型
 
 Byte
@@ -742,12 +753,6 @@ boolean
 
 
 字符型
-
-char
-
-
-
-取值范围
 ...</p>
         </a>
       
