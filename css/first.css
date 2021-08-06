@@ -38,10 +38,10 @@
   font-style: 'normal';
 }
 :root {
-  --color-site-body: #a17548;
-  --color-site-bg: #a17548;
-  --color-site-inner: #6c4f42;
-  --color-site-footer: #efc952;
+  --color-site-body: #f4f4f4;
+  --color-site-bg: #f4f4f4;
+  --color-site-inner: #fff;
+  --color-site-footer: #666;
   --color-card: #fff;
   --color-text: #444;
   --color-block: #f6f6f6;
@@ -55,7 +55,7 @@
   --color-h6: #666;
   --color-p: #444;
   --color-list: #666;
-  --color-list-hl: #bfa041;
+  --color-list-hl: #c4b23d;
   --color-meta: #888;
 }
 * {
@@ -79,7 +79,7 @@ html >::-webkit-scrollbar-track-piece {
   background: transparent;
 }
 html >::-webkit-scrollbar-thumb {
-  background: #efc952;
+  background: #f5df4d;
   cursor: pointer;
   border-radius: 2px;
 }
@@ -107,10 +107,10 @@ body.modal-active {
   }
 }
 ::-moz-selection {
-  background: rgba(239,201,82,0.2);
+  background: rgba(245,223,77,0.2);
 }
 ::selection {
-  background: rgba(239,201,82,0.2);
+  background: rgba(245,223,77,0.2);
 }
 h1 {
   font-size: 1.5rem;
@@ -138,7 +138,7 @@ h6 {
   font-weight: normal;
 }
 a {
-  color: #efc952;
+  color: #f5df4d;
   cursor: pointer;
   text-decoration: none;
   transition: all 0.28s ease;
@@ -769,7 +769,7 @@ th {
 .cover-wrapper.dock .menu .list-h a.active i+p,
 .cover-wrapper.featured .menu .list-h a.active i+p,
 .cover-wrapper.focus .menu .list-h a.active i+p {
-  color: #efc952;
+  color: #f5df4d;
 }
 .cover-wrapper.dock .menu .list-h a.active img+p,
 .cover-wrapper.featured .menu .list-h a.active img+p,
@@ -809,7 +809,7 @@ th {
     background: transparent;
   }
   .cover-wrapper.dock .menu .list-h::-webkit-scrollbar-thumb {
-    background: #efc952;
+    background: #f5df4d;
     cursor: pointer;
     border-radius: 0;
   }
@@ -995,7 +995,7 @@ th {
   -moz-transition: all 0.28s ease;
   -webkit-transition: all 0.28s ease;
   -o-transition: all 0.28s ease;
-  color: #efc952;
+  color: #f5df4d;
 }
 .l_header .switcher >li >a:hover {
   border: none;
@@ -1136,7 +1136,7 @@ ul.m-pc >li>a {
 }
 ul.m-pc >li>a:active,
 ul.m-pc >li>a.active {
-  border-bottom: 2px solid #efc952;
+  border-bottom: 2px solid #f5df4d;
 }
 ul.m-pc li:hover >ul.list-v,
 ul.list-v li:hover >ul.list-v {
@@ -1247,7 +1247,7 @@ ul.list-v >li>a:hover {
 }
 .l_header ul.nav-list-h>li >a:active,
 .l_header ul.nav-list-h>li >a.active {
-  color: #efc952;
+  color: #f5df4d;
 }
 .l_header ul.nav-list-h>li:hover>a {
   color: var(--color-list-hl);
@@ -1500,7 +1500,7 @@ ul.list-v >li>a:hover {
   height: 64px;
   top: 0;
   right: 0;
-  color: #efc952;
+  color: #f5df4d;
   cursor: pointer;
   text-align: center;
   line-height: 64px;
@@ -1528,7 +1528,7 @@ ul.list-v >li>a:hover {
   position: relative;
   width: 0%;
   height: 100%;
-  background: #efc952;
+  background: #f5df4d;
   transition: all 0.28s ease;
   -moz-transition: all 0.28s ease;
   -webkit-transition: all 0.28s ease;
@@ -1579,7 +1579,7 @@ ul.list-v >li>a:hover {
   width: 50px;
   height: 64px;
   vertical-align: middle;
-  color: #efc952;
+  color: #f5df4d;
   z-index: 2;
 }
 #u-search .modal-footer {
@@ -1677,7 +1677,7 @@ ul.list-v >li>a:hover {
   background: transparent;
 }
 #u-search .modal-body::-webkit-scrollbar-thumb {
-  background: #efc952;
+  background: #f5df4d;
   cursor: pointer;
   border-radius: 2px;
 }
@@ -1694,7 +1694,7 @@ ul.list-v >li>a:hover {
   border-radius: 4px;
 }
 #u-search .modal-body .modal-results .result b[mark] {
-  color: #ebba23;
+  color: #f2d61d;
   text-decoration: underline;
 }
 #u-search .modal-body .modal-results .result:hover {
@@ -1763,7 +1763,7 @@ ul.list-v >li>a:hover {
     --color-h6: #ddd;
     --color-p: #bbb;
     --color-list: #aaa;
-    --color-list-hl: #f2d374;
+    --color-list-hl: #f7e570;
     --color-meta: #888;
     --color-link: #888;
   }
@@ -1883,7 +1883,7 @@ ul.list-v >li>a:hover {
     background: var(--color-site-bg);
   }
   :root:not([data-user-color-scheme]) .aplayer .aplayer-list ol li:hover {
-    background: rgba(239,201,82,0.2);
+    background: rgba(245,223,77,0.2);
   }
   :root:not([data-user-color-scheme]) .aplayer .aplayer-list ol li.aplayer-list-light {
     background: var(--color-block);
@@ -1938,7 +1938,7 @@ ul.list-v >li>a:hover {
   --color-h6: #ddd;
   --color-p: #bbb;
   --color-list: #aaa;
-  --color-list-hl: #f2d374;
+  --color-list-hl: #f7e570;
   --color-meta: #888;
   --color-link: #888;
 }
@@ -2063,7 +2063,7 @@ ul.list-v >li>a:hover {
   background: var(--color-site-bg);
 }
 [data-user-color-scheme='dark'] .aplayer .aplayer-list ol li:hover {
-  background: rgba(239,201,82,0.2);
+  background: rgba(245,223,77,0.2);
 }
 [data-user-color-scheme='dark'] .aplayer .aplayer-list ol li.aplayer-list-light {
   background: var(--color-block);
