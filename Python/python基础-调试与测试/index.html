@@ -571,7 +571,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    foo()</span><br><span class="line"><span class="keyword">except</span> ValueError <span class="keyword">as</span> e:</span><br><span class="line">    print(<span class="string">&#x27;ValueError&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> UnicodeError <span class="keyword">as</span> e:</span><br><span class="line">    print(<span class="string">&#x27;UnicodeError&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <p>由于<code>UnicodeError</code>是<code>ValueError</code>类型异常的子类异常，因此第5行之后的代码将永远无法出发，发生<code>UnicodeError</code>异常时，它将优先被写在前面且可以捕获该异常的第三行<code>except</code>捕获。</p>
 <p>常见异常继承关系可参考python3官方文档：</p>
-<div class="tag link"><a class="link-card" title="" href="python3异常继承关系"><div class="left"><img src="https://docs.python.org/3/library/exceptions.html#exception-hierarchy" class="lazyload placeholder" data-srcset="https://docs.python.org/3/library/exceptions.html#exception-hierarchy" srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@3/img/placeholder/c617bfd2497fcea598e621413e315c368f8d8e.svg"/></div><div class="right"><p class="text"></p><p class="url">python3异常继承关系</p></div></a></div>
+<div class="tag link"><a class="link-card" title="python3异常继承关系" target="_blank" rel="noopener" href="https://docs.python.org/3/library/exceptions.html#exception-hierarchy"><div class="left"><img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/256/safari.png" class="lazyload placeholder" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/256/safari.png" srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@3/img/placeholder/c617bfd2497fcea598e621413e315c368f8d8e.svg"/></div><div class="right"><p class="text">python3异常继承关系</p><p class="url">https://docs.python.org/3/library/exceptions.html#exception-hierarchy</p></div></a></div>
 
 <details yellow><summary> 点击查看异常继承关系 </summary>
               <div class='content'>
@@ -739,7 +739,7 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-08-09T19:12:20+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-08-09T19:14:32+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
     <p>更新于：Aug 9, 2021</p>
