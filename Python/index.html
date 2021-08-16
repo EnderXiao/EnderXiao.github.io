@@ -26,13 +26,13 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/zyoushuo/Blog@latest/hexo/css/loading_style_2.css" >
   <!-- 页面元数据 -->
   
-  <title>MDA破晓 - Ender</title>
+  <title>Ender</title>
   
-    <meta name="keywords" content="客制化,机械键盘,键帽,MDA破晓">
+    <meta name="keywords" content="机器学习,python,进阶,IO编程">
   
 
   
-    <meta name="description" content="等了一年的键帽他也来了">
+    <meta name="description" content="python学习笔记，IO编程部分">
   
 
   <!-- feed -->
@@ -485,7 +485,7 @@
   
     <div class='headimg-div'>
       <a class='headimg-a'>
-        <img class='headimg' src='https://z3.ax1x.com/2021/08/07/fK94Ag.jpg'/>
+        <img class='headimg' src='https://z3.ax1x.com/2021/08/09/f85fkn.png'/>
       </a>
     </div>
   
@@ -493,98 +493,189 @@
     
     
     
-      <h1 class="title">
-        MDA破晓
-      </h1>
-      <div class='new-meta-box'>
-        
-          
-            
-<div class='new-meta-item author'>
-  <a class='author' href="/" rel="nofollow">
-    <img no-lazy src="https://z3.ax1x.com/2021/08/06/fmlk40.png">
-    <p>Ender</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  <div class='new-meta-item category'>
-    <a class='notlink'>
-      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/%E9%94%AE%E7%9B%98/">键盘</a><span class="sep"></span><a class="category-link" href="/categories/%E9%94%AE%E7%9B%98/%E5%AE%A2%E5%88%B6%E5%8C%96/">客制化</a>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：Aug 7, 2021</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  <div class="new-meta-item browse leancloud">
-    <a class='notlink'>
-      
-      <div id="lc-pv" data-title="MDA破晓" data-path="/%E9%94%AE%E7%9B%98/%E5%AE%A2%E5%88%B6%E5%8C%96/mda%E7%A0%B4%E6%99%93/">
-        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
-        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
-        次浏览
-      </div>
-    </a>
-  </div>
-
-
-          
-        
-      </div>
-    
   </div>
 
 
   
   
-  <p>等了一年的键帽他也来了</p>
+  <p>python学习笔记，IO编程部分</p>
 <a id="more"></a>
 
-<h2 id="写在开头"><a href="#写在开头" class="headerlink" title="写在开头"></a>写在开头</h2><p>很久之前，入了一款由MelGeek设计的木镶铜套件，当时就是想尝试以下木壳，但是搭配键帽成了一个很大的问题。</p>
-<p>本来想搭配MG尤达，被它的个性吸引了，但是当时手头没啥钱，于是错过了。</p>
-<p>MG微光和破晓也是不错的选择，但也错过了。</p>
-<p>这次MelGeek复刻MDA版本的微光，且可以按配列购买，实属人性化啊，说什么也不能错过。</p>
-<p><del>众所周知，没有人会记住按时发货的伞兵</del>，这款等了将近一年的键帽也终于到我手上了。</p>
-<div class="gallery center" col='1'>
-              <p><img src="https://z3.ax1x.com/2021/08/07/fKSvrT.md.jpg" class="lazyload placeholder" data-srcset="https://z3.ax1x.com/2021/08/07/fKSvrT.md.jpg" srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@3/img/placeholder/c617bfd2497fcea598e621413e315c368f8d8e.svg" alt="MDA微光的包装"></p>
-            </div>
+<h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>IO在计算机中指Input/Output，也就是输入和输出。由于程序和运行时数据是在内存中驻留，由CPU这个超快的计算核心来执行，涉及到数据交换的地方，通常是磁盘、网络等，就需要IO接口。</p>
+<p>IO编程中，Stream（流）是一个很重要的概念，可以把流想象成一个水管，数据就是水管里的水，但是只能单向流动。Input Stream就是数据从外面（磁盘、网络）流进内存，Output Stream就是数据从内存流到外面去。对于浏览网页来说，浏览器和新浪服务器之间至少需要建立两根水管，才可以既能发数据，又能收数据。</p>
+<p>由于CPU输出和磁盘接收的速度不同，IO被分为两种：</p>
+<ol>
+<li>同步IO，CPU等待数据完全写入磁盘再继续执行后续代码</li>
+<li>异步IO，CPU不等待数据的输入，转而处理别的事物，磁盘接收完毕再通知CPU</li>
+</ol>
+<p>再异步IO中，按照通知CPU的方式又可分为：</p>
+<ol>
+<li>回调模式</li>
+<li>轮询模式</li>
+</ol>
+<p>显然异步IO效率要高于同步IO，但复杂度也远远高于同步IO，在此我们先仅讨论同步IO。</p>
+<p>操作IO的能力都是由操作系统提供的，每一种编程语言都会把操作系统提供as的低级C接口封装起来方便使用，Python也不例外。</p>
+<h2 id="文件读写"><a href="#文件读写" class="headerlink" title="文件读写"></a>文件读写</h2><p>读写文件是最常见的IO操作。Python内置了读写文件的函数，用法和C是兼容的。</p>
+<p>读写文件前，我们先必须了解一下，在磁盘上读写文件的功能都是由操作系统提供的，现代操作系统不允许普通的程序直接操作磁盘，所以，读写文件就是请求操作系统打开一个文件对象（通常称为文件描述符），然后，通过操作系统提供的接口从这个文件对象中读取数据（读文件），或者把数据写入这个文件对象（写文件）。</p>
+<h3 id="读文件"><a href="#读文件" class="headerlink" title="读文件"></a>读文件</h3><p>要以读文件的模式打开一个文件对象，使用Python内置的<code>open()</code>函数，传入文件名和标示符：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = <span class="built_in">open</span>(<span class="string">&#x27;E:/Programing/Python/Hello/test.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>标示符’r’表示读</p>
+<p>如果文件不存在，<code>open()</code>函数就会抛出一个<code>IOError</code>的错误，并且给出错误码和详细的信息告诉你文件不存在：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f=<span class="built_in">open</span>(<span class="string">&#x27;E:/Programing/Python/Hello/test.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">FileNotFoundError: [Errno <span class="number">2</span>] No such file <span class="keyword">or</span> directory: <span class="string">&#x27;E:/Programing/Python/Hello/test.txt&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>如果文件打开成功，接下来，调用<code>read()</code>方法可以一次读取文件的全部内容，Python把内容读到内存，用一个<code>str</code>对象表示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read()</span><br><span class="line"><span class="string">&#x27;Hello, world!&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>最后一步是调用<code>close()</code>方法关闭文件。文件使用完毕后必须关闭，因为文件对象会占用操作系统的资源，并且操作系统同一时间能打开的文件数量也是有限的：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.close()</span><br></pre></td></tr></table></figure>
+<p>由于文件读写时都有可能产生<code>IOError</code>，一旦出错，后面的<code>f.close()</code>就不会调用。所以，为了保证无论是否出错都能正确地关闭文件，我们可以使用<code>try ... finally</code>来实现：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    f = <span class="built_in">open</span>(<span class="string">&#x27;/path/to/file&#x27;</span>, <span class="string">&#x27;r&#x27;</span>)</span><br><span class="line">    print(f.read())</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="keyword">if</span> f:</span><br><span class="line">        f.close()</span><br></pre></td></tr></table></figure>
+<p>但可以使用<a href="https://enderxiao.top/Python/python%E5%9F%BA%E7%A1%80/">python基础 - Ender (enderxiao.top)</a>中提到的<code>with</code>关键字实现一个上下文管理器来更方便的操作文件：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;/path/to/file&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    print(f.read())</span><br></pre></td></tr></table></figure>
+<p>调用<code>read()</code>会一次性读取文件的全部内容，如果文件有10G，内存就爆了，所以，要保险起见，可以反复调用<code>read(size)</code>方法，每次最多读取size个字节的内容。另外，调用<code>readline()</code>可以每次读取一行内容，调用<code>readlines()</code>一次读取所有内容并按行返回<code>list</code>。因此，要根据需要决定怎么调用。</p>
+<p>如果文件很小，<code>read()</code>一次性读取最方便；如果不能确定文件大小，反复调用<code>read(size)</code>比较保险；如果是配置文件，调用<code>readlines()</code>最方便：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line">    print(line.strip()) <span class="comment"># 把末尾的&#x27;\n&#x27;删掉</span></span><br></pre></td></tr></table></figure>
+<h3 id="file-like-Object"><a href="#file-like-Object" class="headerlink" title="file-like Object"></a>file-like Object</h3><p>在<a href="https://enderxiao.top/Python/python%E8%BF%9B%E9%98%B6-oop/">python进阶-OOP - Ender (enderxiao.top)</a>的继承与多态中提到过鸭子类型，像<code>open()</code>函数返回的这种有个<code>read()</code>方法的对象，在Python中统称为file-like Object。除了file外，还可以是内存的字节流，网络流，自定义流等等。file-like Object不要求从特定类继承，只要写个<code>read()</code>方法就行。</p>
+<p><code>StringIO</code>就是在内存中创建的file-like Object，常用作临时缓冲。</p>
+<h3 id="二进制文件"><a href="#二进制文件" class="headerlink" title="二进制文件"></a>二进制文件</h3><p>前面讲的默认都是读取文本文件，并且是UTF-8编码的文本文件。要读取二进制文件，比如图片、视频等等，用<code>&#39;rb&#39;</code>模式打开文件即可：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = <span class="built_in">open</span>(<span class="string">&#x27;E:/Programing/Python/Hello/test.png&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read()</span><br><span class="line"><span class="string">b&#x27;\xff\xd8\xff\xe1\x00\x18Exif\x00\x00...&#x27;</span> <span class="comment"># 十六进制表示的字节</span></span><br></pre></td></tr></table></figure>
+<h3 id="字符编码"><a href="#字符编码" class="headerlink" title="字符编码"></a>字符编码</h3><p>要读取非UTF-8编码的文本文件，需要给<code>open()</code>函数传入<code>encoding</code>参数，例如，读取GBK编码的文件：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = <span class="built_in">open</span>(<span class="string">&#x27;E:/Programing/Python/Hello/gbk.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read()</span><br><span class="line"><span class="string">&#x27;测试&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>遇到有些编码不规范的文件，你可能会遇到<code>UnicodeDecodeError</code>，因为在文本文件中可能夹杂了一些非法编码的字符。遇到这种情况，<code>open()</code>函数还接收一个<code>errors</code>参数，表示如果遇到编码错误后如何处理。最简单的方式是直接忽略：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = <span class="built_in">open</span>(<span class="string">&#x27;E:/Programing/Python/Hello/gbk.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;gbk&#x27;</span>, errors=<span class="string">&#x27;ignore&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="写文件"><a href="#写文件" class="headerlink" title="写文件"></a>写文件</h3><p>写文件和读文件是一样的，唯一区别是调用<code>open()</code>函数时，传入标识符<code>&#39;w&#39;</code>或者<code>&#39;wb&#39;</code>表示写文本文件或写二进制文件：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = <span class="built_in">open</span>(<span class="string">&#x27;E:/Programing/Python/Hello/test.txt&#x27;</span>, <span class="string">&#x27;w&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.write(<span class="string">&#x27;Hello, world!&#x27;</span>)  <span class="comment"># 将返回成功写入的字符数</span></span><br><span class="line"><span class="number">13</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.close()</span><br></pre></td></tr></table></figure>
+<p>你可以反复调用<code>write()</code>来写入文件，但是务必要调用<code>f.close()</code>来关闭文件。当我们写文件时，操作系统往往不会立刻把数据写入磁盘，而是放到内存缓存起来，空闲的时候再慢慢写入。只有调用<code>close()</code>方法时，操作系统才保证把没有写入的数据全部写入磁盘。忘记调用<code>close()</code>的后果是数据可能只写了一部分到磁盘，剩下的丢失了。所以，还是用<code>with</code>语句来得保险：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;E:/Programing/Python/Hello/test.txt&#x27;</span>, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(<span class="string">&#x27;Hello, world!&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>写入特定编码的的文本，则在<code>open()</code>中传入<code>encoding</code>参数</p>
+<p>以<code>&#39;w&#39;</code>模式写入文件时，如果文件已存在，会直接覆盖（相当于删掉后新写入一个文件），如果需要追加，则可以传入<code>&#39;a&#39;</code>以追加（append）模式写入。</p>
+<p>所有模式的定义及含义可以参考Python的官网文档：</p>
+<div class="tag link"><a class="link-card" title="python官方文档" target="_blank" rel="noopener" href="https://docs.python.org/3/library/functions.html#open"><div class="left"><img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/256/safari.png" class="lazyload placeholder" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/256/safari.png" srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@3/img/placeholder/c617bfd2497fcea598e621413e315c368f8d8e.svg"/></div><div class="right"><p class="text">python官方文档</p><p class="url">https://docs.python.org/3/library/functions.html#open</p></div></a></div>
 
-<h2 id="原来的样子"><a href="#原来的样子" class="headerlink" title="原来的样子"></a>原来的样子</h2><div class="gallery center" col='1'>
-              <p><img src="https://z3.ax1x.com/2021/08/07/fKSOx0.md.jpg" class="lazyload placeholder" data-srcset="https://z3.ax1x.com/2021/08/07/fKSOx0.md.jpg" srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@3/img/placeholder/c617bfd2497fcea598e621413e315c368f8d8e.svg" alt="原键盘"></p>
-            </div>
+<h3 id="read只能读一次"><a href="#read只能读一次" class="headerlink" title="read只能读一次"></a>read只能读一次</h3><p>还需主义一点：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = <span class="built_in">open</span>(<span class="string">&#x27;E:/Programing/Python/Hello/test.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read()</span><br><span class="line"><span class="string">&#x27;!Hello, world!&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read()</span><br><span class="line"><span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read()</span><br><span class="line"><span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>如此发现，文件打开一次后只能读取一次，原因是文件对象是一个<code>迭代器</code></p>
+<p>有限长度的迭代器在被<code>list()</code>函数转换成列表或者for循环完全遍历等方式将数据完全获取之后将失效，再次试图访问数据得到的是空值。也就是说不能重复使用，包括赋值后指向这个迭代器的其他变量也将无法使用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">it1 = <span class="built_in">iter</span>([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line"></span><br><span class="line">it2 = it1 <span class="comment"># 使it2指向it1指向的内存地址存的迭代器</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> it1:</span><br><span class="line">    print(i, end=<span class="string">&#x27; &#x27;</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">&#x27;\n----分割线----&#x27;</span>)  </span><br><span class="line"></span><br><span class="line">print(<span class="string">&#x27;it1:&#x27;</span>, <span class="built_in">list</span>(it1))</span><br><span class="line"></span><br><span class="line">print(<span class="string">&#x27;it2:&#x27;</span>, <span class="built_in">list</span>(it2))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出结果如下：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 0 1 2 3 4 5 </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----分割线----</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># it1: []</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># it2: []</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="String-IO与BytesIO"><a href="#String-IO与BytesIO" class="headerlink" title="String IO与BytesIO"></a>String IO与BytesIO</h2><h3 id="StringIO"><a href="#StringIO" class="headerlink" title="StringIO"></a>StringIO</h3><p>有时候数据读写的对象也不一定是文件，也可能在内存中读写，StringIO就是在内存中读写str。</p>
+<p>只要创建一个<code>StringIO</code>对象后，就能像文件一样写入了，然后再使用<code>getvalue()</code>获取写入后的str：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> io <span class="keyword">import</span> StringIO</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = StringIO()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.write(<span class="string">&#x27;hello&#x27;</span>)</span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.write(<span class="string">&#x27; &#x27;</span>)</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.write(<span class="string">&#x27;world!&#x27;</span>)</span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(f.getvalue())</span><br><span class="line">hello world!</span><br></pre></td></tr></table></figure>
+<p>要读<code>StringIO</code>，可以用一个str初始化<code>StringIO</code>，然后，像文件一样读取：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> io <span class="keyword">import</span> StringIO</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = StringIO(<span class="string">&#x27;Hello!\nHi!\nGoodbye!&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line"><span class="meta">... </span>    s = f.readline()</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">if</span> s == <span class="string">&#x27;&#x27;</span>:</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">break</span></span><br><span class="line"><span class="meta">... </span>    print(s.strip())</span><br><span class="line">...</span><br><span class="line">Hello!</span><br><span class="line">Hi!</span><br><span class="line">Goodbye!</span><br></pre></td></tr></table></figure>
+<h3 id="BtesIO"><a href="#BtesIO" class="headerlink" title="BtesIO"></a>BtesIO</h3><p>StringIO操作的只能是str，如果要操作二进制数据，就需要使用BytesIO。BytesIO实现了在内存中读写bytes，我们创建一个BytesIO，然后写入一些bytes：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> io <span class="keyword">import</span> BytesIO</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = BytesIO()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.write(<span class="string">&#x27;中文&#x27;</span>.encode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(f.getvalue())</span><br><span class="line"><span class="string">b&#x27;\xe4\xb8\xad\xe6\x96\x87&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>请注意，写入的不是str，而是经过UTF-8编码的bytes。</p>
+<p>和StringIO类似，可以用一个bytes初始化BytesIO，然后，像读文件一样读取：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> io <span class="keyword">import</span> BytesIO</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = BytesIO(<span class="string">b&#x27;\xe4\xb8\xad\xe6\x96\x87&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read()</span><br><span class="line"><span class="string">b&#x27;\xe4\xb8\xad\xe6\x96\x87&#x27;</span></span><br></pre></td></tr></table></figure>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># StringIO和BytesIO</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># stringIO 比如说，这时候，你需要对获取到的数据进行操作，但是你并不想把数据写到本地硬盘上，这时候你就可以用stringIO</span></span><br><span class="line"><span class="keyword">from</span> io <span class="keyword">import</span> StringIO</span><br><span class="line"><span class="keyword">from</span> io <span class="keyword">import</span> BytesIO</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">outputstring</span>():</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;string \nfrom \noutputstring \nfunction&#x27;</span></span><br><span class="line"></span><br><span class="line">s = outputstring()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将函数返回的数据在内存中读</span></span><br><span class="line">sio = StringIO(s)</span><br><span class="line"><span class="comment"># 可以用StringIO本身的方法</span></span><br><span class="line">print(sio.getvalue())</span><br><span class="line"><span class="comment"># 也可以用file-like object的方法</span></span><br><span class="line">s = sio.readlines()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> s:</span><br><span class="line">    print(i.strip())</span><br><span class="line">    <span class="comment"># Python strip() 方法用于移除字符串头尾指定的字符（默认为空格或换行符）或字符序列。</span></span><br><span class="line">    注意：该方法只能删除开头或是结尾的字符，不能删除中间部分的字符。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将函数返回的数据在内存中写</span></span><br><span class="line">s = outputstring()</span><br><span class="line">sio = StringIO()</span><br><span class="line">sio.write(s)</span><br><span class="line"><span class="comment"># 可以用StringIO本身的方法查看</span></span><br><span class="line">s=sio.getvalue()</span><br><span class="line">print(s)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果你用file-like object的方法查看的时候，你会发现数据为空</span></span><br><span class="line"></span><br><span class="line">sio = StringIO()</span><br><span class="line">sio.write(s)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> sio.readlines():</span><br><span class="line">    print(i.strip())</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 原因是StringIO的写入为追加写入，初始化后，文件指针位置为0，即在开头位置。</span></span><br><span class="line"><span class="comment"># 但是使用追加写入后，指针则来到了文件结尾，即最后字符写入的位置。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 这时候我们需要修改下文件的指针位置</span></span><br><span class="line"><span class="comment"># 我们发现可以打印出内容了</span></span><br><span class="line">sio = StringIO()</span><br><span class="line">sio.write(s)</span><br><span class="line">sio.seek(<span class="number">0</span>,<span class="number">0</span>)</span><br><span class="line">print(sio.tell())</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> sio.readlines():</span><br><span class="line">    print(i.strip())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这就涉及到了两个方法seek 和 tell</span></span><br><span class="line"><span class="comment"># tell 方法获取当前文件读取指针的位置</span></span><br><span class="line"><span class="comment"># seek 方法，用于移动文件读写指针到指定位置,有两个参数，第一个offset: 偏移量，需要向前或向后的字节数，正为向后，负为向前；第二个whence: 可选值，默认为0，表示文件开头，1表示相对于当前的位置，2表示文件末尾</span></span><br><span class="line"><span class="comment"># 用seek方法时，需注意，如果你打开的文件没有用&#x27;b&#x27;的方式打开，则offset无法使用负值哦</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># stringIO 只能操作str，如果要操作二进制数据，就需要用到BytesIO</span></span><br><span class="line"><span class="comment"># 上面的sio无法用seek从当前位置向前移动，这时候，我们用&#x27;b&#x27;的方式写入数据，就可以向前移动了</span></span><br><span class="line">bio = BytesIO()</span><br><span class="line">bio.write(s.encode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">print(bio.getvalue())</span><br><span class="line">bio.seek(-<span class="number">36</span>,<span class="number">1</span>)</span><br><span class="line">print(bio.tell())</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> bio.readlines():</span><br><span class="line">    print(i.strip())</span><br></pre></td></tr></table></figure>
+<h2 id="操作文件和目录"><a href="#操作文件和目录" class="headerlink" title="操作文件和目录"></a>操作文件和目录</h2><p>Python内置的<code>os</code>模块可以直接调用操作系统提供的接口函数。</p>
+<p>下面我们来看看<code>os</code>模块的基本功能：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> os</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.name <span class="comment"># 操作系统类型</span></span><br><span class="line"><span class="string">&#x27;nt&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>如果是<code>nt</code>，说明系统是<code>windows</code>，如果<code>posix</code>说明系统是<code>Linux</code>、<code>Unix</code>或<code>Mac OS X</code>。</p>
+<p>要获取详细的系统信息，可以调用<code>uname()</code>函数，但<code>uname()</code>函数在<code>windows</code>下不可用，原因是windows并未提供相关接口，以下是在Linux上运行的结果：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.uname()</span><br><span class="line">posix.uname_result(sysname=<span class="string">&#x27;Darwin&#x27;</span>, nodename=<span class="string">&#x27;MichaelMacPro.local&#x27;</span>, release=<span class="string">&#x27;14.3.0&#x27;</span>, version=<span class="string">&#x27;Darwin Kernel Version 14.3.0: Mon Mar 23 11:59:05 PDT 2015; root:xnu-2782.20.48~5/RELEASE_X86_64&#x27;</span>, machine=<span class="string">&#x27;x86_64&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>要获取某个环境变量的值，可以调用<code>os.environ.get(&#39;key&#39;)</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.environ.get(<span class="string">&#x27;PATH&#x27;</span>)</span><br><span class="line"><span class="string">&#x27;/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/usr/local/mysql/bin&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.environ.get(<span class="string">&#x27;x&#x27;</span>, <span class="string">&#x27;default&#x27;</span>)</span><br><span class="line"><span class="string">&#x27;default&#x27;</span></span><br></pre></td></tr></table></figure>
+<h3 id="操作文件和目录-1"><a href="#操作文件和目录-1" class="headerlink" title="操作文件和目录"></a>操作文件和目录</h3><p>操作文件和目录的函数一部分放在<code>os</code>模块中，一部分放在<code>os.path</code>模块中，这一点要注意一下。查看、创建和删除目录可以这么调用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前目录的绝对路径:</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.abspath(<span class="string">&#x27;.&#x27;</span>)</span><br><span class="line"><span class="string">&#x27;C:\\Users\\ASUS\\Links&#x27;</span></span><br><span class="line"><span class="comment"># 在某个目录下创建一个新目录，首先把新目录的完整路径表示出来:</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.join(<span class="string">&#x27;/Users/michael&#x27;</span>, <span class="string">&#x27;testdir&#x27;</span>)</span><br><span class="line"><span class="string">&#x27;C:/Users/ASUS/Links\\test&#x27;</span></span><br><span class="line"><span class="comment"># 然后创建一个目录:</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.mkdir(<span class="string">&#x27;C:/Users/ASUS/Links/test&#x27;</span>)</span><br><span class="line"><span class="comment"># 删掉一个目录:</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.rmdir(<span class="string">&#x27;C:/Users/ASUS/Links/test&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>把两个路径合成一个时，不要直接拼字符串，而要通过<code>os.path.join()</code>函数，这样可以正确处理不同操作系统的路径分隔符。在Linux/Unix/Mac下，<code>os.path.join()</code>返回这样的字符串：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">part-1&#x2F;part-2</span><br></pre></td></tr></table></figure>
+<p>而Windows下会返回这样的字符串：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">part-1\part-2</span><br></pre></td></tr></table></figure>
+<p>同样的道理，要拆分路径时，也不要直接去拆字符串，而要通过<code>os.path.split()</code>函数，这样可以把一个路径拆分为两部分，后一部分总是最后级别的目录或文件名：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.split(<span class="string">&#x27;C:/Users/ASUS/Links/test.txt&#x27;</span>)</span><br><span class="line">(<span class="string">&#x27;C:/Users/ASUS/Links&#x27;</span>, <span class="string">&#x27;test.txt&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p><code>os.path.splitext()</code>可以直接让你得到文件扩展名，很多时候非常方便：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.splitext(<span class="string">&#x27;C:/Users/ASUS/test.txt&#x27;</span>)</span><br><span class="line">(<span class="string">&#x27;C:/Users/ASUS/test&#x27;</span>, <span class="string">&#x27;.txt&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>这些合并、拆分路径的函数并不要求目录和文件要真实存在，它们只对字符串进行操作。</p>
+<p>文件操作使用下面的函数。假定当前目录下有一个<code>test.txt</code>文件：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对文件重命名:</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.rename(<span class="string">&#x27;test.txt&#x27;</span>, <span class="string">&#x27;test.py&#x27;</span>)</span><br><span class="line"><span class="comment"># 删掉文件:</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.remove(<span class="string">&#x27;test.py&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>但是<code>os</code>模块中不存在复制文件的操作，原因是赋值文件并非由操作系统提供的系统调用。理论上讲，我们通过上一节的读写文件可以完成文件复制，只不过要多写很多代码。</p>
+<p>但<code>shutil</code>模块提供了<code>copyfile()</code>的函数，你还可以在<code>shutil</code>模块中找到很多实用函数，它们可以看做是<code>os</code>模块的补充。</p>
+<p>最后看看如何利用Python的特性来过滤文件。比如我们要列出当前目录下的所有目录，只需要一行代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>[x <span class="keyword">for</span> x <span class="keyword">in</span> os.listdir(<span class="string">&#x27;.&#x27;</span>) <span class="keyword">if</span> os.path.isdir(x)]</span><br><span class="line">[<span class="string">&#x27;.lein&#x27;</span>, <span class="string">&#x27;.local&#x27;</span>, <span class="string">&#x27;.m2&#x27;</span>, <span class="string">&#x27;.npm&#x27;</span>, <span class="string">&#x27;.ssh&#x27;</span>, <span class="string">&#x27;.Trash&#x27;</span>, <span class="string">&#x27;.vim&#x27;</span>, <span class="string">&#x27;Applications&#x27;</span>, <span class="string">&#x27;Desktop&#x27;</span>, ...]</span><br></pre></td></tr></table></figure>
+<p>要列出所有的<code>.py</code>文件，也只需一行代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>[x <span class="keyword">for</span> x <span class="keyword">in</span> os.listdir(<span class="string">&#x27;.&#x27;</span>) <span class="keyword">if</span> os.path.isfile(x) <span class="keyword">and</span> os.path.splitext(x)[<span class="number">1</span>]==<span class="string">&#x27;.py&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;apis.py&#x27;</span>, <span class="string">&#x27;config.py&#x27;</span>, <span class="string">&#x27;models.py&#x27;</span>, <span class="string">&#x27;pymonitor.py&#x27;</span>, <span class="string">&#x27;test_db.py&#x27;</span>, <span class="string">&#x27;urls.py&#x27;</span>, <span class="string">&#x27;wsgiapp.py&#x27;</span>]</span><br></pre></td></tr></table></figure>
+<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><ol>
+<li>利用<code>os</code>模块编写一个能实现<code>dir -l</code>输出的程序。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Hello.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FileInfo</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, name</span>):</span></span><br><span class="line">        self._name = name</span><br><span class="line">        fileStat = os.stat(name)</span><br><span class="line">        self._mode = fileStat.st_mode</span><br><span class="line">        self._linkNum = fileStat.st_nlink</span><br><span class="line">        self._owner = fileStat.st_uid</span><br><span class="line">        self._ownerGroup = fileStat.st_gid</span><br><span class="line">        self._size = fileStat.st_size</span><br><span class="line">        self._lastEditTime = time.strftime(<span class="string">&quot;%b %d %H:%M&quot;</span>, time.localtime(fileStat.st_mtime))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span>(<span class="params">self</span>):</span></span><br><span class="line">        info = <span class="string">r&#x27;%s %s %s %s %s %s %s&#x27;</span> % (self._mode, self._linkNum, self._owner, self._ownerGroup, self._size, self._lastEditTime, self._name)</span><br><span class="line">        <span class="keyword">return</span> info</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="keyword">for</span> name <span class="keyword">in</span> os.listdir(<span class="string">&#x27;.&#x27;</span>):</span><br><span class="line">        <span class="keyword">if</span> name[<span class="number">0</span>] == <span class="string">&#x27;.&#x27;</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        FileNow = FileInfo(name)</span><br><span class="line">        print(FileNow)</span><br></pre></td></tr></table></figure>
 
-<p>本来使用的是由阿尔伯特外设设计的原厂高度的十样锦，当时急着用，于是没有购买JDA高度的。这套原厂高度的实属一般。</p>
-<p>之后购入了MDA塑料，觉得MDA高度的键帽无论是高度还是手感都非常帮，键帽表面比较细腻，有种少女肌肤的感觉(/▽＼)</p>
-<h2 id="上机"><a href="#上机" class="headerlink" title="上机"></a>上机</h2><p>这把键盘的内胆是我入坑第一把键盘的内胆，如今已是伊拉克呈色，黄铜定位板加耳朵橘v2+Z紫+怒猫cyberpunk轴+box Jade的混轴</p>
-<p>满满的沧桑</p>
-<div class="gallery center" col='1'>
-              <p><img src="https://z3.ax1x.com/2021/08/07/fKpSZF.md.jpg" class="lazyload placeholder" data-srcset="https://z3.ax1x.com/2021/08/07/fKpSZF.md.jpg" srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@3/img/placeholder/c617bfd2497fcea598e621413e315c368f8d8e.svg" alt="露轴"></p>
-            </div>
 
-<p>装上破晓</p>
-<div class="gallery center" col='1'>
-              <p><img src="https://z3.ax1x.com/2021/08/07/fKSxqU.md.jpg" class="lazyload placeholder" data-srcset="https://z3.ax1x.com/2021/08/07/fKSxqU.md.jpg" srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@3/img/placeholder/c617bfd2497fcea598e621413e315c368f8d8e.svg" alt="破晓上机"></p>
-            </div>
+<ol start="2">
+<li>编写一个程序，能在当前目录以及当前目录的所有子目录下查找文件名包含指定字符串的文件，并打印出相对路径。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Hello.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">findFile</span>(<span class="params">targetFileName, path=<span class="string">&#x27;.&#x27;</span></span>):</span></span><br><span class="line">    foundFile = []</span><br><span class="line">    files = [os.path.join(path, x) <span class="keyword">for</span> x <span class="keyword">in</span> os.listdir(path) <span class="keyword">if</span> os.path.isfile(os.path.join(path, x)) <span class="keyword">and</span> targetFileName <span class="keyword">in</span> os.path.split(x)[<span class="number">1</span>]]  <span class="comment"># 路径是文件且文件名包含关键字</span></span><br><span class="line">    dirs = [x <span class="keyword">for</span> x <span class="keyword">in</span> os.listdir(path) <span class="keyword">if</span> os.path.isdir(os.path.join(path, x))]</span><br><span class="line">    <span class="keyword">for</span> d <span class="keyword">in</span> dirs:</span><br><span class="line">        subFound = findFile(targetFileName, os.path.join(path, d))</span><br><span class="line">        foundFile += subFound</span><br><span class="line">    foundFile += files</span><br><span class="line">    <span class="keyword">return</span> foundFile</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    path = <span class="built_in">input</span>(<span class="string">&#x27;输入查找路径&#x27;</span>)</span><br><span class="line">    targetFileName = <span class="built_in">input</span>(<span class="string">&#x27;输入查找关键字&#x27;</span>)</span><br><span class="line">    foundPath = findFile(targetFileName, path)</span><br><span class="line">    <span class="keyword">for</span> pathName <span class="keyword">in</span> foundPath:</span><br><span class="line">        print(pathName)</span><br></pre></td></tr></table></figure>
 
-<p>换上MDA后原本套件存在的<kbd>BackSpace</kbd>键卡外壳的问题得到了一定的改善。由于MDA高度的键帽比我原来的键帽更厚实，因此声音也得到了一定的改善。</p>
-<p>重点是，这个触感，awsl(❤´艸｀❤)</p>
+
+<h2 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h2><p>将变量从内存中变成可存储或传输的过程称之为序列化在，Python中叫<code>pickling</code>，在其他语言中也被称之为serialization，marshalling，flattening等等，都是一个意思。</p>
+<p>序列化之后，就可以把序列化后的内容写入磁盘，或者通过网络传输到别的机器上。</p>
+<p>反过来，把变量内容从序列化的对象重新读到内存里称之为反序列化，即<code>unpickling</code>。</p>
+<p>Python提供了<code>pickle</code>模块来实现序列化。</p>
+<p>可以使用如下方法将一个对象序列化并写入文件：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> pickle</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d = <span class="built_in">dict</span>(name=<span class="string">&#x27;Bob&#x27;</span>, age=<span class="number">20</span>, score=<span class="number">88</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pickle.dumps(d)</span><br><span class="line"><span class="string">b&#x27;\x80\x03&#125;q\x00(X\x03\x00\x00\x00ageq\x01K\x14X\x05\x00\x00\x00scoreq\x02KXX\x04\x00\x00\x00nameq\x03X\x03\x00\x00\x00Bobq\x04u.&#x27;</span></span><br></pre></td></tr></table></figure>
+<p><code>pickle.dumps()</code>方法把任意对象序列化成一个<code>bytes</code>，然后，就可以把这个<code>bytes</code>写入文件。或者用另一个方法<code>pickle.dump()</code>直接把对象序列化后写入一个file-like Object：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = <span class="built_in">open</span>(<span class="string">&#x27;dump.txt&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pickle.dump(d, f)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.close()</span><br></pre></td></tr></table></figure>
+<p>看看写入的<code>dump.txt</code>文件，一堆乱七八糟的内容，这些都是Python保存的对象内部信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">€?       &#125;??name攲Bob攲age擪?score擪Xu.</span><br></pre></td></tr></table></figure>
+<p>当我们要把对象从磁盘读到内存时，可以先把内容读到一个<code>bytes</code>，然后用<code>pickle.loads()</code>方法反序列化出对象，也可以直接用<code>pickle.load()</code>方法从一个<code>file-like Object</code>中直接反序列化出对象。我们打开另一个Python命令行来反序列化刚才保存的对象：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = <span class="built_in">open</span>(<span class="string">&#x27;dump.txt&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d = pickle.load(f)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.close()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d</span><br><span class="line">&#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;Bob&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="number">20</span>, <span class="string">&#x27;score&#x27;</span>: <span class="number">88</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>Pickle的问题和所有其他编程语言特有的序列化问题一样，就是它只能用于Python，并且可能不同版本的Python彼此都不兼容，因此，只能用Pickle保存那些不重要的数据，不能成功地反序列化也没关系。</p>
+<h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h3><p>如果我们要在不同的编程语言之间传递对象，就必须把对象序列化为标准格式，比如XML，但更好的方法是序列化为JSON，因为JSON表示出来就是一个字符串，可以被所有语言读取，也可以方便地存储到磁盘或者通过网络传输。JSON不仅是标准格式，并且比XML更快，而且可以直接在Web页面中读取，非常方便。</p>
+<p>JSON和Python内置的数据类型对应如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">JSON类型</th>
+<th align="left">Python类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">{}</td>
+<td align="left">dict</td>
+</tr>
+<tr>
+<td align="left">[]</td>
+<td align="left">list</td>
+</tr>
+<tr>
+<td align="left">“string”</td>
+<td align="left">str</td>
+</tr>
+<tr>
+<td align="left">1234.56</td>
+<td align="left">int或float</td>
+</tr>
+<tr>
+<td align="left">true/false</td>
+<td align="left">True/False</td>
+</tr>
+<tr>
+<td align="left">null</td>
+<td align="left">None</td>
+</tr>
+</tbody></table>
+<p>python中的<code>json</code>模块提供了对象到<code>JSON</code>的格式转换：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d = <span class="built_in">dict</span>(name=<span class="string">&#x27;Bob&#x27;</span>, age=<span class="number">20</span>, score=<span class="number">88</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>json.dumps(d)</span><br><span class="line"><span class="string">&#x27;&#123;&quot;age&quot;: 20, &quot;score&quot;: 88, &quot;name&quot;: &quot;Bob&quot;&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p><code>dumps()</code>方法返回一个<code>str</code>，内容就是标准的JSON。类似的，<code>dump()</code>方法可以直接把JSON写入一个<code>file-like Object</code>。</p>
+<p>要把JSON反序列化为Python对象，用<code>loads()</code>或者对应的<code>load()</code>方法，前者把JSON的字符串反序列化，后者从<code>file-like Object</code>中读取字符串并反序列化：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>json_str = <span class="string">&#x27;&#123;&quot;age&quot;: 20, &quot;score&quot;: 88, &quot;name&quot;: &quot;Bob&quot;&#125;&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>json.loads(json_str)</span><br><span class="line">&#123;<span class="string">&#x27;age&#x27;</span>: <span class="number">20</span>, <span class="string">&#x27;score&#x27;</span>: <span class="number">88</span>, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;Bob&#x27;</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>JSON标准规定JSON编码是UTF-8，因此在python中进行<code>str</code>与<code>JSON</code>的转换是没问题的</p>
+<p>但当我们需要用<code>JSON</code>直接序列化类时，直接调用<code>json.dump</code>会报<code>TypeError</code></p>
+<p>原因是默认情况下，<code>dumps()</code>方法不知道如何将<code>Student</code>实例变为一个JSON的<code>&#123;&#125;</code>对象。</p>
+<p>此时我们需要告诉方法要怎样进行转换，也就是通过<code>dumps()</code>方法的<code>default</code>参数，传入一个映射方法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">student2dict</span>(<span class="params">std</span>):</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="string">&#x27;name&#x27;</span>: std.name,</span><br><span class="line">        <span class="string">&#x27;age&#x27;</span>: std.age,</span><br><span class="line">        <span class="string">&#x27;score&#x27;</span>: std.score</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(json.dumps(s, default=student2dict))</span><br><span class="line"><span class="comment"># &#123;&quot;age&quot;: 20, &quot;name&quot;: &quot;Bob&quot;, &quot;score&quot;: 88&#125;</span></span><br></pre></td></tr></table></figure>
+<p>不过，下次如果遇到一个<code>Teacher</code>类的实例，照样无法序列化为JSON。我们可以把任意<code>class</code>的实例变为<code>dict</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(json.dumps(s, default=<span class="keyword">lambda</span> obj: obj.__dict__))</span><br></pre></td></tr></table></figure>
+<p>因为通常<code>class</code>的实例都有一个<code>__dict__</code>属性，它就是一个<code>dict</code>，用来存储实例变量。也有少数例外，比如定义了<code>__slots__</code>的class。</p>
+<p>同样的道理，如果我们要把JSON反序列化为一个<code>Student</code>对象实例，<code>loads()</code>方法首先转换出一个<code>dict</code>对象，然后，我们传入的<code>object_hook</code>函数负责把<code>dict</code>转换为<code>Student</code>实例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dict2student</span>(<span class="params">d</span>):</span></span><br><span class="line">    <span class="keyword">return</span> Student(d[<span class="string">&#x27;name&#x27;</span>], d[<span class="string">&#x27;age&#x27;</span>], d[<span class="string">&#x27;score&#x27;</span>])</span><br></pre></td></tr></table></figure>
+<p>运行结果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>json_str = <span class="string">&#x27;&#123;&quot;age&quot;: 20, &quot;score&quot;: 88, &quot;name&quot;: &quot;Bob&quot;&#125;&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(json.loads(json_str, object_hook=dict2student))</span><br><span class="line">&lt;__main__.Student <span class="built_in">object</span> at <span class="number">0x10cd3c190</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>打印出的是反序列化的<code>Student</code>实例对象。</p>
+<p><code>json.dumps</code>的参数列表参考如下链接：</p>
+<div class="tag link"><a class="link-card" title="dumps方法参数" target="_blank" rel="noopener" href="https://docs.python.org/3/library/json.html#json.dumps"><div class="left"><img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/256/safari.png" class="lazyload placeholder" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/256/safari.png" srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@3/img/placeholder/c617bfd2497fcea598e621413e315c368f8d8e.svg"/></div><div class="right"><p class="text">dumps方法参数</p><p class="url">https://docs.python.org/3/library/json.html#json.dumps</p></div></a></div>
+
+<p>例如其中一个参数<code>ensure_ascii</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If &#96;&#96;ensure_ascii&#96;&#96; is false, then the return value can contain non-ASCII characters if they appear in strings contained in &#96;&#96;obj&#96;&#96;. Otherwise, all such characters are escaped in JSON strings.</span><br></pre></td></tr></table></figure>
+<p>也就是如果开启，那么对象中包含的非ASCII字符将被直接保存而不进行转义</p>
 
   
   
@@ -602,7 +693,7 @@
               
             
               
-                <p>本文永久链接是：<a href=http://enderxiao.top/%E9%94%AE%E7%9B%98/%E5%AE%A2%E5%88%B6%E5%8C%96/mda%E7%A0%B4%E6%99%93/>http://enderxiao.top/%E9%94%AE%E7%9B%98/%E5%AE%A2%E5%88%B6%E5%8C%96/mda%E7%A0%B4%E6%99%93/</a></p>
+                <p>本文永久链接是：<a href=http://enderxiao.top/Python/>http://enderxiao.top/Python/</a></p>
               
             
           </blockquote>
@@ -619,10 +710,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-08-07T09:47:49+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-08-11T17:16:59+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Aug 7, 2021</p>
+    <p>更新于：Aug 11, 2021</p>
   </a>
 </div>
 
@@ -631,7 +722,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%AE%A2%E5%88%B6%E5%8C%96/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>客制化</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%9C%BA%E6%A2%B0%E9%94%AE%E7%9B%98/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>机械键盘</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E9%94%AE%E5%B8%BD/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>键帽</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/MDA%E7%A0%B4%E6%99%93/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>MDA破晓</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>机器学习</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/python/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>python</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E8%BF%9B%E9%98%B6/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>进阶</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/IO%E7%BC%96%E7%A8%8B/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>IO编程</p></a></div>
 
 
         
@@ -644,7 +735,7 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://enderxiao.top/%E9%94%AE%E7%9B%98/%E5%AE%A2%E5%88%B6%E5%8C%96/mda%E7%A0%B4%E6%99%93/&title=MDA破晓 - Ender&summary=等了一年的键帽他也来了"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://enderxiao.top/Python/&title= - Ender&summary=python学习笔记，IO编程部分"
           
           >
           
@@ -656,7 +747,7 @@
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://enderxiao.top/%E9%94%AE%E7%9B%98/%E5%AE%A2%E5%88%B6%E5%8C%96/mda%E7%A0%B4%E6%99%93/&title=MDA破晓 - Ender&summary=等了一年的键帽他也来了"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://enderxiao.top/Python/&title= - Ender&summary=python学习笔记，IO编程部分"
           
           >
           
@@ -668,7 +759,7 @@
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=http://enderxiao.top/%E9%94%AE%E7%9B%98/%E5%AE%A2%E5%88%B6%E5%8C%96/mda%E7%A0%B4%E6%99%93/&title=MDA破晓 - Ender&summary=等了一年的键帽他也来了"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://enderxiao.top/Python/&title= - Ender&summary=python学习笔记，IO编程部分"
           
           >
           
@@ -682,7 +773,7 @@
         <div class='hoverbox'>
           <a class='share'><img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/wechat.png" class="lazyload placeholder" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/wechat.png" srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@3/img/placeholder/c617bfd2497fcea598e621413e315c368f8d8e.svg"></a>
           <div class='target'>
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVgAAAFYCAAAAAAzB7ucAAAESUlEQVR42u3aS5ZCMQgFQPe/6e4VeBq4JM/2FDN/Mak4AOT1I47ECwFYsAIsWLAC7BXY1zDaX1hcJ/2e7n6q+6x6gAULFixYsGDBgr0Le2pD1Q13169eYPX5LQ+wYMGCBQsWLFiwz8B2D7690S7YnwcN39/2AAsWLFiwYMGCBfuvYLca2FOIboGSrg8WLFiwYMGCBQv2O2CnDe9qgzstIE6fByxYsGDBggULFuyzsO0BhWHCnq7fha5e3MdMwoAFCxYsWLBgwYItwXZja4DjUx+PPcCCBQsWLFiwYMFegU1jmoBvJfrp4+0ACxYsWLBgwYIFewd2miBXG79VqFMDFV3g+PxgwYIFCxYsWLBgH4HdPlC3UKg+nw6ApBf71g0sWLBgwYIFCxbsFdhuQ7l7sLThvXXwU+cCCxYsWLBgwYIF+wxstwG8lfhvDWxsDZCk3wsWLFiwYMGCBQv2Gdg0UU8byduFRxV8eh6wYMGCBQsWLFiwnwFbLQjS2Er400R/+/1gwYIFCxYsWLBg78JuJdrVBD5N/KsFxrQx3y1s3hYIYMGCBQsWLFiwYB+BTQ9eTei3EvXpPtIGPViwYMGCBQsWLNjPgt0aYNiC7UJOC4XqD+0tOFiwYMGCBQsWLNirsOmAxKnBituFQ/ecYMGCBQsWLFiwYD8LNk3Ab4OnF9UdOCk3usGCBQsWLFiwYMFegZ3CdC9qC2AKBhYsWLBgwYIFC/Z/w3YbvlOYrYS/evHp58cFBViwYMGCBQsWLNgrsNsJd7VBPr3YnzC6hUj7hwYWLFiwYMGCBQv2CmxaCEyhpiDb718fFAELFixYsGDBggX7KGy3YJiCTtffLgDSdcCCBQsWLFiwYMHehd1qWFc3lg58TL8vLTDK5wYLFixYsGDBggV7BbaaCG8VEtPX04Jh+kOJBzbAggULFixYsGDBHoWdbmgKNoXdHhAZD2Z0/0EACxYsWLBgwYIFewS2GtUCoTvAvNVo3xrsmBYoYMGCBQsWLFiwYO/A3gbeen1rHykwWLBgwYIFCxYs2Gdg0wNvAU8b7+NEPvz823XAggULFixYsGDBXoWdJtJd+L8Oun2B6T7jfxDAggULFixYsGDBXoHtQmwPCJ+Gn57jr3XAggULFixYsGDBPgu7PYBx7ADDAmZ7kAMsWLBgwYIFCxbsM7BpbEFXE/i0EOjCtQslsGDBggULFixYsFdgX8OoAnRBtgqWtGAYN+TBggULFixYsGDBXoXtFgTpIMV0oGJauEzXX5+EAQsWLFiwYMGCBXsEdppApw3ldD9pYZN+DixYsGDBggULFux3wKbw0wGMaeGQngMsWLBgwYIFCxbsd8F2n0/Xnw6YrF04WLBgwYIFCxYs2Edgu43oKeD08+sDFsvnAQsWLFiwYMGCBXsXdjr4kCbk0wuoQqaN8LhAAAsWLFiwYMGCBXsEVuwGWLBgBViwYAXYo/EL4/0P476TIe4AAAAASUVORK5CYII=">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPgAAAD4CAAAAADkunTXAAACPElEQVR42u3aS27DMAwFwNz/0u0BisD82U2o0a5IYnPYzQPF18+h5wUODg4ODr4I/iqeq9+/+/xPIcnftesFBwcHBwdfCA8HgDeFXH0v+9zs+8L1goODg4ODL4ZHA8nVi7JBJht4qvWCg4ODg4OD3z8wiAYYcHBwcHBw8PkAM90AcHBwcHBw8PkLhakBxVTjH7tJAQcHBwcH/yB4eWHun/4u1wsODg4ODr4I3j3dRk0t8oXrBQcHBwcHXwTvXvRHQdkg0h2EhJMbODg4ODj4QngXlC042oD2IgE4ODg4OPhieHVwX21IN5hE3w8ODg4ODr4R3h3sVwf/U41INw4cHBwcHHwRPB0Agp8/DooOJsDBwcHBwQ+Ad4NKtXFTdbQXA8DBwcHBwb8IXl3Amwo81QWBdL3g4ODg4OCL4U8v6GUDSHcgAg4ODg4OvgkeHUhEYdVG3RWcwMHBwcHBT4K3B/bJBt61MAAODg4ODn4CPBtEpgLHU4EIHBwcHBx8Mzz7oiykO1CI1hOuGxwcHBwcfCG8emHfBXYDTzvAgIODg4ODL4BXTzWQTA8owv8AcHBwcHDwRfDpQcLlxXwRMrZoAA4ODg4OvhDeDSzZC/zq86sXDeDg4ODg4CfAswGiO4DIPrdaHzg4ODg4OHg+YExfPGQHIJcXCuDg4ODg4ODpC/3uoKHcMHBwcHBw8MXwaqHZBYIqPNqI2xcDwMHBwcHBPwg+teA3dTEx/RxwcHBwcPCN8NMOODg4ODj4gvML7j3Dbp0N8UgAAAAASUVORK5CYII=">
           </div>
         </div>
       
@@ -690,7 +781,7 @@
       
         <a class="-mob-share-telegram" title="" rel="external nofollow noopener noreferrer noopener"
           
-            target="_blank" href="https://t.me/share/url?url=http://enderxiao.top/%E9%94%AE%E7%9B%98/%E5%AE%A2%E5%88%B6%E5%8C%96/mda%E7%A0%B4%E6%99%93/&text=MDA破晓 - Ender"
+            target="_blank" href="https://t.me/share/url?url=http://enderxiao.top/Python/&text= - Ender"
           
           >
           
@@ -716,21 +807,23 @@
   
     <div class="prev-next">
       
-        <a class='prev' href='/Python/'>
-          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i></p>
-          <p class='content'>python学习笔记，IO编程部分
+        <a class='prev' href='/Python/python%E8%BF%9B%E9%98%B6-%E5%A4%9A%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%A4%9A%E7%BA%BF%E7%A8%8B/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>python进阶-多进程与多线程</p>
+          <p class='content'>python学习笔记，多线程与多进程部分
 
 
-IntroIO在计算机中指Input/Output，也就是输入和输出。由于程序和运行时数据是在内存中驻留，由CPU这个超快的计算核心来执行，涉及到数据交换...</p>
+多进程python中有很多多线程库，其中有一些是只能在Unix系操作系统上使用，原因是这些库是调用Unix系统中的一些特殊的系统调用实现的。
+比如p...</p>
         </a>
       
       
-        <a class='next' href='/Python/python%E8%BF%9B%E9%98%B6-%E8%B0%83%E8%AF%95%E4%B8%8E%E6%B5%8B%E8%AF%95/'>
-          <p class='title'>python进阶-调试与测试<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>python学习笔记，调试与测试
+        <a class='next' href='/%E9%94%AE%E7%9B%98/%E5%AE%A2%E5%88%B6%E5%8C%96/mda%E7%A0%B4%E6%99%93/'>
+          <p class='title'>MDA破晓<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>等了一年的键帽他也来了
 
 
-错误处理许多高级语言中都内置了一套try...exceot...finally...的错误处理机制，比如java中的try...catch，python中也...</p>
+写在开头很久之前，入了一款由MelGeek设计的木镶铜套件，当时就是想尝试以下木壳，但是搭配键帽成了一个很大的问题。
+本来想搭配MG尤达，被它的个性吸引了，但是当时手...</p>
         </a>
       
     </div>
@@ -835,7 +928,7 @@ IntroIO在计算机中指Input/Output，也就是输入和输出。由于程序�
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%BC%80%E5%A4%B4"><span class="toc-text">写在开头</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E6%9D%A5%E7%9A%84%E6%A0%B7%E5%AD%90"><span class="toc-text">原来的样子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8A%E6%9C%BA"><span class="toc-text">上机</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Intro"><span class="toc-text">Intro</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99"><span class="toc-text">文件读写</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BB%E6%96%87%E4%BB%B6"><span class="toc-text">读文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#file-like-Object"><span class="toc-text">file-like Object</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6"><span class="toc-text">二进制文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81"><span class="toc-text">字符编码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99%E6%96%87%E4%BB%B6"><span class="toc-text">写文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#read%E5%8F%AA%E8%83%BD%E8%AF%BB%E4%B8%80%E6%AC%A1"><span class="toc-text">read只能读一次</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#String-IO%E4%B8%8EBytesIO"><span class="toc-text">String IO与BytesIO</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#StringIO"><span class="toc-text">StringIO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BtesIO"><span class="toc-text">BtesIO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">注意事项</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95"><span class="toc-text">操作文件和目录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95-1"><span class="toc-text">操作文件和目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0"><span class="toc-text">练习</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-text">序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JSON"><span class="toc-text">JSON</span></a></li></ol></li></ol>
     </div>
   </section>
 
@@ -853,8 +946,8 @@ IntroIO在计算机中指Input/Output，也就是输入和输出。由于程序�
 
 <script>
   window.pdata={}
-  pdata.ispage=true;
-  pdata.postTitle="MDA破晓";
+  pdata.ispage=false;
+  pdata.postTitle="";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
 
