@@ -384,6 +384,269 @@ print(tag.contents[1].contents[0].contents)
 BeautifulSoup对象本身也包含子节点，我们认为BeautifulSoup对象只包含一个`<html>`子标签：
 
 ```python
-print(soup_test.contents)
+print(len(soup_test.contents))
+# 1
+print(soup_test.contents[0].name)
+# html
 ```
 
+需要注意的是`NavigableString`对象并不包含这两个属性。
+
+`contents`是返回`list`对象，而`children`则是返回一个包含所有`直系`子节点的`generator`：
+
+```python
+for child in soup_test.body.children:
+    print(child)
+```
+
+#### descendants
+
+相比于`contents`和`children`返回直系子节点，`descendants`则是返回所有子节点。
+
+例如，对于如下标签的子节点：
+
+```pythob
+headTag = soup_test.head
+print(headTag.contents)
+# [<title>The Dormouse's story</title>]
+```
+
+该节点的子标签只有`<title>`但是，从BeautifulSoup对象的角度来看，标签`<title>`还有一个子节点`NavigableString`，但我们是用`.children`进行遍历时，无法遍历到该`NavigableString`
+
+此时我们尝试使用`decendants`进行遍历：
+
+```py
+for child in headTag.descendants:
+    print(child)
+# <title>The Dormouse's story</title>
+# The Dormouse's story
+```
+
+对于`BeautifulSoup`对象而言，它的`children`只包含一个子节点，而`descendants`则包含整个html解析树中的所有结点：
+
+```python
+print(len(soup_test.contents)) # 1
+print(len(list(soup_test.descendants))) # 26
+```
+
+#### string
+
+当某一标签仅包含一个子节点，且该子节点为`NavigableString`对象时，可以调用该节点的`String`属性，如果该标签不仅包含一个`NavigableString`对象节点，则访问该对象的`String`属性时将会返回`None`
+
+```python
+print(soup_test.string)
+print(headTag.title.string)
+# None
+# The Dormouse's story
+```
+
+#### string & stripped_strings
+
+当某个标签之内不仅包含一个`NavigableString`对象时，可以使用`strings`遍历该标签下的所有`NavigableString`对象。该属性返回一个包含所有子`NavigableString`的`生成器`
+
+```python
+for string in soup_test.strings:
+    print(string)
+# The Dormouse's story
+# '\n'
+# Once upon a time there were three little sisters; and their names were
+# '\n'
+# Elsie
+# ,
+# '\n'
+# Lacie
+#  and
+# '/n'
+# Tillie
+# ;
+# and they lived at the bottom of a well.
+# '/n'
+# ...
+# '/n'
+```
+
+可见使用该方法访问时，回车也会被遍历到，如果不想单行的回车也被视为`NavigableString`对象，则需要使用`stripped_strings`，该属性将返回除`\n`以外的所有`NavigableString`对象
+
+```python
+for string in soup_test.stripped_strings:
+    print(string)
+# The Dormouse's story
+# The Dormouse's story
+# Once upon a time there were three little sisters; and their names were
+# Elsie
+# ,
+# Lacie
+# and
+# Tillie
+# ;
+# and they lived at the bottom of a well.
+# ...
+```
+
+### 向上遍历
+
+#### parent
+
+对于每个节点，可以通过`parent`属性访问该节点上一层的节点，例如`<title>`的上层节点为`<head>`。
+
+需要注意的是几种特殊节点的`parent`：
+
+1. `NavigableString`对象的`parent`上层节点为包裹该字串的标签
+2. 类似`<html>`的顶层标签的上层节点为`BeautifulSoup`对象。
+3. 而`BeautifulSoup`对象的上层节点则为`None`
+
+```python
+print('--------')
+title_tag = soup_test.head.title
+print(title_tag)
+print(title_tag.parent)
+print(title_tag.string.parent)
+html_tag = soup_test.html
+print(type(html_tag.parent))
+print(soup_test.parent
+
+# <title>The Dormouse's story</title>
+# <head><title>The Dormouse's story</title></head>
+# <title>The Dormouse's story</title>
+# <class 'bs4.BeautifulSoup'>
+# None
+```
+
+#### parents
+
+`parent`属性只能向上访问一级，而`parents`则可以按层序访问所有的**祖先节点**
+
+```python
+a_tag = soup_test.a
+print(a_tag)
+for parent in a_tag.parents:
+    print(parent.name)
+
+# <a class="sister" href="http://example.com/elsie" id="link1">Elsie</a>
+# p
+# body
+# html
+# [document]
+```
+
+### 同级遍历
+
+有时候某一标签包含多个子标签，这些子标签处于同一级别，我们成为**siblings**，当我们身处某一节点，却想要访问该节点的兄弟节点时，这样从操作称为同级遍历.
+
+我们用如下文档进行举例：
+
+```python
+sibling_soup = BeautifulSoup("<a><b>text1</b><c>text2</c></b></a>", 'html.parser')
+print(sibling_soup.prettify())
+#   <a>
+#    <b>
+#     text1
+#    </b>
+#    <c>
+#     text2
+#    </c>
+#   </a>
+```
+
+#### next_sibling & previous_sibling
+
+BS4为我们提供了两种用于在同级标签之间切换的属性`next_sibling`和`previous_sibling`，这两个函数分别返回下一个标签的tag对象以及上一个标签的tag对象。如果基准元素没有下一个或上一个标签，则返回`None`：
+
+```python
+sibling_soup.b.next_sibling
+# <c>text2</c>
+
+sibling_soup.c.previous_sibling
+# <b>text1</b>
+
+print(sibling_soup.b.previous_sibling)
+# None
+print(sibling_soup.c.next_sibling)
+# None
+
+sibling_soup.b.string
+# 'text1'
+
+print(sibling_soup.b.string.next_sibling)
+# None
+```
+
+但注意到一个问题，使用`strings`遍历时会发现，其中包含很多`/n`，这些字符也被视为`NavigableString`对象，因此使用这两个属性进行同级访问时也会访问到他们，例如下面这个例子：
+
+```python
+# <a href="http://example.com/elsie" class="sister" id="link1">Elsie</a>
+# <a href="http://example.com/lacie" class="sister" id="link2">Lacie</a>
+# <a href="http://example.com/tillie" class="sister" id="link3">Tillie</a>
+
+link = soup.a
+link
+# <a class="sister" href="http://example.com/elsie" id="link1">Elsie</a>
+
+link.next_sibling
+# ',\n '
+
+link.next_sibling.next_sibling
+# <a class="sister" href="http://example.com/lacie" id="link2">Lacie</a>
+```
+
+#### next_slibings & previous_sliblings
+
+如果需要访问与当前节点同级的所有标签，则可以使用`next_slibings`和`previous_siblings`两个属性。这两个属性分别返回一个包含所有当前节点之后的所有同级节点的生成器，和之前的所有同级节点的生成器：
+
+```python
+for sibling in soup.a.next_siblings:
+    print(repr(sibling))
+# ',\n'
+# <a class="sister" href="http://example.com/lacie" id="link2">Lacie</a>
+# ' and\n'
+# <a class="sister" href="http://example.com/tillie" id="link3">Tillie</a>
+# '; and they lived at the bottom of a well.'
+
+for sibling in soup.find(id="link3").previous_siblings:
+    print(repr(sibling))
+# ' and\n'
+# <a class="sister" href="http://example.com/lacie" id="link2">Lacie</a>
+# ',\n'
+# <a class="sister" href="http://example.com/elsie" id="link1">Elsie</a>
+# 'Once upon a time there were three little sisters; and their names were\n'
+
+```
+
+#### next_element & previous_element
+
+该属性用于寻找当前节点的**按文件解析顺序**的下一个节点。
+
+```python
+last_a_tag = soup_test.find("a",id = 'link3')
+print(last_a_tag)
+# <a class="sister" href="http://example.com/tillie" id="link3">Tillie</a>
+print(last_a_tag.next_sibling)
+# ;
+# and they lived at the bottom of a well.
+for child in last_a_tag.children:
+    print(child)
+    # Tillie
+print(last_a_tag.next_element)
+# Tillie
+```
+
+`previous_element`原理相似但结果是返回在当前标签之前被解析的标签。
+
+#### next_elements & previous_elements
+
+这两个属性则是返回当前标签后的解析和当前标签前需要解析的对象，下面我们使用`repr`函数将这些对象转换为供python解释器读取的形式以便观察：
+
+```python
+for element in last_a_tag.next_elements:
+    print(repr(element))
+# 'Tillie'
+# ';\nand they lived at the bottom of a well.'
+# '\n'
+# <p class="story">...</p>
+# '...'
+# '\n'
+```
+
+## 搜索文档树
+
+BeautifulSoup中提供了大量用于搜索的函数，但大部分函数的参数比较相似，这里主要讨论`find()`和`find_all()`两个方法
