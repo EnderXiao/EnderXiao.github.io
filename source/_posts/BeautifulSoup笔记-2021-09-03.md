@@ -8,6 +8,8 @@ tags:
   - 爬虫
   - bs4
 mathjax: true
+headimg:
+  'https://z3.ax1x.com/2021/08/16/fWOlXF.jpg'
 ---
 
 BeautifulSoup4 学习笔记
@@ -649,4 +651,127 @@ for element in last_a_tag.next_elements:
 
 ## 搜索文档树
 
-BeautifulSoup中提供了大量用于搜索的函数，但大部分函数的参数比较相似，这里主要讨论`find()`和`find_all()`两个方法
+BeautifulSoup中提供了大量用于搜索的函数，但大部分函数的参数比较相似，这里主要讨论`find()`和`find_all()`两个方法。下面主要讲解`find_all`方法
+
+### find_all
+
+`find_all()`函数， 它会将所有符合条件的内容以列表形式返回。它的构造方法如下：
+
+```python
+find_all(name, attrs, recursive, text, **kwargs )
+```
+
+name 参数可以有多种写法：
+
+- （1）节点名
+
+```python
+print(soup.find_all('p'))
+# 输出结果如下：
+[<p class="title" name="dromouse"><b>The Dormouse's story</b></p>, <p class="story">Once upon a time there were three little sisters; and their names were</p>]
+```
+
+- （2）正则表达式
+
+```python
+print(soup.find_all(re.compile('^p')))
+# 输出结果如下：
+[<p class="title" name="dromouse"><b>The Dormouse's story</b></p>, <p class="story">Once upon a time there were three little sisters; and their names were</p>]
+```
+
+- （3）列表
+  如果参数为列表，过滤标准为列表中的所有元素。看下具体代码，你就会一目了然了。
+
+```python
+print(soup.find_all(['p', 'a']))
+# 输出结果如下：
+[<p class="title" name="dromouse"><b>The Dormouse's story</b></p>,  <p class="story">Once upon a time there were three little sisters; and their names were</p>,  <a href="http://example.com/elsie" class="sister" id="link1"><!-- Elsie --></a>]
+```
+
+另外 attrs 参数可以也作为过滤条件来获取内容，而 limit 参数是限制返回的条数。
+
+### 利用CSS选择器
+
+除了只用find函数意外，CSS选择器也是一个非常方便的搜索手段，以 CSS 语法为匹配标准找到 Tag。同样也是使用到一个函数，该函数为`select()`，返回类型也是 list。它的具体用法如下, 同样以 prettify() 打印的结果为前提：
+
+- （1）通过 tag 标签查找
+
+```python
+print(soup.select(head))
+# 输出结果如下：
+# [<head><title>The Dormouse's story</title></head>]
+```
+
+- （2）通过 id 查找
+
+```python
+print(soup.select('#link1'))
+# 输出结果如下：
+# [<a href="http://example.com/elsie" class="sister" id="link1"><!-- Elsie --></a>]
+```
+
+- （3）通过 class 查找
+
+```python
+print(soup.select('.sister'))
+# 输出结果如下：
+# [<a href="http://example.com/elsie" class="sister" id="link1"><!-- Elsie --></a>]
+```
+
+- （4）通过属性查找
+
+```python
+print(soup.select('p[name=dromouse]'))
+# 输出结果如下：
+# [<p class="title" name="dromouse"><b>The Dormouse's story</b></p>]
+```
+
+
+
+```python
+print(soup.select('p[class=title]'))
+# 输出结果如下：
+# [<p class="title" name="dromouse"><b>The Dormouse's story</b></p>]
+```
+
+- （5）组合查找
+
+```python
+print(soup.select("body p"))
+# 输出结果如下：
+# [<p class="title" name="dromouse"><b>The Dormouse's story</b></p>,
+# <p class="story">Once upon a time there were three little sisters; and their names were</p>]
+```
+
+
+
+```python
+print(soup.select("p > a"))
+# 输出结果如下：
+# [<a href="http://example.com/elsie" class="sister" id="link1"><!-- Elsie --></a>]
+```
+
+
+
+```python
+print(soup.select("p > .sister"))
+# 输出结果如下：
+# [<a href="http://example.com/elsie" class="sister" id="link1"><!-- Elsie --></a>]
+```
+
+## 总结
+
+至此已经可以利用BeautifulSoup来进行一些简单的HTML解析工作了。剩下的一些属性以及函数，可以在应用中学习。
+
+在本次学习的过程中，我意识到这样看官方文档并做笔记的学习方式，效率比较低。
+
+而且我也没办法做到将官方文档概况的面面俱到，某次和队友聊天的过程中偶然提到了目前的学习状况。队友直截了当的指出了我学习上的不足：“BS完全不值得你去做笔记学习！”
+
+确实，现阶段我已经进入了研究生的学习阶段，我的学习也不再是通过一些相关技术来了解本专业的过程了。而应该转化为通过所学的一些技术对当前所学领域进行一些研究，解决或是发现一些领域内比较含糊的问题。
+
+工具终究是工具，研究才是现阶段应该关注的。我认为比起依赖于笔记，作为一名合格的硕士研究生，应该养成看API文档的习惯。
+
+## 参考文档
+
+[Beautiful Soup Documentation — Beautiful Soup 4.9.0 documentation](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
+
