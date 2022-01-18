@@ -699,3 +699,83 @@ ReactDOM.render(
 );
 ```
 
+## RN打包APK(2022.1.17)
+
+### 生成签名密钥
+
+使用如下命令进入jdk\bin目录，利用jdk提供的ketytool生成一个私有密钥：
+
+```shell
+$ cd D:\java\jdk8\bin\
+$ keytool -genkeypair -v -storetype PKCS12 -keystore my-release-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 1000
+```
+
+这条命令会要求你输入密钥库（keystore）和对应密钥的密码，然后设置一些发行相关的信息。最后生成一个叫做`my-release-key.keystore`的密钥库文件。
+
+在运行上面这条语句之后，密钥库里应该已经生成了一个单独的密钥，有效期为 10000 天。--alias 参数后面的别名是将来为应用签名时所需要用到的。
+
+### 设置Gradle变量
+
+1. 把`my-release-key.keystore`文件放到工程中的`android/app`文件夹下。
+2. 编辑`~/.gradle/gradle.properties`（全局配置，对所有项目有效）或是`项目目录/android/gradle.properties`（项目配置，只对所在项目有效）。如果没有`gradle.properties`文件就自己创建一个，添加如下的代码：
+
+```jsx
+MYAPP_RELEASE_STORE_FILE=my-release-key.keystore
+MYAPP_RELEASE_KEY_ALIAS=my-key-alias
+MYAPP_RELEASE_STORE_PASSWORD=*****
+MYAPP_RELEASE_KEY_PASSWORD=*****
+```
+
+上面的这些会作为 gradle 的变量，在后面的步骤中可以用来给应用签名。
+
+### 将签名加入项目
+
+编辑项目目录下的`android/app/build.gradle`，添加如下的签名配置：
+
+```gradle
+...
+android {
+    ...
+    defaultConfig { ... }
+    signingConfigs {
+        release {
+            if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
+                storeFile file(MYAPP_RELEASE_STORE_FILE)
+                storePassword MYAPP_RELEASE_STORE_PASSWORD
+                keyAlias MYAPP_RELEASE_KEY_ALIAS
+                keyPassword MYAPP_RELEASE_KEY_PASSWORD
+            }
+        }
+    }
+    buildTypes {
+        release {
+            ...
+            signingConfig signingConfigs.release
+        }
+    }
+}
+...
+```
+
+### 生成发行 APK 包
+
+运行以下命令生成APK：
+
+```shell
+$ cd android
+$ ./gradlew assembleRelease
+```
+
+Gradle 的`assembleRelease`参数会把所有用到的 JavaScript 代码都打包到一起，然后内置到 APK 包中。如果想调整下这个行为（比如 js 代码以及静态资源打包的默认文件名或是目录结构等），可以在`android/app/build.gradle`文件中进行配置。
+
+生成的 APK 文件位于`android/app/build/outputs/apk/release/app-release.apk`
+
+### 测试
+
+输入以下命令可以在设备上安装发行版本：
+
+```shell
+$ npx react-native run-android --variant=release
+```
+
+注意`--variant=release`参数只能在完成了上面的签名配置之后才可以使用。
