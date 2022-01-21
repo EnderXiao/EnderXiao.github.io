@@ -779,3 +779,425 @@ $ npx react-native run-android --variant=release
 ```
 
 注意`--variant=release`参数只能在完成了上面的签名配置之后才可以使用。
+
+## RN网络请求——Axios(2022.1.18)
+
+### 安装
+
+使用如下命令安装Axios：
+
+```shell
+$ npm install axios
+$ yarn add react-native-axios
+```
+
+安装antdUI组件库：
+
+```shell
+$ npm install antd-mobile --save
+```
+
+### 封装
+
+直接使用Axios进行请求时，为了完成请求地址拼接，参数设置，异步操作处理，JSON格式转化等等操作，将会产生许多冗余代码，为了简化代码，需要对Axios进行二次封装：
+
+- 在src目录下创建utils目录，该目录下创建http目录
+- 在http目录下创建文件`httpBaseConfig.js`与`request.js`
+  - `httpBaseConfig.js`用于配置服务器域名，端口号，API地址
+  - `request.js`用于编写Axios请求逻辑
+
+Axios基于ES6中的Promise对象进行开发，因此可以使用then链来处理同步问题，而ES7加入async函数后，可以在async函数中使用await关键词实现更方便的处理，await会阻塞后续代码直到得到返回的Promise对象，具体可以参考如下博客：
+
+[理解 JavaScript 的 async/await - SegmentFault 思否](https://segmentfault.com/a/1190000007535316)
+
+Axios还为我们提供了方便的基础设置、拦截器等操作，通过设置回调函数可以完成发送请求前，和得到返回的数据后进行处理。
+
+最后我们将不同类型的请求封装到一个http类中。
+
+最后得到的`request.js`如下：
+
+```react
+import axios from "axios";
+import baseConfig from "./httpBaseConfig";
+
+// 默认域名
+axios.defaults.baseURL =
+    baseConfig.baseUrl + ":" + baseConfig.port + baseConfig.prefix;
+// 默认请求头
+axios.defaults.headers["Content-Type"] = "application/json";
+
+// 响应时间
+axios.defaults.timeout = 10000;
+
+// 请求拦截器
+axios.interceptors.request.use(
+    (config) => {
+        // TODO:在发送前做点什么
+        // showLoading(); //显示加载动画
+        return config;
+    },
+    (error) => {
+        // hideLoading(); //关闭加载动画
+        // TODO:对响应错误做点什么
+        return Promise.reject(error);
+    }
+);
+
+// 响应拦截器
+axios.interceptors.response.use(
+    (response) => {
+        // TODO:请求返回数据后做点什么
+        if (response.status === "200" || response.status === 200) {
+            return response.data.data || response.data;
+        } else {
+            // TODO:请求失败后做点什么
+            throw Error(response.opt || "服务异常");
+        }
+        return response;
+    },
+    (error) => {
+        // TODO:对应响应失败做点什么
+        return Promise.resolve(error.response);
+    }
+);
+
+// 请求类
+export default class http {
+    // ES7异步get函数
+    static async get(url, params) {
+        try {
+            let query = await new URLSearchParams(params).toString();
+            let res = null;
+            if (!params) {
+                res = await axios.get(url);
+            } else {
+                res = await axios.get(url + "?" + query);
+            }
+            return res;
+        } catch (error) {
+            return error;
+        }
+    }
+
+    static async post(url, params) {
+        try {
+            let res = await axios.post(url, params);
+            return res;
+        } catch (error) {
+            return error;
+        }
+    }
+
+    static async patch(url, params) {
+        try {
+            let res = await axios.patch(url, params);
+            return res;
+        } catch (error) {
+            return error;
+        }
+    }
+
+    static async put(url, params) {
+        try {
+            let res = await axios.put(url, params);
+            return res;
+        } catch (error) {
+            return error;
+        }
+    }
+
+    static async delete(url, params) {
+        /**
+         * params默认为数组
+         */
+        try {
+            let res = await axios.post(url, params);
+            return res;
+        } catch (error) {
+            return error;
+        }
+    }
+}
+```
+
+`httpBaseConfig.js`中的配置如下：
+
+```react
+export default httpBaseConfig = {
+    baseUrl: 'http://www.*****.***',
+    port: '****',
+    prefix: '/AppServer/ajax/'
+}
+```
+
+最后使用时，调用请求后，我们得到的将是一个Promise对象，使用then链将其保存到状态中即可完成数据显示：
+
+```react
+handleRequest() {
+    let param = {
+        userName: "mingming",
+        classTimeId: "50648",
+        type: "3",
+        // 'callback': 'ha'
+    };
+    http.get("teacherApp_lookNotice.do", param)
+        .then((res) => {
+            console.log(res);
+            let data = JSON.parse(res);
+            this.setState({
+                message: data.message,
+            });
+            console.log(data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+```
+
+最终打印到控制台的结果如下：
+
+```shell
+{"data": {"author": "明茗", "content": "这是一个测试通知测试通知测试通知测试通知测试通知测试通知,测试***功等等，还有***，和大***等等", "isAuthor": true, "isUpdate": false, "noReadNum": 53, "noreadList": ["索夏利", "何一繁", "段莹", " 孙亮亮", "李冯石", "贺玉婷", "张立新", "龚夏萌", "刘驰誉", "王玲", "张俊", "王楠", "姜克杰", "孙丽园", "李波", "代麦玲", "李妮", "李坤江", "李杰", "黄运科", "陈雨菲", "黄萍", "王致远", "李杰", "柯团团", "陈雯慧", "彭思毅", "张昌", "段怡欣", "管雅", "严彤鑫", "徐文莉", "朱景洲", "刘乔瑞", "王子豪", "孙红", "赵美婷", "李雕坛", "黄楠", "张静静", "刘祎璠", "冯健强", "王俊杰", "张辉", "彭诗雨", "叶刚", "何萍", "何健", "王锦婷", "周骏", "杨千骏", "李娇", "郭聪聪"], "num": 60, "readList": ["李龙龙", "杨文选", "刘佳璇", "方建辉", "卢文静", "左亚东", "李盈斌"], "readNum": 7, "title": "测试通知"}, "message": "数据保存成功！", "success": true}
+```
+
+## React-Native差异(2022.1.21)
+
+### 项目结构
+
+react-native目录结构简介：
+
+```js
+- android 与安卓客户端编译相关的配置
+- ios	与ios哭护短编译相关的配置
+- .eslintrc.js	代码风格配置
+- .prettierrc.js	代码格式化风格配置
+- App.js	项目的根组件
+- index.js	项目的入口文件	
+- package.json	项目第三方包相关信息
+```
+
+### RN布局
+
+#### flex布局
+
+- 所有容器默认为felxbox
+- 并且默认为纵向排列，即`felx-direction: colum`
+
+#### 样式继承
+
+- 在RN中样式没有继承关系
+
+#### 单位
+
+- 在RN中不能为表示宽高的数字增加单位，RN会自动处理单位。
+
+- RN中可以使用百分比表示宽高。
+
+- RN中的默认单位为dp
+
+- px与dp转换：
+
+  - $$
+    dp宽高 = 屏幕宽高(px) * 元素宽高(px) / 设计稿宽高(px)
+    $$
+
+可以通过构造如下工具来解决px转dp的问题
+
+```js
+import {Dimensions} from "react-native"
+
+export const screenWidth = Dimensions.get("window").width;
+
+export const screenHeight = Dimension.get("window").height;
+
+/**
+ * 次数假设设计稿宽为375
+ */
+export const pxToDp = (elePx) => screenWidth * elePx / 375
+```
+
+
+
+#### 屏幕宽高
+
+```react
+import {Dimensions} from "react-native";
+const screenWidth = Math.round(Dimensions.get('window').width);
+const screenHeight = Math.round(Dimensions.get('windows').height);
+```
+
+#### 变换
+
+```react
+<Text style={{transform:[{translateY:300}, {scale:2}]}}>变换</Text>
+```
+
+#### 标签
+
+##### View
+
+- 相当于div
+- 不支持字体大小，字体颜色
+- 不能直接放文本内容
+- 不支持直接绑定点击事件（一般使用`TouchableOpacity`代替）
+
+##### Text
+
+> 文本标签
+
+- 文本标签，可以设置字体颜色、大小
+- 支持绑定点击事件
+
+##### TouchableOpacity
+
+> 可以绑定点击事件的块标签
+
+- 相当于块容器
+- 支持绑定点击事件`onPress`
+- 可以设置点击时的透明度
+
+```jsx
+<TouchableOpecity activeOpacity={0.5} onPress={this.handleOnPress}></TouchableOpecity>
+```
+
+##### Image
+
+> 图片标签
+
+- 渲染本地图片时
+
+```jsx
+<Image source={require("../img.png")} />
+```
+
+- 渲染网络图片
+
+```jsx
+<Image source={{url:"https://z3.ax1x.com/2021/08/05/fego40.png"}} style={{width:200,height:300}} />
+```
+
+​	注意一定要加宽高，不然无法显示
+
+- Android设备上渲染GIF和WebP
+
+  默认不支持，需要在`Android/app/build/gradle`中手动添加模块：
+
+  ```jsx
+  dependencies {
+  	// 如果需要支持Android4.0之前的版本
+      implementation 'com.facebook.fresco:animated-base-support:1.3.0'
+      // GIF支持
+      implementation 'com.facebook.fresco:animated-gif:2.0.0'
+      // Webp格式，包括Webp动图支持
+      implementation 'com.facebook.fresco:animated-webp:2.1.0'
+      implementation 'com.facebook.fresco:webpsupport:2.0.0'
+  }
+  ```
+
+  注意当更改依赖时需要重启调试
+
+- ImageBackground
+
+  > 用于实现带有背景的块级元素
+
+  ```jsx
+  <ImageBackground source={...} style={{width:'100%', height: '100%'}}>
+  	<Text>Inside</Text>
+  </ImageBackground>
+  ```
+
+  必须就有style属性
+
+- TextInpute
+
+  > 输入框组件
+
+  通过`onChangeText`事件来获取输入框的值
+
+  ```jsx
+  <TextInpute onChangeText={handleChangeText} ></TextInpute>
+  ```
+
+  注意他初始状态是没有样式的
+
+### 调试
+
+RN有两种调试方式：
+
+1. 谷歌浏览器
+
+   - 不能查看标签结构
+   - 不能查看网络请求
+
+2. 使用RN推荐的工具react-native-debugger
+
+   - 可以查看标签结构
+
+   - 不能查看网络请求
+
+想要查看网络请求则需要进行如下配置：
+
+1. 找到项目入口文件index.js
+
+2. 加入以下代码：
+
+   ```jsx
+   GLOBAL.XMLHttpRequest = GLOBAL.originalXMLHttpRequest || GLOBAL.XMLHttpRequest
+   ```
+
+
+### this指向问题
+
+可以使用如下四种方式解决this指向问题：
+
+```react
+import React, { Component } from 'react'
+import { View, Text } from 'react-native'
+class Index extends Component {
+    state = { num:100 }
+	// 丢失 state
+	handlePress1() {
+        console.log(this.state);
+    }
+	// 正常
+	handlePress2 = () => {
+        console.log(this.state);
+    }
+	// 正常
+	handlePress3() {
+        console.log(this.state)
+    }
+	// 正常
+	handlePress4() {
+        console.log(this.state)
+    }
+
+	// 正常
+	handlePress5() {
+        console.log(this.state)
+    }
+	constructor() {
+        super()
+        this.handlePress = this.handlePress.bind(this);
+    }
+	
+	// 正常
+	render() {
+        return (
+            <View>
+                {/* 导致事件函数中获取不到 */}
+                <Text onPress={this.handlePress1} >事件1</Text>
+                <Text onPress={this.handlePress2} >事件2</Text>
+                <Text onPress={this.handlePress3.bind(this)} >事件3</Text>
+                 <Text onPress={()=>this.handlePress4()}>事件4</Text>
+                <Text onPress={handlePress5()}>事件5</Text>
+            </View>
+        )
+    }
+}
+```
+
+### RN生命周期
+
+与React相同
