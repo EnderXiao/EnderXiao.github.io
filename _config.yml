@@ -8,11 +8,11 @@ subtitle: 'coding never stop'
 description: 'a blog of EnderXiao'
 keywords: Blog EnderXiao
 author: EnderXiao
-language: 
-- en
-- zh-CN
-- zh-HK
-- zh-TW
+language:
+  - en
+  - zh-CN
+  - zh-HK
+  - zh-TW
 timezone: 'Asia/Shanghai'
 # 网站图标，更多尺寸等图标请使用import方式批量导入
 favicon: /images/end_purple_favicon128.ico
@@ -35,7 +35,7 @@ archive_dir: archives
 category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
-skip_render: "README.md"
+skip_render: 'README.md'
 
 # Writing
 new_post_name: :title-:year-:month-:day.md # File name of new posts
@@ -106,14 +106,14 @@ ignore:
 ## Themes: https://hexo.io/themes/
 # RSS订阅
 plugin:
-- hexo-generator-feed
+  - hexo-generator-feed
 #Feed Atom
 feed:
 type: atom
 path: atom.xml
 limit: 20
 
-theme: "volantis"
+theme: 'volantis'
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
@@ -121,3 +121,9 @@ deploy:
   type: git
   repo: git@github.com:EnderXiao/EnderXiao.github.io.git
   branch: main
+# sitemap
+## SEO优化:https://www.imooc.com/article/73811
+sitemap:
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml

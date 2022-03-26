@@ -29,10 +29,7 @@
 <% } %>
 
 <!-- internal -->
-
-<% if (theme.plugins.message && theme.plugins.message.enable) { %>
-  <%- partial('../../_plugins/message/script') %>
-<% } %>
+<%- js(theme.cdn.map.js.app) %>
 
 <% if (theme.rightmenu.enable) { %>
   <%- partial('../../_plugins/rightmenu/layout') %>
@@ -71,8 +68,6 @@
   <script defer src="<%- theme.analytics.busuanzi %>" data-pjax></script>
 <% } %>
 
-<%- js(theme.cdn.map.js.app) %>
-
 <!-- optional -->
 <% if (theme.search && theme.search.enable) { %>
   <%- partial('../../_plugins/search/script') %>
@@ -104,6 +99,10 @@
 
 <% if (theme.plugins.parallax.enable) { %>
   <%- partial('../../_plugins/parallax/script') %>
+<% } %>
+
+<% if (theme.plugins.swiper.enable) { %>
+  <%- partial('../../_plugins/swiper/script') %>
 <% } %>
 
 <!-- pjax 标签必须存在于所有页面 否则 pjax error -->
