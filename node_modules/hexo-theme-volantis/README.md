@@ -9,10 +9,10 @@
 Check your environment:
 
 ```yaml
-Hexo: 4.2 ~ 5.x
-hexo-cli: 3.1 ~ 4.x
-node.js: 12.16 LTS ~ latest LTS
-npm: 6.13 ~ latest LTS
+Hexo: 5.4 ~ 6.x
+hexo-cli: 4.3 ~ latest
+node.js: 16.x LTS ~ latest LTS
+npm: 8.x ~ latest LTS
 ```
 
 Edit your `_config.yml`:
@@ -30,6 +30,8 @@ npm i hexo-theme-volantis
 ## Usage
 
 See docs: https://volantis.js.org
+
+or:  https://vlts.cc
 
 or:  https://volantis.vercel.app
 
