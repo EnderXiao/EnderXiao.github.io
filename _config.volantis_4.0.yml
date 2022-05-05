@@ -1,3 +1,20 @@
+############################### Volantis ###############################
+# 仅限/source/js/中的JS文件
+# 默认使用 https://cdn.jsdelivr.net/npm/hexo-theme-volantis/source/js/ 的CDN压缩版本，注意版本号对应关系！！可以通过修改以下配置项覆盖
+# 开发者注意 use_cdn 设置为 false
+use_cdn: true
+info:
+  theme_name: Volantis # This is theme's name.
+  theme_version: '5.0.0' # This is theme's version.
+  theme_docs: https://volantis.js.org/ # This is theme's URL.
+  theme_repo: https://github.com/volantis-x/hexo-theme-volantis
+  cdn:
+    js:
+    css:
+      first:
+      style:
+########################################################################
+
 ############################### Navigation Bar ############################### > start
 # 注意事项：建议规范全站路径 URL 最后带一个 "/" 例如 "about/"
 navbar:
@@ -25,25 +42,20 @@ navbar:
     - name: 关于
       icon: fas fa-info-circle
       url: about/
-    - name: 摸!
+    - name: 2048!
       icon: fas fa-gamepad
-      rows:
-        - name: 2048!
-          url: /EnderGame.github.2048.io/
-        - name: MoonSweeper!
-          icon: fas fa-moon
-          url: /EnderGame.github.MoonSweeper.io/
+      url: /EnderGame.github.io/
     - name: 更多
       icon: fas fa-ellipsis-v
       rows:
-        - name: 黑暗模式
-          icon: fas fa-moon
-          toggle: darkmode
     # 暗黑模式 darkmode
     # 样式：source/css/_plugins/dark.styl
     # 开关按钮：在 navbar.menu 中添加：
     # - name: 暗黑模式 # 可自定义
     #   icon: fas fa-moon # 可自定义
+    #   toggle: darkmode
+    # - name: 黑暗模式
+    #   icon: fas fa-moon
     #   toggle: darkmode
   search: Search... # Search bar placeholder
 ############################### Navigation Bar ############################### > end
@@ -102,13 +114,11 @@ article:
   preview:
     scheme: landscape # landscape
     # pin icon for post
-    pin_icon: volantis-static/media/twemoji/assets/svg/1f4cc.svg # https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f4cc.svg
+    pin_icon: https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f4cc.svg
     # auto generate title if not exist
     auto_title: true # false, true
     # auto generate excerpt if not exist
     auto_excerpt: true # false, true
-    # hide excerpt
-    hide_excerpt: false
     # show split line or not
     line_style: solid # hidden, solid, dashed, dotted
     # show author
@@ -127,7 +137,7 @@ article:
       # 参考资料、相关资料等 (for layout: post/docs)
       references:
         title: 参考资料
-        icon: fa-solid fa-quote-left
+        icon: fas fa-quote-left
         # 在 front-matter 中:
         #   references:
         #     - title: 某篇文章
@@ -139,7 +149,7 @@ article:
       related_posts:
         enable: false
         title: 相关文章
-        icon: fa-solid fa-bookmark
+        icon: fas fa-bookmark
         max_count: 5
         # 设为空则不使用文章头图
         placeholder_img: https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture
@@ -156,8 +166,8 @@ article:
       donate:
         enable: false
         images:
-          - volantis-static/media/org.volantis/blog/qrcode/github@volantis.png # https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/qrcode/github@volantis.png
-          - volantis-static/media/org.volantis/blog/qrcode/github@volantis.png # https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/qrcode/github@volantis.png
+          - https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/qrcode/github@volantis.png
+          - https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/qrcode/github@volantis.png
     # 文章底部信息
     # 从 meta_library 中取
     bottom_meta: [updated, tags, share]
@@ -171,32 +181,35 @@ article:
         url: /
       # 文章创建日期
       date:
-        icon: fa-solid fa-calendar-alt
+        icon: fas fa-calendar-alt
         title: '发布于：'
         format: 'll' # 日期格式 http://momentjs.com/docs/
       # 文章更新日期
       updated:
-        icon: fa-solid fa-edit
+        icon: fas fa-edit
         title: '更新于：'
         format: 'll' # 日期格式 http://momentjs.com/docs/
       # 文章分类
       category:
-        icon: fa-solid fa-folder-open
+        icon: fas fa-folder-open
       # 文章浏览计数
       counter:
-        icon: fa-solid fa-eye
+        icon: fas fa-eye
         unit: '次浏览'
-      # waline 文章评论数量
+      # 文章评论数量：支持 valine和waline
+      valinecount:
+        icon: fas fa-comment-dots
+        desc: '' # 条评论
       walinecount:
-        icon: fa-solid fa-comment-dots
+        icon: fas fa-comment-dots
         desc: '' # 条评论
       # 文章字数和阅读时长
       wordcount:
-        icon_wordcount: fa-solid fa-keyboard
-        icon_duration: fa-solid fa-hourglass-half
+        icon_wordcount: fas fa-keyboard
+        icon_duration: fas fa-hourglass-half
       # 文章标签
       tags:
-        icon: fa-solid fa-hashtag
+        icon: fas fa-hashtag
       # 分享
       share:
         - id: qq
@@ -210,6 +223,130 @@ article:
         - id: telegram
           img: https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/telegram.png
 ############################### Article Layout ############################### > end
+
+############################### Comments ############################### > start
+comments:
+  title: <i class='fas fa-comments'></i> 评论
+  subtitle:
+  service: valine # valine, twikoo, waline, minivaline, disqus, disqusjs, gitalk, vssue, livere, isso, hashover
+  # Valine
+  # https://valine.js.org/
+  valine:
+    # js: https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js
+    js: https://cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js #设置为最新版
+    path: # 全局评论地址 目前设置全局评论地址后visitor失效,这是valine的问题
+    placeholder: 快来评论吧~ # 评论占位提示
+    # 其他配置项按照yml格式继续填写即可 除了 [el path placeholder emojiCDN emojiMaps] 选项
+    appId: K0AA5mEk3tAs9vDx9fGNyd4A-MdYXbMMI
+    appKey: uADfH6gUTkaoe0nyIyQR0KCX
+    notify: true # valine mail notify (true/false) Deprecated in v1.4.0+
+    verify: false # valine verify code (true/false) Deprecated in v1.4.0+
+    meta: [nick, mail, link] # valine comment header info
+    requiredFields: [nick, mail]
+    enableQQ: true # Unstable avatar link 需要valine1.4.6以上版本
+    recordIP: true # Record commenter IP
+    avatar: retro # gravatar style https://valine.js.org/avatar
+    pageSize: 10 # comment list page size
+    lang: zh-cn
+    highlight: true
+    mathJax: false
+    visitor: true #开启浏览次数
+    # 不知道干嘛的，官网文档也没有，先试试
+    metaPlaceholder:
+      - nick: Ender
+      - mail: 1286554811@qq.com
+      - link: enderxiao.top
+    # 访客标签，默认为一个汉字，需要修改渲染文件
+    # 文件路径：node_modules\hexo-theme-volantis\layout\_third-party\comments\valine\script.ejs
+    tagMeta: '博主,小伙伴,访客'
+    # 设置版主邮箱，此处填写版主邮箱的md5加密结果，需32位小写
+    # MD5在线加密：https://md5jiami.bmcx.com/
+    master:
+      - b1e66c08e8cd5b9c33c014dadcb6092b
+    # 设置好友邮箱，格式要求同上
+    friends:
+      - 4d550b956a77d45c225cef7d22441f97
+  # MiniValine
+  # https://github.com/MiniValine/MiniValine
+  minivaline:
+    # js: https://cdn.jsdelivr.net/npm/minivaline@latest
+    path: # 全局评论地址
+    placeholder: 快来评论吧~ # 全局评论占位提示
+    # 更多选项 https://minivaline.js.org/docs/cn/#/Options 按照yml格式继续填写即可 （除了 [el path placeholder] 选项）
+    # emoticonUrl 等列表选项 可参考 https://github.com/MiniValine/hexo-next-minivaline
+    # 下面是一个例子：
+    backend: waline
+    serverURL: https://waline.vercel.app
+  # Disqus
+  # https://disqus.com
+  disqus:
+    shortname:
+    # optional
+    autoload: false
+    path: # 全局评论地址
+  # DisqusJS
+  # https://github.com/SukkaW/DisqusJS
+  disqusjs:
+    path: # 全局评论地址
+    # 配置项按照yml格式继续填写即可 除了 [siteName url identifier] 选项
+    #shortname:
+    #api:
+    #apikey:
+    #admin:
+    #nesting:
+  # Gitalk
+  # https://gitalk.github.io/
+  gitalk:
+    # 配置项按照yml格式继续填写即可 除了 [id distractionFreeMode] 选项
+    clientID: 60eac2795c7437203495
+    clientSecret: 05dbbc4fe76a159a7fd2dda22dbbc92b7622bb56
+    repo: EnderXiao.github.io
+    owner: EnderXiao
+    admin: # []
+    path: # 全局评论地址
+  # Vssue 暂不支持Pjax
+  # https://vssue.js.org/zh/
+  vssue:
+    owner: EnderXiao
+    repo: EnderXiao.github.io
+    clientId: 60eac2795c7437203495
+    clientSecret: 05dbbc4fe76a159a7fd2dda22dbbc92b7622bb56
+  # LiveRe 暂不支持Pjax
+  # https://www.livere.com
+  livere:
+    uid:
+  # Isso 暂不支持Pjax
+  # https://posativ.org/isso/
+  isso:
+    url: https://example.com/(path/)
+    src: https://example.com/(path/)js/embed.min.js
+  # HashOver 暂不支持Pjax
+  # https://www.barkdull.org/software/hashover
+  hashover:
+    src: https://example.com/(path/)comments.php
+  # Twikoo
+  # https://twikoo.js.org/
+  twikoo:
+    js: https://cdn.jsdelivr.net/npm/twikoo@latest # 建议锁定版本
+    path: # 全局评论地址
+    # 其他配置项按照yml格式继续填写即可 除了 [el path] 选项
+    envId: xxxxxxxxxxxxxxx # 腾讯云环境id
+  # Waline
+  # https://waline.js.org/
+  waline:
+    js: https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js
+    path: # 全局评论地址 目前设置全局评论地址后visitor失效,这是waline的问题
+    placeholder: 快来评论吧~ # 评论占位提示
+    imageHosting: https://7bu.top/api/upload # 图床api（默认使用去不图床）
+    # 其他配置项按照yml格式继续填写即可 除了 [el path placeholder uploadImage] 选项
+    meta: [nick, mail, link] # waline comment header info
+    requiredFields: [nick, mail]
+    serverURL: xxxxxxxxxxxxxxx # Waline 的服务端地址（必填） 测试用地址: https://waline-ruddy.vercel.app
+    avatar: robohash # gravatar style https://waline.js.org/client/basic.html#avatar
+    pageSize: 10 # 评论每页显示数量
+    lang: zh-CN
+
+############################### Comments ############################### > end
 
 ############################### Sidebar ############################### > start
 sidebar:
@@ -442,43 +579,35 @@ plugins:
     js: https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@2/js/comment_typing.js
 
   # Slide Background
-  parallax: # 5.0新增
-    enable: true
+  backstretch:
+    enable: #true
+    js: https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js
     position: cover # cover: sticky on the cover.   fixed: Fixed as background for the site.
     shuffle: true # shuffle playlist
     duration: 10000 # Duration (ms)
     fade: 1500 # fade duration (ms) (Not more than 1500)
     images: # For personal use only. At your own risk if used for commercial purposes !!!
-      - https://z3.ax1x.com/2021/08/05/fegggS.jpg
-  # backstretch: # 5.0被parallax替换
-  #   enable: #true
-  #   js: https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js
-  #   position: cover # cover: sticky on the cover.   fixed: Fixed as background for the site.
-  #   shuffle: true # shuffle playlist
-  #   duration: 10000 # Duration (ms)
-  #   fade: 1500 # fade duration (ms) (Not more than 1500)
-  #   images: # For personal use only. At your own risk if used for commercial purposes !!!
-  #     - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/001.jpg
-  #     - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/002.jpg
-  #     - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/003.jpg
-  #     - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/004.jpg
-  #     - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/005.jpg
-  #     - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/006.jpg
-  #     - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/012.jpg
-  #     - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/016.jpg
-  #     - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/019.jpg
-  #     - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/025.jpg
-  #     - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg
-  #     - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/034.jpg
-  #     - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/035.jpg
-  #     - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/038.jpg
-  #     - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/039.jpg
-  #     - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/042.jpg
-  #     - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/046.jpg
-  #     - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/051.jpg
-  #     - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/052.jpg
-  #     - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/054.jpg
-  #     - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/056.jpg
+      - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/001.jpg
+      - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/002.jpg
+      - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/003.jpg
+      - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/004.jpg
+      - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/005.jpg
+      - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/006.jpg
+      - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/012.jpg
+      - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/016.jpg
+      - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/019.jpg
+      - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/025.jpg
+      - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg
+      - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/034.jpg
+      - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/035.jpg
+      - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/038.jpg
+      - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/039.jpg
+      - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/042.jpg
+      - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/046.jpg
+      - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/051.jpg
+      - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/052.jpg
+      - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/054.jpg
+      - https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/056.jpg
 
   # APlayer is only available in mainland China.
   # APlayer config: https://github.com/metowolf/MetingJS
@@ -505,8 +634,7 @@ plugins:
     timeout: 5000 # The timeout in milliseconds for the XHR requests. Set to 0 to disable the timeout.
     cacheBust: false # When set to true, Pjax appends a timestamp  to skip the browser cache.
     animation: false # false, nprogress, circle
-    banUrl:
-      # 被屏蔽的 url 地址将不启用 pjax 跳转，可以在控制台下使用 window.location.pathname 获取
+    banUrl:# 被屏蔽的 url 地址将不启用 pjax 跳转，可以在控制台下使用 window.location.pathname 获取
       # - '/artitalk/'     # artitalk 不支持 pjax
       # - '/bb/'           # bbtalk 不支持 pjax
 
