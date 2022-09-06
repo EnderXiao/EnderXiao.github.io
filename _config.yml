@@ -4,10 +4,10 @@
 
 # Site
 title: Ender
-subtitle: 'coding never stop'
+subtitle: 'Coding Never Stop'
 description: 'a blog of EnderXiao'
 keywords: Blog EnderXiao
-author: EnderXiao
+author: John Doe
 language:
   - en
   - zh-CN
@@ -18,10 +18,9 @@ timezone: 'Asia/Shanghai'
 favicon: /images/end_purple_favicon128.ico
 
 # URL
-## If your site is put in a subdirectory, set url as 'http://example.com/child' and root as '/child/'
+## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
 url: http://enderxiao.top
-root: /
-permalink: :category/:post_title/
+permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
   trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
@@ -51,7 +50,7 @@ post_asset_folder: false
 relative_link: false
 future: true
 highlight:
-  enable: false
+  enable: true
   line_number: true
   auto_detect: false
   tab_replace: ''
@@ -113,7 +112,7 @@ type: atom
 path: atom.xml
 limit: 20
 
-theme: 'volantis'
+theme: volantis
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
