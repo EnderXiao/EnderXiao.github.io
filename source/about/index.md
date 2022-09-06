@@ -7,8 +7,31 @@ valine:
  placeholder: 有什么想对我说的呢？
 ---
 
-
 {% timeline This is me! %}
+
+{% timenode 2019年12月15日 %}
+
+参与衡师小助手微信小程序前端开发
+
+{% endtimenode %}
+
+{% timenode 2019年8月30日 %}
+
+参加湖南省15届大学生计算机程序设计竞赛
+
+{% endtimenode %}
+
+{% timenode 2019年8月30日 %}
+
+参加湖南省15届大学生计算机程序设计竞赛
+
+{% endtimenode %}
+
+{% timenode 2018年9月2日 %}
+
+参加湖南省14届大学生计算机程序设计竞赛
+
+{% endtimenode %}
 
 {% timenode 2017年12月11日 %}
 
@@ -31,6 +54,12 @@ valine:
 {% timenode 2017年7月  %}
 
 从衡阳市第一中学毕业
+
+{% endtimenode %}
+
+{% timenode 2014年4月  %}
+
+与你相遇
 
 {% endtimenode %}
 
