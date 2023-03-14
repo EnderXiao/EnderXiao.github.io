@@ -19,7 +19,7 @@ favicon: /images/end_purple_favicon128.ico
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://enderxiao.top
+url: http://enderxiao.github.io
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
