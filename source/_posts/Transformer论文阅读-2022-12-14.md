@@ -13,7 +13,8 @@ tags:
   - 端到端
 headimg:
   'https://z3.ax1x.com/2021/08/05/fego40.png'
-mathjax: true
+plugins:
+  - mathjax
 ---
 
 Attention Is All You Need

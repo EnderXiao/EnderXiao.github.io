@@ -13,7 +13,8 @@ tags:
   - 树形编码器
 headimg:
   'https://z3.ax1x.com/2021/08/05/fego40.png'
-mathjax: true
+plugins:
+  - mathjax
 ---
 基于Transformer的Tree2Tree树形解码器
 <!-- more -->

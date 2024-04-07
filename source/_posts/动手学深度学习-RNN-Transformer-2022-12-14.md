@@ -17,7 +17,8 @@ categories:
     - 自注意力机制
     - 端到端
     - 编码解码架构
-mathjax: true
+plugins:
+  - mathjax
 ---
 深度学习常用循环神经网络（RNN）与Transformer（纯注意力编码解码网络）
 <!-- more -->

@@ -12,6 +12,7 @@
     "version": "7.1.1"
   },
   "dependencies": {
+    "@jiangtj/hexo-extend-theme": "^0.2.4",
     "bluebird": "^3.7.2",
     "ejs": "^3.1.9",
     "hexo": "^7.0.0",

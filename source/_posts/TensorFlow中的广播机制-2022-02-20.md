@@ -10,7 +10,8 @@ tags:
   - 广播机制
 headimg:
   'https://z3.ax1x.com/2021/08/16/fWOnf0.jpg'
-mathjax: true
+plugins:
+  - mathjax
 ---
 
 ## [转载：tensorflow的广播机制](https://www.cnblogs.com/hrnn/p/13552497.html)

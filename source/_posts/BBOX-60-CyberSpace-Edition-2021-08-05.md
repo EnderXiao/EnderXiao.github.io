@@ -12,7 +12,6 @@ tags:
   - life
 headimg:
   'https://z3.ax1x.com/2021/08/05/fecKot.md.jpg'
-mathjax: true
 ---
 
 等了一年的外壳它终于发货了

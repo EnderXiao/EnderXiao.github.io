@@ -7,7 +7,8 @@ categories:
 tags:
   - 爬虫
   - bs4
-mathjax: true
+plugins:
+  - mathjax
 headimg:
   'https://z3.ax1x.com/2021/08/16/fWOlXF.jpg'
 ---

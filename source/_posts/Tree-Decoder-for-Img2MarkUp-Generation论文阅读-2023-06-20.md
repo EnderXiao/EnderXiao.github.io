@@ -13,7 +13,8 @@ tags:
   - 端到端
 headimg:
   'https://z3.ax1x.com/2021/08/05/fego40.png'
-mathjax: true
+plugins:
+  - mathjax
 ---
 图像到标记语言生成的树形结构解码器
 <!-- more -->
