@@ -119,7 +119,7 @@ theme: volantis
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: https://github.com/EnderXiao/EnderXiao.github.io
+  repo: git@github.com:EnderXiao/EnderXiao.github.io.git
   branch: main
 # sitemap
 ## SEO优化:https://www.imooc.com/article/73811
